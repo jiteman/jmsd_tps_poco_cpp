@@ -30,7 +30,13 @@
 
 #include "utils.h"
 
+
 namespace double_conversion {
+
+// Maximum number of significant digits in the decimal representation.
+// In fact the value is 772 (see conversions.cc), but to give us some margin
+// we round up to 780.
+constexpr int kMaxSignificantDecimalDigits = 780;
 
 // The buffer must only contain digits in the range [0-9]. It must not
 // contain a dot or a sign. It must not start with '0', and must not be empty.

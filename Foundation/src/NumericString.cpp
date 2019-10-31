@@ -18,15 +18,25 @@
 // +++ double conversion +++
 #define UNREACHABLE poco_bugcheck
 #define UNIMPLEMENTED poco_bugcheck
-#include "diy-fp.cc"
-#include "cached-powers.cc"
-#include "bignum-dtoa.cc"
-#include "bignum.cc"
-#include "fast-dtoa.cc"
-#include "fixed-dtoa.cc"
-#include "strtod.cc"
-#include "double-conversion.cc"
+//#include "diy-fp.cc"
+//#include "cached-powers.cc"
+//#include "bignum-dtoa.cc"
+//#include "bignum.cc"
+//#include "fast-dtoa.cc"
+//#include "fixed-dtoa.cc"
+//#include "strtod.cc"
+//#include "double-conversion.cc"
 // --- double conversion ---
+
+#include "diy-fp.h"
+#include "cached-powers.h"
+#include "bignum-dtoa.h"
+#include "bignum.h"
+#include "fast-dtoa.h"
+#include "fixed-dtoa.h"
+#include "strtod.h"
+#include "double-conversion.h"
+#include "ieee.h"
 
 #include "Poco/NumericString.h"
 poco_static_assert(POCO_MAX_FLT_STRING_LEN == double_conversion::kMaxSignificantDecimalDigits);
@@ -73,7 +83,7 @@ void pad(std::string& str, int precision, int width, char prefix = ' ', char dec
 	{
 		if (frac < precision)
 			str.append(precision - frac, '0');
-		else if ((frac > precision) && (decSepPos != std::string::npos)) 
+		else if ((frac > precision) && (decSepPos != std::string::npos))
 			str = str.substr(0, decSepPos + 1 + precision);
 	}
 
@@ -163,7 +173,7 @@ std::string& floatToStr(std::string& str, float value, int precision, int width,
 	char buffer[POCO_MAX_FLT_STRING_LEN];
 	floatToStr(buffer, POCO_MAX_FLT_STRING_LEN, value);
 	str = buffer;
-	
+
 	if (decSep && (decSep != '.') && (str.find('.') != std::string::npos))
 		replaceInPlace(str, '.', decSep);
 
@@ -181,7 +191,7 @@ std::string& floatToFixedStr(std::string& str, float value, int precision, int w
 	char buffer[POCO_MAX_FLT_STRING_LEN];
 	floatToFixedStr(buffer, POCO_MAX_FLT_STRING_LEN, value, precision);
 	str = buffer;
-	
+
 	if (decSep && (decSep != '.') && (str.find('.') != std::string::npos))
 		replaceInPlace(str, '.', decSep);
 
@@ -224,9 +234,9 @@ std::string& doubleToStr(std::string& str, double value, int precision, int widt
 
 	char buffer[POCO_MAX_FLT_STRING_LEN];
 	doubleToStr(buffer, POCO_MAX_FLT_STRING_LEN, value);
-		
+
 	str = buffer;
-	
+
 	if (decSep && (decSep != '.') && (str.find('.') != std::string::npos))
 		replaceInPlace(str, '.', decSep);
 
@@ -243,9 +253,9 @@ std::string& doubleToFixedStr(std::string& str, double value, int precision, int
 
 	char buffer[POCO_MAX_FLT_STRING_LEN];
 	doubleToFixedStr(buffer, POCO_MAX_FLT_STRING_LEN, value, precision);
-		
+
 	str = buffer;
-	
+
 	if (decSep && (decSep != '.') && (str.find('.') != std::string::npos))
 		replaceInPlace(str, '.', decSep);
 

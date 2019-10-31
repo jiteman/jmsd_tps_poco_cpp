@@ -58,7 +58,7 @@ void writeString(const std::string &value, T& obj, typename WriteFunc<T, S>::Typ
 		}
 	}
 	if(wrap) (obj.*write)("\"", 1);
-};
+}
 
 
 }

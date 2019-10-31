@@ -86,7 +86,7 @@ static const int kExactPowersOfTenSize = ARRAY_SIZE(exact_powers_of_ten);
 // Maximum number of significant digits in the decimal representation.
 // In fact the value is 772 (see conversions.cc), but to give us some margin
 // we round up to 780.
-static const int kMaxSignificantDecimalDigits = 780;
+//const int kMaxSignificantDecimalDigits = 780;
 
 static Vector<const char> TrimLeadingZeros(Vector<const char> buffer) {
   for (int i = 0; i < buffer.length(); i++) {
