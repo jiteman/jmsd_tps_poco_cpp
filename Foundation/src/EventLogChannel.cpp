@@ -30,7 +30,7 @@ const std::string EventLogChannel::PROP_LOGHOST = "loghost";
 const std::string EventLogChannel::PROP_LOGFILE = "logfile";
 
 
-EventLogChannel::EventLogChannel(): 
+EventLogChannel::EventLogChannel():
 	_logFile("Application"),
 	_h(0)
 {
@@ -60,16 +60,16 @@ EventLogChannel::EventLogChannel():
 }
 
 
-EventLogChannel::EventLogChannel(const std::string& name): 
-	_name(name), 
+EventLogChannel::EventLogChannel(const std::string& name):
+	_name(name),
 	_logFile("Application"),
 	_h(0)
 {
 }
 
 
-EventLogChannel::EventLogChannel(const std::string& name, const std::string& host): 
-	_name(name), 
+EventLogChannel::EventLogChannel(const std::string& name, const std::string& host):
+	_name(name),
 	_host(host),
 	_logFile("Application"),
 	_h(0)
@@ -120,10 +120,10 @@ void EventLogChannel::log(const Message& msg)
 	std::wstring utext;
 	UnicodeConverter::toUTF16(msg.getText(), utext);
 	const wchar_t* pMsg = utext.c_str();
-	ReportEventW(_h, getType(msg), getCategory(msg), POCO_MSG_LOG, NULL, 1, 0, &pMsg, NULL); 
+	ReportEventW(_h, getType(msg), getCategory(msg), POCO_MSG_LOG, NULL, 1, 0, &pMsg, NULL);
 #else
 	const char* pMsg = msg.getText().c_str();
-	ReportEvent(_h, getType(msg), getCategory(msg), POCO_MSG_LOG, NULL, 1, 0, &pMsg, NULL); 
+	ReportEvent(_h, getType(msg), getCategory(msg), POCO_MSG_LOG, NULL, 1, 0, &pMsg, NULL);
 #endif
 }
 
@@ -217,7 +217,7 @@ void EventLogChannel::setUpRegistry() const
 	DWORD rc = RegCreateKeyEx(HKEY_LOCAL_MACHINE, key.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &disp);
 #endif
 	if (rc != ERROR_SUCCESS) return;
-	
+
 	if (disp == REG_CREATED_NEW_KEY)
 	{
 #if defined(POCO_WIN32_UTF8)
@@ -237,7 +237,7 @@ void EventLogChannel::setUpRegistry() const
 				#endif
 			#endif
 		#endif
-		
+
 		if (path.empty())
 			path = findLibrary(L"PocoMsg.dll");
 #else
@@ -257,11 +257,11 @@ void EventLogChannel::setUpRegistry() const
 				#endif
 			#endif
 		#endif
-		
+
 		if (path.empty())
 			path = findLibrary("PocoMsg.dll");
 #endif
-		
+
 		if (!path.empty())
 		{
 			DWORD count = 8;
@@ -284,10 +284,10 @@ void EventLogChannel::setUpRegistry() const
 
 
 #if defined(POCO_WIN32_UTF8)
-std::wstring EventLogChannel::findLibrary(const wchar_t* name)
+std::wstring EventLogChannel::findLibrary(const wchar_t* name_p)
 {
 	std::wstring path;
-	HMODULE dll = LoadLibraryW(name);
+	HMODULE dll = LoadLibraryW(name_p);
 	if (dll)
 	{
 		const DWORD maxPathLen = MAX_PATH + 1;
