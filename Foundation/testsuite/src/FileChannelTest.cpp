@@ -364,13 +364,13 @@ void FileChannelTest::purgeAge(const std::string& pa)
 		assert(f1.exists());
 		File f2(name + ".2");
 		assert(f2.exists());
-		
+
 		Thread::sleep(5000);
 		for (int i = 0; i < 50; ++i)
 		{
 			pChannel->log(msg);
 		}
-		
+
 		assert(!f2.exists());
 	}
 	catch (...)
@@ -526,7 +526,7 @@ void FileChannelTest::testWrongPurgeOption()
 	{
 		pChannel->setProperty(FileChannel::PROP_PURGEAGE, "peace");
 		fail("must fail");
-	} catch (InvalidArgumentException)
+	} catch (InvalidArgumentException const &)
 	{
 		assert(pChannel->getProperty(FileChannel::PROP_PURGEAGE) == "5 seconds");
 	}
@@ -535,7 +535,7 @@ void FileChannelTest::testWrongPurgeOption()
 	{
 		pChannel->setProperty(FileChannel::PROP_PURGECOUNT, "peace");
 		fail("must fail");
-	} catch (InvalidArgumentException)
+	} catch (InvalidArgumentException const &)
 	{
 		assert(pChannel->getProperty(FileChannel::PROP_PURGEAGE) == "5 seconds");
 	}

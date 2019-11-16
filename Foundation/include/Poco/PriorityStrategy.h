@@ -26,7 +26,7 @@
 namespace Poco {
 
 
-template <class TArgs, class TDelegate> 
+template <class TArgs, class TDelegate>
 class PriorityStrategy: public NotificationStrategy<TArgs, TDelegate>
 	/// NotificationStrategy for PriorityEvent.
 	///
@@ -145,6 +145,8 @@ public:
 	typedef typename Delegates::iterator Iterator;
 
 public:
+	PriorityStrategy() = default;
+	PriorityStrategy( PriorityStrategy const &other ) = default;
 
 	void notify(const void* sender)
 	{

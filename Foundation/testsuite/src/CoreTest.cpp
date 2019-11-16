@@ -56,7 +56,7 @@ namespace
 			_counter(counter)
 		{
 		}
-		
+
 		void run()
 		{
 			for (int i = 0; i < 100000; ++i)
@@ -67,7 +67,7 @@ namespace
 				--_counter;
 			}
 		}
-		
+
 	private:
 		AtomicCounter& _counter;
 	};
@@ -93,7 +93,7 @@ int Parent::i = 0;
 
 struct Medium : public Parent
 {
-	
+
 };
 
 
@@ -142,7 +142,7 @@ void CoreTest::testFixedLength()
 	assert (sizeof(Poco::UInt64) == 8);
 #endif
 	assert (sizeof(Poco::IntPtr) == sizeof(void*));
-	assert (sizeof(Poco::UIntPtr) == sizeof(void*));	
+	assert (sizeof(Poco::UIntPtr) == sizeof(void*));
 }
 
 
@@ -151,7 +151,7 @@ void CoreTest::testBugcheck()
 #if ENABLE_BUGCHECK_TEST
 	try
 	{
-		Bugcheck::assertion("test", __FILE__, __LINE__);	
+		Bugcheck::assertion("test", __FILE__, __LINE__);
 		failmsg("must throw exception");
 	}
 	catch (Exception&)
@@ -160,7 +160,7 @@ void CoreTest::testBugcheck()
 
 	try
 	{
-		Bugcheck::nullPointer("test", __FILE__, __LINE__);	
+		Bugcheck::nullPointer("test", __FILE__, __LINE__);
 		failmsg("must throw exception");
 	}
 	catch (Exception&)
@@ -169,7 +169,7 @@ void CoreTest::testBugcheck()
 
 	try
 	{
-		Bugcheck::bugcheck("test", __FILE__, __LINE__);	
+		Bugcheck::bugcheck("test", __FILE__, __LINE__);
 		failmsg("must throw exception");
 	}
 	catch (Exception&)
@@ -181,7 +181,7 @@ void CoreTest::testBugcheck()
 
 void CoreTest::testEnvironment()
 {
-#if !defined(_WIN32_WCE) 
+#if !defined(_WIN32_WCE)
 	Environment::set("FOO", "BAR");
 	assert (Environment::has("FOO"));
 	assert (Environment::get("FOO") == "BAR");
@@ -194,7 +194,7 @@ void CoreTest::testEnvironment()
 	catch (Exception&)
 	{
 	}
-	
+
 	std::cout << "OS Name:         " << Environment::osName() << std::endl;
 	std::cout << "OS Display Name: " << Environment::osDisplayName() << std::endl;
 	std::cout << "OS Version:      " << Environment::osVersion() << std::endl;
@@ -321,7 +321,7 @@ void CoreTest::testFIFOBufferEOFAndError()
 	typedef FIFOBuffer::Type T;
 
 	FIFOBuffer f(20, true);
-	
+
 	assert (f.isEmpty());
 	assert (!f.isFull());
 
@@ -384,7 +384,7 @@ void CoreTest::testFIFOBufferEOFAndError()
 	assert (5 == f.used());
 	f.setError();
 	assert (0 == f.write(b));
-	
+
 	try
 	{
 		f.copy(b.begin(), 5);
@@ -398,7 +398,7 @@ void CoreTest::testFIFOBufferEOFAndError()
 		fail ("must throw InvalidAccessException");
 	}
 	catch (InvalidAccessException&) { }
-	
+
 	assert(1 == _notToWritable);
 	assert(2 == _writableToNot);
 	assert(2 == _notToReadable);
@@ -427,7 +427,7 @@ void CoreTest::testFIFOBufferChar()
 	typedef FIFOBuffer::Type T;
 
 	FIFOBuffer f(20, true);
-	
+
 	assert (f.isEmpty());
 	assert (!f.isFull());
 
@@ -743,7 +743,7 @@ void CoreTest::testFIFOBufferChar()
 	assert (10 == f.size());
 	assert (10 == f.used());
 	assert (0 == f.available());
-	
+
 	assert(f[0] == '2');
 	assert(f[1] == '3');
 	assert(f[2] == '4');
@@ -906,41 +906,41 @@ void CoreTest::testFIFOBufferInt()
 void CoreTest::testAtomicCounter()
 {
 	AtomicCounter ac;
-	
+
 	assert (ac.value() == 0);
 	assert (ac++ == 0);
 	assert (ac-- == 1);
 	assert (++ac == 1);
 	assert (--ac == 0);
-	
+
 	ac = 2;
 	assert (ac.value() == 2);
-	
+
 	ac = 0;
 	assert (ac.value() == 0);
-	
+
 	AtomicCounter ac2(2);
 	assert (ac2.value() == 2);
-	
+
 	ACTRunnable act(ac);
 	Thread t1;
 	Thread t2;
 	Thread t3;
 	Thread t4;
 	Thread t5;
-	
+
 	t1.start(act);
 	t2.start(act);
 	t3.start(act);
 	t4.start(act);
 	t5.start(act);
-	
+
 	t1.join();
 	t2.join();
 	t3.join();
 	t4.join();
 	t5.join();
-	
+
 	assert (ac.value() == 0);
 }
 
@@ -977,14 +977,14 @@ void CoreTest::testNullable()
 
 	Nullable<int> n1;
 	assert (n1.isNull());
-	
+
 	assert (n1.value(42) == 42);
 	assert (n1.isNull());
 	assert (!(0 == n1));
 	assert (0 != n1);
 	assert (!(n1 == 0));
 	assert (n1 != 0);
-	
+
 	try
 	{
 		int POCO_UNUSED tmp = n1.value();
@@ -993,25 +993,25 @@ void CoreTest::testNullable()
 	catch (Poco::NullValueException&)
 	{
 	}
-	
+
 	n1 = 1;
 	assert (!n1.isNull());
 	assert (n1.value() == 1);
-	
+
 	Nullable<int> n2(42);
 	assert (!n2.isNull());
 	assert (n2.value() == 42);
 	assert (n2.value(99) == 42);
-	
+
 	assert (!(0 == n2));
 	assert (0 != n2);
 	assert (!(n2 == 0));
 	assert (n2 != 0);
-	
+
 	n1 = n2;
 	assert (!n1.isNull());
 	assert (n1.value() == 42);
-	
+
 	std::ostringstream str;
 	str << n1;
 	assert (str.str() == "42");
@@ -1049,7 +1049,7 @@ void CoreTest::testAscii()
 	assert (!Ascii::isAscii(-1));
 	assert (!Ascii::isAscii(128));
 	assert (!Ascii::isAscii(222));
-	
+
 	assert (Ascii::isSpace(' '));
 	assert (Ascii::isSpace('\t'));
 	assert (Ascii::isSpace('\r'));
@@ -1057,7 +1057,7 @@ void CoreTest::testAscii()
 	assert (!Ascii::isSpace('A'));
 	assert (!Ascii::isSpace(-1));
 	assert (!Ascii::isSpace(222));
-	
+
 	assert (Ascii::isDigit('0'));
 	assert (Ascii::isDigit('1'));
 	assert (Ascii::isDigit('2'));
@@ -1069,7 +1069,7 @@ void CoreTest::testAscii()
 	assert (Ascii::isDigit('8'));
 	assert (Ascii::isDigit('9'));
 	assert (!Ascii::isDigit('a'));
-	
+
 	assert (Ascii::isHexDigit('0'));
 	assert (Ascii::isHexDigit('1'));
 	assert (Ascii::isHexDigit('2'));
@@ -1097,21 +1097,21 @@ void CoreTest::testAscii()
 	assert (Ascii::isPunct('.'));
 	assert (Ascii::isPunct(','));
 	assert (!Ascii::isPunct('A'));
-	
+
 	assert (Ascii::isAlpha('a'));
 	assert (Ascii::isAlpha('Z'));
 	assert (!Ascii::isAlpha('0'));
-	
+
 	assert (Ascii::isLower('a'));
 	assert (!Ascii::isLower('A'));
-	
+
 	assert (Ascii::isUpper('A'));
 	assert (!Ascii::isUpper('a'));
-	
+
 	assert (Ascii::toLower('A') == 'a');
 	assert (Ascii::toLower('z') == 'z');
 	assert (Ascii::toLower('0') == '0');
-	
+
 	assert (Ascii::toUpper('a') == 'A');
 	assert (Ascii::toUpper('0') == '0');
 	assert (Ascii::toUpper('Z') == 'Z');
@@ -1122,7 +1122,7 @@ void CoreTest::onReadable(bool& b)
 {
 	if (b) ++_notToReadable;
 	else ++_readableToNot;
-};
+}
 
 
 void CoreTest::onWritable(bool& b)
