@@ -22,6 +22,10 @@ using Poco::Timestamp;
 using Poco::Clock;
 
 
+namespace Poco {
+namespace Util {
+
+
 TimerTest::TimerTest(const std::string& name): CppUnit::TestCase(name)
 {
 }
@@ -293,3 +297,6 @@ CppUnit::Test* TimerTest::suite()
 
 	return pSuite;
 }
+
+} // namespace Util
+} // namespace Poco

@@ -20,6 +20,10 @@
 #include "Poco/Event.h"
 
 
+namespace Poco {
+namespace Util {
+
+
 class TimerTest: public CppUnit::TestCase
 {
 public:
@@ -46,6 +50,9 @@ public:
 private:
 	Poco::Event _event;
 };
+
+} // namespace Util
+} // namespace Poco
 
 
 #endif // TimerTest_INCLUDED

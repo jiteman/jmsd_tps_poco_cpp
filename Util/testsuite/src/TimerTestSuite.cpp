@@ -16,7 +16,7 @@ CppUnit::Test* TimerTestSuite::suite()
 {
 	CppUnit::TestSuite* pSuite = new CppUnit::TestSuite("TimerTestSuite");
 
-	pSuite->addTest(TimerTest::suite());
+	pSuite->addTest( Poco::Util::TimerTest::suite() );
 
 	return pSuite;
 }

@@ -51,7 +51,7 @@ void JSONConfigurationTest::testLoad()
 	{
 		config.load(iss);
 	}
-	catch(JSONException jsone)
+	catch(JSONException const &jsone)
 	{
 		std::cout << jsone.message() << std::endl;
 		assert(false);
@@ -77,7 +77,7 @@ void JSONConfigurationTest::testLoad()
 		config.getString("propertyUnknown");
 		assert(true);
 	}
-	catch(NotFoundException nfe)
+	catch(NotFoundException const &nfe)
 	{
 	}
 
