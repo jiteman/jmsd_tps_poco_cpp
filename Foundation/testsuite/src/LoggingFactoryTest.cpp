@@ -49,7 +49,7 @@ namespace
 		{
 		}
 	};
-	
+
 	class CustomFormatter: public Formatter
 	{
 		void format(const Message& msg, std::string& text)
@@ -72,7 +72,7 @@ LoggingFactoryTest::~LoggingFactoryTest()
 void LoggingFactoryTest::testBuiltins()
 {
 	LoggingFactory& fact = LoggingFactory::defaultFactory();
-	
+
 	AutoPtr<Channel> pConsoleChannel = fact.createChannel("ConsoleChannel");
 #if defined(_WIN32) && !defined(_WIN32_WCE)
 	assert (dynamic_cast<Poco::WindowsConsoleChannel*>(pConsoleChannel.get()) != 0);
@@ -82,26 +82,26 @@ void LoggingFactoryTest::testBuiltins()
 
 	AutoPtr<Channel> pFileChannel = fact.createChannel("FileChannel");
 	assert (dynamic_cast<FileChannel*>(pFileChannel.get()) != 0);
-	
+
 	AutoPtr<Channel> pSplitterChannel = fact.createChannel("SplitterChannel");
 	assert (dynamic_cast<SplitterChannel*>(pSplitterChannel.get()) != 0);
-	
+
 	try
 	{
 		AutoPtr<Channel> pUnknownChannel = fact.createChannel("UnknownChannel");
-		fail("unknown class - must throw");
+		failmsg("unknown class - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{
 	}
-	
+
 	AutoPtr<Formatter> pPatternFormatter = fact.createFormatter("PatternFormatter");
 	assert (dynamic_cast<PatternFormatter*>(pPatternFormatter.get()) != 0);
-	
+
 	try
 	{
 		AutoPtr<Formatter> pUnknownFormatter = fact.createFormatter("UnknownFormatter");
-		fail("unknown class - must throw");
+		failmsg("unknown class - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{

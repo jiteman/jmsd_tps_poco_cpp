@@ -586,7 +586,7 @@ void XMLWriterTest::testWellformed()
 	try
 	{
 		writer.endElement("", "", "bar");
-		fail("not wellformed - must throw exception");
+		failmsg("not wellformed - must throw exception");
 	}
 	catch (Poco::Exception&)
 	{
@@ -604,7 +604,7 @@ void XMLWriterTest::testWellformedNested()
 	try
 	{
 		writer.endElement("", "", "foo");
-		fail("not wellformed - must throw exception");
+		failmsg("not wellformed - must throw exception");
 	}
 	catch (Poco::Exception&)
 	{
@@ -622,7 +622,7 @@ void XMLWriterTest::testWellformedNamespace()
 	try
 	{
 		writer.endElement("urn:ns1", "bar", "");
-		fail("not wellformed - must throw exception");
+		failmsg("not wellformed - must throw exception");
 	}
 	catch (Poco::Exception&)
 	{

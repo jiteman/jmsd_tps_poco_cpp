@@ -401,7 +401,7 @@ void JSONTest::testEmptyPropertyName()
 
 	const DynamicStruct& rds = *object;
 	assert (rds.size() == 1);
-	
+
 	assert (ds[""] == 42);
 }
 
@@ -1198,7 +1198,7 @@ void JSONTest::testQuery()
 	try
 	{
 		Query badQuery(bad);
-		fail ("must throw");
+		failmsg ("must throw");
 	}
 	catch (Poco::InvalidArgumentException&) { }
 }
@@ -1213,7 +1213,7 @@ void JSONTest::testComment()
 	try
 	{
 		parser.parse(json);
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch(Poco::SyntaxException&)
 	{
@@ -1727,13 +1727,13 @@ void JSONTest::testValidJanssonFiles()
 				{
 					std::string err = jsone.displayText();
 					std::cout << "Failed:" << err << std::endl;
-					fail (err);
+					failmsg (err);
 				}
 				catch(Poco::Exception& e)
 				{
 					std::string err = e.displayText();
 					std::cout << "Failed:" << err << std::endl;
-					fail (err);
+					failmsg (err);
 				}
 			}
 		}
@@ -1770,7 +1770,7 @@ void JSONTest::testInvalidJanssonFiles()
 					result = parser.asVar();
 					// We shouldn't get here.
 					std::cout << "We didn't get an exception. This is the result: " << result.convert<std::string>() << std::endl;
-					fail(result.convert<std::string>());
+					failmsg(result.convert<std::string>());
 				}
 				catch(Poco::Exception& /*ex*/)
 				{
@@ -1811,7 +1811,7 @@ void JSONTest::testInvalidUnicodeJanssonFiles()
 					result = parser.asVar();
 					// We shouldn't get here.
 					std::cout << "We didn't get an exception. This is the result: " << result.convert<std::string>() << std::endl;
-					fail(result.convert<std::string>());
+					failmsg(result.convert<std::string>());
 				}
 				catch(Poco::Exception& /*ex*/)
 				{
@@ -1871,7 +1871,7 @@ void JSONTest::testUnicode()
 	try
 	{
 		parser.parse(os.str());
-		fail("Invalid Unicode sequence, must fail.");
+		failmsg("Invalid Unicode sequence, must fail.");
 	}
 	catch (JSONException&) {}
 
@@ -1887,7 +1887,7 @@ void JSONTest::testUnicode()
 	try
 	{
 		parser.parse(os.str());
-		fail("Invalid Unicode sequence, must fail.");
+		failmsg("Invalid Unicode sequence, must fail.");
 	}
 	catch (JSONException&) {}
 
@@ -1903,7 +1903,7 @@ void JSONTest::testUnicode()
 	try
 	{
 		parser.parse(os.str());
-		fail("Invalid Unicode sequence, must fail.");
+		failmsg("Invalid Unicode sequence, must fail.");
 	}
 	catch (JSONException&){}
 

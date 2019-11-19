@@ -63,7 +63,7 @@ void StringTokenizerTest::testStringTokenizer()
 		assert (it != st.end());
 		assert (*it++ == "abc");
 		assert (it == st.end());
-	}	
+	}
 	{
 		StringTokenizer st("  abc  ", "", StringTokenizer::TOK_TRIM);
 		StringTokenizer::Iterator it = st.begin();
@@ -324,7 +324,7 @@ void StringTokenizerTest::testStringTokenizer()
 		assert (st.find("2") == 1);
 		assert (st.find("3") == 2);
 	}
-	
+
 	{
 		Poco::StringTokenizer st(" 2- ","-", Poco::StringTokenizer::TOK_TRIM);
 		assert (st.count() == 2);
@@ -337,7 +337,7 @@ void StringTokenizerTest::testStringTokenizer()
 void StringTokenizerTest::testFind()
 {
 	StringTokenizer st("0,1,2,3,3,2,1,0", ",", StringTokenizer::TOK_TRIM | StringTokenizer::TOK_IGNORE_EMPTY);
-	
+
 	assert (st.count() == 8);
 	assert (2 == st.count("0"));
 	assert (2 == st.count("1"));
@@ -356,7 +356,7 @@ void StringTokenizerTest::testFind()
 	assert (st[5] == "2");
 	assert (st[6] == "1");
 	assert (st[7] == "0");
-	
+
 	assert (st.has("0"));
 	assert (st.has("1"));
 	assert (st.has("2"));
@@ -379,14 +379,14 @@ void StringTokenizerTest::testFind()
 	try
 	{
 		std::size_t POCO_UNUSED p = st.find("4");
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (NotFoundException&) { }
 
 	try
 	{
 		std::string POCO_UNUSED s = st[8];
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (RangeException&) { }
 

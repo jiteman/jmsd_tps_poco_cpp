@@ -35,9 +35,9 @@ void ListMapTest::testInsert()
 
 	typedef ListMap<int, int> IntMap;
 	IntMap hm;
-	
+
 	assert (hm.empty());
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		IntMap::Iterator res = hm.insert(IntMap::ValueType(i, i*2));
@@ -48,10 +48,10 @@ void ListMapTest::testInsert()
 		assert (it->first == i);
 		assert (it->second == i*2);
 		assert (hm.size() == i + 1);
-	}		
-	
+	}
+
 	assert (!hm.empty());
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		IntMap::Iterator it = hm.find(i);
@@ -59,14 +59,14 @@ void ListMapTest::testInsert()
 		assert (it->first == i);
 		assert (it->second == i*2);
 	}
-	
+
 	hm.clear();
 	for (int i = 0; i < N; ++i)
 	{
 		IntMap::Iterator res = hm.insert(IntMap::ValueType(i, 0));
 		assert (res->first == i);
 		assert (res->second == 0);
-	}		
+	}
 }
 
 
@@ -101,7 +101,7 @@ void ListMapTest::testInsertOrder()
 	assert (it != lm.end() && it->first == "bar" && it->second == 43);
 
 	++it;
-	assert (it == lm.end());	 
+	assert (it == lm.end());
 }
 
 
@@ -117,7 +117,7 @@ void ListMapTest::testErase()
 		hm.insert(IntMap::ValueType(i, i*2));
 	}
 	assert (hm.size() == N);
-	
+
 	for (int i = 0; i < N; i += 2)
 	{
 		hm.erase(i);
@@ -125,13 +125,13 @@ void ListMapTest::testErase()
 		assert (it == hm.end());
 	}
 	assert (hm.size() == N/2);
-	
+
 	for (int i = 0; i < N; i += 2)
 	{
 		IntMap::Iterator it = hm.find(i);
 		assert (it == hm.end());
 	}
-	
+
 	for (int i = 1; i < N; i += 2)
 	{
 		IntMap::Iterator it = hm.find(i);
@@ -143,13 +143,13 @@ void ListMapTest::testErase()
 	{
 		hm.insert(IntMap::ValueType(i, i*2));
 	}
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		IntMap::Iterator it = hm.find(i);
 		assert (it != hm.end());
 		assert (it->first == i);
-		assert (it->second == i*2);		
+		assert (it->second == i*2);
 	}
 }
 
@@ -165,7 +165,7 @@ void ListMapTest::testIterator()
 	{
 		hm.insert(IntMap::ValueType(i, i*2));
 	}
-	
+
 	std::map<int, int> values;
 	IntMap::Iterator it; // do not initialize here to test proper behavior of uninitialized iterators
 	it = hm.begin();
@@ -175,7 +175,7 @@ void ListMapTest::testIterator()
 		values[it->first] = it->second;
 		++it;
 	}
-	
+
 	assert (values.size() == N);
 }
 
@@ -191,7 +191,7 @@ void ListMapTest::testConstIterator()
 	{
 		hm.insert(IntMap::ValueType(i, i*2));
 	}
-	
+
 	std::map<int, int> values;
 	IntMap::ConstIterator it = hm.begin();
 	while (it != hm.end())
@@ -200,7 +200,7 @@ void ListMapTest::testConstIterator()
 		values[it->first] = it->second;
 		++it;
 	}
-	
+
 	assert (values.size() == N);
 }
 
@@ -223,7 +223,7 @@ void ListMapTest::testIntIndex()
 	{
 		const IntMap& im = hm;
 		int POCO_UNUSED x = im[4];
-		fail("no such key - must throw");
+		failmsg("no such key - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{
@@ -239,17 +239,17 @@ void ListMapTest::testStringIndex()
 	hm["index1"] = "value2";
 	hm["index2"] = "value4";
 	hm["index3"] = "value6";
-	
+
 	assert (hm.size() == 3);
 	assert (hm["index1"] == "value2");
 	assert (hm["Index2"] == "value4");
 	assert (hm["inDeX3"] == "value6");
-	
+
 	try
 	{
 		const StringMap& im = hm;
 		std::string x = im["index4"];
-		fail("no such key - must throw");
+		failmsg("no such key - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{

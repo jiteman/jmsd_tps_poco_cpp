@@ -31,11 +31,11 @@ MemoryPoolTest::~MemoryPoolTest()
 void MemoryPoolTest::testMemoryPool()
 {
 	MemoryPool pool1(100, 0, 10);
-	
+
 	assert (pool1.blockSize() == 100);
 	assert (pool1.allocated() == 0);
 	assert (pool1.available() == 0);
-	
+
 	std::vector<void*> ptrs;
 	for (int i = 0; i < 10; ++i)
 	{
@@ -43,16 +43,16 @@ void MemoryPoolTest::testMemoryPool()
 		assert (pool1.allocated() == i + 1);
 		assert (pool1.available() == 0);
 	}
-	
+
 	try
 	{
 		pool1.get();
-		fail("pool exhausted - must throw exception");
+		failmsg("pool exhausted - must throw exception");
 	}
 	catch (Poco::OutOfMemoryException&)
 	{
 	}
-	
+
 	int av = 0;
 	for (std::vector<void*>::iterator it = ptrs.begin(); it != ptrs.end(); ++it)
 	{
@@ -60,7 +60,7 @@ void MemoryPoolTest::testMemoryPool()
 		++av;
 		assert (pool1.available() == av);
 	}
-	
+
 	MemoryPool pool2(32, 5, 10);
 	assert (pool2.available() == 5);
 	assert (pool2.blockSize() == 32);

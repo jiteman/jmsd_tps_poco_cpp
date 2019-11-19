@@ -252,7 +252,7 @@ void CoreTest::testBuffer()
 	assert (b.capacity() == s);
 
 #if ENABLE_BUGCHECK_TEST
-	try { int i = b[s]; fail ("must fail"); }
+	try { int i = b[s]; failmsg ("must fail"); }
 	catch (Exception&) { }
 #endif
 
@@ -286,7 +286,7 @@ void CoreTest::testBuffer()
 	try
 	{
 		buf.append("hello", 5);
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (InvalidAccessException&) { }
 
@@ -388,14 +388,14 @@ void CoreTest::testFIFOBufferEOFAndError()
 	try
 	{
 		f.copy(b.begin(), 5);
-		fail ("must throw InvalidAccessException");
+		failmsg ("must throw InvalidAccessException");
 	}
 	catch (InvalidAccessException&) { }
 
 	try
 	{
 		f.advance(5);
-		fail ("must throw InvalidAccessException");
+		failmsg ("must throw InvalidAccessException");
 	}
 	catch (InvalidAccessException&) { }
 
@@ -470,7 +470,7 @@ void CoreTest::testFIFOBufferChar()
 	assert ('7' == f[2]);
 	assert ('8' == f[3]);
 	assert ('9' == f[4]);
-	try { T POCO_UNUSED i = f[10]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[10]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	v.clear();
@@ -498,7 +498,7 @@ void CoreTest::testFIFOBufferChar()
 	assert ('h' == f[12]);
 	assert ('i' == f[13]);
 	assert ('j' == f[14]);
-	try { T POCO_UNUSED i = f[15]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[15]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	f.read(b, 10);
@@ -510,7 +510,7 @@ void CoreTest::testFIFOBufferChar()
 	assert ('h' == f[2]);
 	assert ('i' == f[3]);
 	assert ('j' == f[4]);
-	try { T POCO_UNUSED i = f[5]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[5]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	assert(1 == _notToReadable);
@@ -526,7 +526,7 @@ void CoreTest::testFIFOBufferChar()
 	assert (5 == b.size());
 	assert (20 == f.size());
 	assert (0 == f.used());
-	try { T POCO_UNUSED i = f[0]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[0]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 	assert (f.isEmpty());
 
@@ -692,7 +692,7 @@ void CoreTest::testFIFOBufferChar()
 	try
 	{
 		f.copy(&arr[0], 8);
-		fail("must fail");
+		failmsg("must fail");
 	} catch (InvalidAccessException&) { }
 
 	f.copy(&arr[0], 3);
@@ -719,7 +719,7 @@ void CoreTest::testFIFOBufferChar()
 	try
 	{
 		f.copy(&arr[0], 1);
-		fail("must fail");
+		failmsg("must fail");
 	} catch (InvalidAccessException&) { }
 
 	f.drain(1);
@@ -797,7 +797,7 @@ void CoreTest::testFIFOBufferInt()
 	assert (7 == f[2]);
 	assert (8 == f[3]);
 	assert (9 == f[4]);
-	try { T POCO_UNUSED i = f[10]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[10]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	v.clear();
@@ -825,7 +825,7 @@ void CoreTest::testFIFOBufferInt()
 	assert (17 == f[12]);
 	assert (18 == f[13]);
 	assert (19 == f[14]);
-	try { T POCO_UNUSED i = f[15]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[15]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	f.read(b, 10);
@@ -837,14 +837,14 @@ void CoreTest::testFIFOBufferInt()
 	assert (17 == f[2]);
 	assert (18 == f[3]);
 	assert (19 == f[4]);
-	try { T POCO_UNUSED i = f[5]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[5]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	f.read(b, 6);
 	assert (5 == b.size());
 	assert (20 == f.size());
 	assert (0 == f.used());
-	try { T POCO_UNUSED i = f[0]; fail ("must fail"); }
+	try { T POCO_UNUSED i = f[0]; failmsg ("must fail"); }
 	catch (InvalidAccessException&) { }
 
 	assert (f.isEmpty());
@@ -988,7 +988,7 @@ void CoreTest::testNullable()
 	try
 	{
 		int POCO_UNUSED tmp = n1.value();
-		fail("null value, must throw");
+		failmsg("null value, must throw");
 	}
 	catch (Poco::NullValueException&)
 	{

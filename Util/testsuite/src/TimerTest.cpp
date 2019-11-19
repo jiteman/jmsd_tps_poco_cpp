@@ -216,14 +216,14 @@ void TimerTest::testCancel()
 	try
 	{
 		timer.scheduleAtFixedRate(pTask, 5000, 5000);
-		fail("must not reschedule a cancelled task");
+		failmsg("must not reschedule a cancelled task");
 	}
 	catch (Poco::IllegalStateException&)
 	{
 	}
 	catch (Poco::Exception&)
 	{
-		fail("bad exception thrown");
+		failmsg("bad exception thrown");
 	}
 }
 

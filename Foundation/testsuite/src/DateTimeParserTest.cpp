@@ -392,7 +392,7 @@ void DateTimeParserTest::testRFC850()
 	assert (dt.minute() == 30);
 	assert (dt.second() == 0);
 	assert (tzd == -3600);
-	
+
 	dt = DateTimeParser::parse(DateTimeFormat::RFC850_FORMAT, "Wed, 12-Sep-73 02:01:12 CEST", tzd);
 	assert (dt.year() == 1973);
 	assert (dt.month() == 9);
@@ -484,7 +484,7 @@ void DateTimeParserTest::testCustom()
 	assert (dt.minute() == 0);
 	assert (dt.second() == 0);
 	assert (tzd == 0);
-	
+
 	dt = DateTimeParser::parse("%m/%d/%y", "01/18/05", tzd);
 	assert (dt.year() == 2005);
 	assert (dt.month() == 1);
@@ -493,7 +493,7 @@ void DateTimeParserTest::testCustom()
 	assert (dt.minute() == 0);
 	assert (dt.second() == 0);
 	assert (tzd == 0);
-	
+
 	dt = DateTimeParser::parse("%h:%M %a", "12:30 am", tzd);
 	assert (dt.hour() == 0);
 	assert (dt.minute() == 30);
@@ -511,7 +511,7 @@ void DateTimeParserTest::testCustom()
 	try
 	{
 		DateTimeParser::parse("%h:%M %a", "", tzd);
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (SyntaxException&)
 	{
@@ -520,7 +520,7 @@ void DateTimeParserTest::testCustom()
 	try
 	{
 		DateTimeParser::parse("", "12:30 PM", tzd);
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (SyntaxException&)
 	{
@@ -529,7 +529,7 @@ void DateTimeParserTest::testCustom()
 	try
 	{
 		DateTimeParser::parse("", "", tzd);
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (SyntaxException&)
 	{
@@ -557,7 +557,7 @@ void DateTimeParserTest::testGuess()
 	assert (dt.minute() == 30);
 	assert (dt.second() == 0);
 	assert (tzd == 0);
-	
+
 	dt = DateTimeParser::parse("2005-01-08T12:30:00+01:00", tzd);
 	assert (dt.year() == 2005);
 	assert (dt.month() == 1);
@@ -640,7 +640,7 @@ void DateTimeParserTest::testGuess()
 	assert (dt.minute() == 30);
 	assert (dt.second() == 0);
 	assert (tzd == 3600);
-	
+
 	dt = DateTimeParser::parse("Sat Jan  8 12:30:00 2005", tzd);
 	assert (dt.year() == 2005);
 	assert (dt.month() == 1);
@@ -706,7 +706,7 @@ void DateTimeParserTest::testParseMonth()
 		str = "ja";
 		it = str.begin();
 		month = DateTimeParser::parseMonth(it, str.end());
-		fail("Not a valid month name - must throw");
+		failmsg("Not a valid month name - must throw");
 	}
 	catch (SyntaxException&)
 	{
@@ -750,7 +750,7 @@ void DateTimeParserTest::testParseDayOfWeek()
 		str = "su";
 		it = str.begin();
 		dow = DateTimeParser::parseDayOfWeek(it, str.end());
-		fail("Not a valid weekday name - must throw");
+		failmsg("Not a valid weekday name - must throw");
 	}
 	catch (SyntaxException&)
 	{

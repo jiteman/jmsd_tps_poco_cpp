@@ -39,25 +39,25 @@ LayeredConfigurationTest::~LayeredConfigurationTest()
 void LayeredConfigurationTest::testEmpty()
 {
 	AutoPtr<LayeredConfiguration> pLC = new LayeredConfiguration;
-	
+
 	AbstractConfiguration::Keys keys;
 	pLC->keys(keys);
 	assert (keys.empty());
-	
+
 	assert (!pLC->hasProperty("foo"));
 	try
 	{
 		pLC->setString("foo", "bar");
-		fail("empty LayeredConfiguration - must throw");
+		failmsg("empty LayeredConfiguration - must throw");
 	}
 	catch (RuntimeException&)
 	{
 	}
-	
+
 	try
 	{
 		std::string s = pLC->getString("foo");
-		fail("empty LayeredConfiguration - must throw");
+		failmsg("empty LayeredConfiguration - must throw");
 	}
 	catch (NotFoundException&)
 	{
@@ -69,10 +69,10 @@ void LayeredConfigurationTest::testOneLayer()
 {
 	AutoPtr<LayeredConfiguration> pLC = new LayeredConfiguration;
 	AutoPtr<MapConfiguration> pMC = new MapConfiguration;
-	
+
 	pMC->setString("prop1", "value1");
 	pMC->setString("prop2", "value2");
-	
+
 	pLC->addWriteable(pMC, 0);
 
 	AbstractConfiguration::Keys keys;
@@ -80,7 +80,7 @@ void LayeredConfigurationTest::testOneLayer()
 	assert (keys.size() == 2);
 	assert (std::find(keys.begin(), keys.end(), "prop1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop2") != keys.end());
-	
+
 	assert (pLC->getString("prop1") == "value1");
 	assert (pLC->getString("prop2") == "value2");
 
@@ -97,12 +97,12 @@ void LayeredConfigurationTest::testTwoLayers()
 	AutoPtr<LayeredConfiguration> pLC = new LayeredConfiguration;
 	AutoPtr<MapConfiguration> pMC1 = new MapConfiguration;
 	AutoPtr<MapConfiguration> pMC2 = new MapConfiguration;
-	
+
 	pMC1->setString("prop1", "value1");
 	pMC1->setString("prop2", "value2");
 	pMC2->setString("prop2", "value3");
 	pMC2->setString("prop3", "value4");
-	
+
 	pLC->add(pMC1, 0);
 	pLC->addWriteable(pMC2, 1);
 
@@ -112,7 +112,7 @@ void LayeredConfigurationTest::testTwoLayers()
 	assert (std::find(keys.begin(), keys.end(), "prop1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop3") != keys.end());
-	
+
 	assert (pLC->getString("prop1") == "value1");
 	assert (pLC->getString("prop2") == "value2");
 	assert (pLC->getString("prop3") == "value4");
@@ -139,7 +139,7 @@ void LayeredConfigurationTest::testThreeLayers()
 	AutoPtr<MapConfiguration> pMC1 = new MapConfiguration;
 	AutoPtr<MapConfiguration> pMC2 = new MapConfiguration;
 	AutoPtr<MapConfiguration> pMC3 = new MapConfiguration;
-	
+
 	pMC1->setString("prop1", "value1");
 	pMC1->setString("prop2", "value2");
 	pMC1->setString("prop3", "value3");
@@ -147,11 +147,11 @@ void LayeredConfigurationTest::testThreeLayers()
 	pMC2->setString("prop4", "value5");
 	pMC3->setString("prop5", "value6");
 	pMC3->setString("prop1", "value7");
-	
+
 	pLC->add(pMC1, 0);
 	pLC->add(pMC2, 1);
 	pLC->add(pMC3, -1);
-	
+
 	assert (pLC->getString("prop1") == "value7");
 	assert (pLC->getString("prop2") == "value2");
 	assert (pLC->getString("prop3") == "value3");
@@ -165,12 +165,12 @@ void LayeredConfigurationTest::testRemove()
 	AutoPtr<LayeredConfiguration> pLC = new LayeredConfiguration;
 	AutoPtr<MapConfiguration> pMC1 = new MapConfiguration;
 	AutoPtr<MapConfiguration> pMC2 = new MapConfiguration;
-	
+
 	pMC1->setString("prop1", "value1");
 	pMC1->setString("prop2", "value2");
 	pMC2->setString("prop2", "value3");
 	pMC2->setString("prop3", "value4");
-	
+
 	pLC->add(pMC1, 0);
 	pLC->add(pMC2, -1);
 
@@ -180,7 +180,7 @@ void LayeredConfigurationTest::testRemove()
 	assert (std::find(keys.begin(), keys.end(), "prop1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop3") != keys.end());
-	
+
 	assert (pLC->getString("prop1") == "value1");
 	assert (pLC->getString("prop2") == "value3");
 	assert (pLC->getString("prop3") == "value4");
@@ -189,7 +189,7 @@ void LayeredConfigurationTest::testRemove()
 	keys.clear();
 	pLC->keys(keys);
 	assert (keys.size() == 2);
-	
+
 	assert (pLC->getString("prop1") == "value1");
 	assert (pLC->getString("prop2") == "value2");
 }
@@ -200,13 +200,13 @@ void LayeredConfigurationTest::testFind()
 	AutoPtr<LayeredConfiguration> pLC = new LayeredConfiguration;
 	AutoPtr<AbstractConfiguration> pMC1 = new MapConfiguration;
 	AutoPtr<AbstractConfiguration> pMC2 = new MapConfiguration;
-	
+
 	pLC->add(pMC1, 0);
 	pLC->add(pMC2, "label", -1);
-	
+
 	AutoPtr<AbstractConfiguration> pFound = pLC->find("label");
 	assert (pFound == pMC2);
-	
+
 	pFound = pLC->find("notfound");
 	assert (pFound.isNull());
 }

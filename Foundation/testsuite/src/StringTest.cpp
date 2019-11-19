@@ -270,7 +270,7 @@ void StringTest::testIcompare()
 	assert (icompare(ss1, 2, 2, ss2, 1, 3) < 0);
 	assert (icompare(ss1, 2, 2, ss2, 1, 2) == 0);
 	assert (icompare(ss3, 1, 3, ss1, 2, 3) > 0);
-	
+
 	assert (icompare(s1, s2.c_str()) == 0);
 	assert (icompare(s1, s3.c_str()) < 0);
 	assert (icompare(s1, s4.c_str()) < 0);
@@ -279,12 +279,12 @@ void StringTest::testIcompare()
 	assert (icompare(s2, s4.c_str()) < 0);
 	assert (icompare(s1, s5.c_str()) > 0);
 	assert (icompare(s5, s4.c_str()) < 0);
-	
+
 	assert (icompare(ss1, 2, 3, "aaa") == 0);
 	assert (icompare(ss1, 2, 2, "aaa") < 0);
 	assert (icompare(ss1, 2, 3, "AAA") == 0);
 	assert (icompare(ss1, 2, 2, "bb") < 0);
-	
+
 	assert (icompare(ss1, 2, "aaa") > 0);
 }
 
@@ -293,7 +293,7 @@ void StringTest::testCILessThan()
 {
 	typedef std::map<std::string, int, CILess> CIMapType;
 	CIMapType ciMap;
-	
+
 	ciMap["z"] = 1;
 	ciMap["b"] = 2;
 	ciMap["A"] = 3;
@@ -307,7 +307,7 @@ void StringTest::testCILessThan()
 	assert (it->second == 4);
 
 	typedef std::set<std::string, CILess> CISetType;
-	
+
 	CISetType ciSet;
 	ciSet.insert("z");
 	ciSet.insert("b");
@@ -344,7 +344,7 @@ void StringTest::testTranslateInPlace()
 void StringTest::testReplace()
 {
 	std::string s("aabbccdd");
-	
+
 	assert (replace(s, std::string("aa"), std::string("xx")) == "xxbbccdd");
 	assert (replace(s, std::string("bb"), std::string("xx")) == "aaxxccdd");
 	assert (replace(s, std::string("dd"), std::string("xx")) == "aabbccxx");
@@ -363,7 +363,7 @@ void StringTest::testReplace()
 	assert (replace(s, "b", "") == "aaccdd");
 	assert (replace(s, "ee", "xx") == "aabbccdd");
 	assert (replace(s, "dd", "") == "aabbcc");
-	
+
 	s = "aabbaabb";
 	assert (replace(s, std::string("aa"), std::string("")) == "bbbb");
 	assert (replace(s, std::string("a"), std::string("")) == "bbbb");
@@ -378,7 +378,7 @@ void StringTest::testReplace()
 	assert (replace(s, "a", "x") == "xxbbxxbb");
 	assert (replace(s, "a", "xx") == "xxxxbbxxxxbb");
 	assert (replace(s, "aa", "xxx") == "xxxbbxxxbb");
-	
+
 	assert (replace(s, "aa", "xx", 2) == "aabbxxbb");
 	assert (replace(s, 'a', 'x', 2) == "aabbxxbb");
 	assert (remove(s, 'a', 2) == "aabbbb");
@@ -420,7 +420,7 @@ void StringTest::testCat()
 	assert (cat(s1, s2, s3, s4) == "onetwothreefour");
 	assert (cat(s1, s2, s3, s4, s5) == "onetwothreefourfive");
 	assert (cat(s1, s2, s3, s4, s5, s6) == "onetwothreefourfivesix");
-	
+
 	std::vector<std::string> vec;
 	assert (cat(std::string(), vec.begin(), vec.end()) == "");
 	assert (cat(std::string(","), vec.begin(), vec.end()) == "");
@@ -512,13 +512,13 @@ void StringTest::testStringToFloat()
 			assert(strToFloat(format("1%c234%c567%c34", ts, ts, ds), result, ds, ts));
 
 			if ((std::numeric_limits<double>::max() / 10) < 1.23456e10)
-				fail ("test value larger than max value for this platform");
+				failmsg ("test value larger than max value for this platform");
 			else
 			{
 				float d = 12e34f;
 				assert(strToFloat(format("12e34", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01e34);
-			
+
 				d = 1.234e30f;
 				assert(strToFloat(format("1%c234e30", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
@@ -531,7 +531,7 @@ void StringTest::testStringToFloat()
 			assertEqualDelta(d, result, 0.01);
 			assert(strToFloat(format("-12%c34", ds), result, ds, ts));
 			assertEqualDelta(-12.34, result, 0.01);
-	
+
 			assert(strToFloat(format("   12%c34", ds), result, ds, ts));
 			assertEqualDelta(12.34, result, 0.01);
 			assert(strToFloat(format("12%c34   ", ds), result, ds, ts));
@@ -613,29 +613,29 @@ void StringTest::testStringToDouble()
 			assertEqualDelta(123456789.3456789, result, 0.00000001);
 
 			if ((std::numeric_limits<double>::max() / 10) < 1.23456e10)
-				fail ("test value larger than max value for this platform");
+				failmsg ("test value larger than max value for this platform");
 			else
 			{
 				double d = 12e34;
 				assert(strToDouble(format("12e34", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01e34);
-			
+
 				d = 1.234e100;
 				assert(strToDouble(format("1%c234e100", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
 				assert(strToDouble(format("1%c234E+100", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
-		
+
 				d = 1.234e-100;
 				assert(strToDouble(format("1%c234E-100", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
-		
+
 				d = -1.234e100;
 				assert(strToDouble(format("-1%c234e+100", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
 				assert(strToDouble(format("-1%c234E100", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
-		
+
 				d = 1.234e-100;
 				assert(strToDouble(format(" 1%c234e-100 ", ds), result, ds, ts));
 				assertEqualDelta(d, result, 0.01);
@@ -672,7 +672,7 @@ void StringTest::testStringToDouble()
 			assertEqualDelta(d, result, 0.01);
 			assert(strToDouble(format("-12%c34", ds), result, ds, ts));
 			assertEqualDelta(-12.34, result, 0.01);
-	
+
 			assert(strToDouble(format("   12%c34", ds), result, ds, ts));
 			assertEqualDelta(12.34, result, 0.01);
 			assert(strToDouble(format("12%c34   ", ds), result, ds, ts));
@@ -782,13 +782,13 @@ void StringTest::benchmarkStrToInt()
 	sw.stop();
 	std::cout << "std::strtol Number: " << res << std::endl;
 	double timeStrtol = sw.elapsed() / 1000.0;
-	
+
 	sw.restart();
 	for (int i = 0; i < 1000000; ++i) strToInt(num.c_str(), res, 10);
 	sw.stop();
 	std::cout << "strToInt Number: " << res << std::endl;
 	double timeStrToInt = sw.elapsed() / 1000.0;
-	
+
 	sw.restart();
 	for (int i = 0; i < 1000000; ++i) std::sscanf(num.c_str(), "%d", &res);
 	sw.stop();
@@ -799,11 +799,11 @@ void StringTest::benchmarkStrToInt()
 	std::cout << std::endl << "Timing and speedup relative to I/O stream:" << std::endl << std::endl;
 	std::cout << std::setw(14) << "Stream:\t" << std::setw(10) << std::setfill(' ') << timeStream << "[ms]" << std::endl;
 
-	std::cout << std::setw(14) << "std::strtol:\t" << std::setw(10) << std::setfill(' ') << timeStrtol << "[ms]" << 
+	std::cout << std::setw(14) << "std::strtol:\t" << std::setw(10) << std::setfill(' ') << timeStrtol << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeStrtol) << '\t' ;
 	graph = (int) (timeStream / timeStrtol); for (int i = 0; i < graph; ++i) std::cout << '|';
 
-	std::cout << std::endl << std::setw(14) << "strToInt:\t" << std::setw(10) << std::setfill(' ') << timeStrToInt << "[ms]" << 
+	std::cout << std::endl << std::setw(14) << "strToInt:\t" << std::setw(10) << std::setfill(' ') << timeStrToInt << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeStrToInt) << '\t' ;
 	graph = (int) (timeStream / timeStrToInt); for (int i = 0; i < graph; ++i) std::cout << '|';
 
@@ -841,7 +841,7 @@ void StringTest::benchmarkStrToFloat()
 	sw.stop();
 	std::cout << "strToDouble Number: " << res << std::endl;
 	double timeStrToDouble = sw.elapsed() / 1000.0;
-	
+
 	// standard sscanf
 	sw.restart();
 	for (int i = 0; i < 1000000; ++i) std::sscanf(num.c_str(), "%lf", &res);
@@ -860,11 +860,11 @@ void StringTest::benchmarkStrToFloat()
 	std::cout << std::endl << "Timing and speedup relative to I/O stream:" << std::endl << std::endl;
 	std::cout << std::setw(14) << "Stream:\t" << std::setw(10) << std::setfill(' ') << std::setprecision(4) << timeStream << "[ms]" << std::endl;
 
-	std::cout << std::setw(14) << "std::strtod:\t" << std::setw(10) << std::setfill(' ') << timeStdStrtod << "[ms]" << 
+	std::cout << std::setw(14) << "std::strtod:\t" << std::setw(10) << std::setfill(' ') << timeStdStrtod << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeStdStrtod) << '\t' ;
 	graph = (int) (timeStream / timeStdStrtod); for (int i = 0; i < graph; ++i) std::cout << '#';
 
-	std::cout << std::endl << std::setw(14) << "strToDouble:\t" << std::setw(10) << std::setfill(' ') << timeStrToDouble << "[ms]" << 
+	std::cout << std::endl << std::setw(14) << "strToDouble:\t" << std::setw(10) << std::setfill(' ') << timeStrToDouble << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeStrToDouble) << '\t' ;
 	graph = (int) (timeStream / timeStrToDouble); for (int i = 0; i < graph; ++i) std::cout << '#';
 
@@ -974,7 +974,7 @@ void StringTest::testIntToString()
 		char pResult[POCO_MAX_INT_STRING_LEN];
 		std::size_t sz = POCO_MAX_INT_STRING_LEN;
 		intToStr(0, 10, pResult, sz, false, (int) sz + 1, ' ');
-		fail ("must throw RangeException");
+		failmsg ("must throw RangeException");
 	} catch (RangeException&) { }
 }
 
@@ -983,13 +983,13 @@ void StringTest::testFloatToString()
 {
 	double val = 1.03721575516329e-112;
 	std::string str;
-	
+
 	assert (doubleToStr(str, val, 14, 21) == "1.03721575516329e-112");
 	assert (doubleToStr(str, val, 14, 22) == " 1.03721575516329e-112");
 	val = -val;
 	assert (doubleToStr(str, val, 14, 22) == "-1.03721575516329e-112");
 	assert (doubleToStr(str, val, 14, 23) == " -1.03721575516329e-112");
-	
+
 	val = -10372157551632.9;
 	assert (doubleToStr(str, val, 1, 21, ',') == "-10,372,157,551,632.9");
 	assert (doubleToStr(str, val, 1, 22, ',') == " -10,372,157,551,632.9");
@@ -1043,7 +1043,7 @@ void StringTest::benchmarkFloatToStr()
 	sw.stop();
 	std::cout << "std::sprintf Number: " << str << std::endl;
 	double timeSprintf = sw.elapsed() / 1000.0;
-	
+
 	// POCO Way (via double-conversion)
 	// no padding
 	sw.restart();
@@ -1053,7 +1053,7 @@ void StringTest::benchmarkFloatToStr()
 	std::cout << "doubleToStr(char) Number: " << buffer << std::endl;
 	double timeDoubleToStrChar = sw.elapsed() / 1000.0;
 
-	// with padding 
+	// with padding
 	str = "";
 	sw.restart();
 	for (int i = 0; i < 1000000; ++i) doubleToStr(str, val);
@@ -1064,16 +1064,16 @@ void StringTest::benchmarkFloatToStr()
 	int graph;
 	std::cout << std::endl << "Timing and speedup relative to I/O stream:" << std::endl << std::endl;
 	std::cout << std::setw(14) << "Stream:\t" << std::setw(10) << std::setfill(' ') << std::setprecision(4) << timeStream << "[ms]" << std::endl;
-	
-	std::cout << std::setw(14) << "sprintf:\t" << std::setw(10) << std::setfill(' ') << timeSprintf << "[ms]" << 
+
+	std::cout << std::setw(14) << "sprintf:\t" << std::setw(10) << std::setfill(' ') << timeSprintf << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeSprintf) << '\t' ;
 	graph = (int) (timeStream / timeSprintf); for (int i = 0; i < graph; ++i) std::cout << '#';
-	
-	std::cout << std::endl << std::setw(14) << "doubleToChar:\t" << std::setw(10) << std::setfill(' ') << timeDoubleToStrChar << "[ms]" << 
+
+	std::cout << std::endl << std::setw(14) << "doubleToChar:\t" << std::setw(10) << std::setfill(' ') << timeDoubleToStrChar << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeDoubleToStrChar) << '\t' ;
 	graph = (int) (timeStream / timeDoubleToStrChar); for (int i = 0; i < graph; ++i) std::cout << '#';
-	
-	std::cout << std::endl << std::setw(14) << "doubleToString:\t" << std::setw(10) << std::setfill(' ') << timeDoubleToStrString << "[ms]" << 
+
+	std::cout << std::endl << std::setw(14) << "doubleToString:\t" << std::setw(10) << std::setfill(' ') << timeDoubleToStrString << "[ms]" <<
 	std::setw(10) << std::setfill(' ')  << "Speedup: " << (timeStream / timeDoubleToStrString) << '\t' ;
 	graph = (int) (timeStream / timeDoubleToStrString); for (int i = 0; i < graph; ++i) std::cout << '#';
 

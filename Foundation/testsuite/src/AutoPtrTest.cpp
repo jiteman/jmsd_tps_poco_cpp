@@ -28,39 +28,39 @@ namespace
 		{
 			++_count;
 		}
-				
+
 		void duplicate()
 		{
 			++_rc;
 		}
-		
+
 		void release()
 		{
 			if (--_rc == 0)
 				delete this;
 		}
-		
+
 		int rc() const
 		{
 			return _rc;
 		}
-		
+
 		static int count()
 		{
 			return _count;
 		}
-		
+
 	protected:
 		~TestObj()
 		{
 			--_count;
 		}
-		
+
 	private:
 		int _rc;
 		static int _count;
 	};
-	
+
 	int TestObj::_count = 0;
 }
 
@@ -100,7 +100,7 @@ void AutoPtrTest::testAutoPtr()
 void AutoPtrTest::testOps()
 {
 	AutoPtr<TestObj> ptr1;
-	assertNull(ptr1.get());
+	assertTrue( ptr1.get() == nullptr );
 	TestObj* pTO1 = new TestObj;
 	TestObj* pTO2 = new TestObj;
 	if (pTO2 < pTO1)
@@ -120,31 +120,31 @@ void AutoPtrTest::testOps()
 	assert (ptr2 == pTO2);
 	assert (ptr3.get() == pTO1);
 	assert (ptr3 == pTO1);
-	
+
 	assert (ptr1 == pTO1);
 	assert (ptr1 != pTO2);
 	assert (ptr1 < pTO2);
 	assert (ptr1 <= pTO2);
 	assert (ptr2 > pTO1);
 	assert (ptr2 >= pTO1);
-	
+
 	assert (ptr1 == ptr3);
 	assert (ptr1 != ptr2);
 	assert (ptr1 < ptr2);
 	assert (ptr1 <= ptr2);
 	assert (ptr2 > ptr1);
 	assert (ptr2 >= ptr1);
-	
+
 	ptr1 = pTO1;
 	ptr2 = pTO2;
 	ptr1.swap(ptr2);
 	assert (ptr2.get() == pTO1);
 	assert (ptr1.get() == pTO2);
-		
+
 	try
 	{
 		assert (ptr4->rc() > 0);
-		fail ("must throw NullPointerException");
+		failmsg ("must throw NullPointerException");
 	}
 	catch (NullPointerException&)
 	{
@@ -154,11 +154,11 @@ void AutoPtrTest::testOps()
 	assert (!(ptr4 == ptr2));
 	assert (ptr4 != ptr1);
 	assert (ptr4 != ptr2);
-	
+
 	ptr4 = ptr2;
 	assert (ptr4 == ptr2);
 	assert (!(ptr4 != ptr2));
-	
+
 	assert (!(!ptr1));
 	ptr1 = 0;
 	assert (!ptr1);

@@ -28,16 +28,16 @@ namespace
 		Base()
 		{
 		}
-		
+
 		virtual ~Base()
 		{
 		}
 	};
-	
+
 	class A: public Base
 	{
 	};
-	
+
 	class B: public Base
 	{
 	};
@@ -57,13 +57,13 @@ DynamicFactoryTest::~DynamicFactoryTest()
 void DynamicFactoryTest::testDynamicFactory()
 {
 	DynamicFactory<Base> dynFactory;
-	
+
 	dynFactory.registerClass<A>("A");
 	dynFactory.registerClass<B>("B");
-	
+
 	assert (dynFactory.isClass("A"));
 	assert (dynFactory.isClass("B"));
-	
+
 	assert (!dynFactory.isClass("C"));
 
 #ifndef POCO_ENABLE_CPP11
@@ -74,22 +74,22 @@ void DynamicFactoryTest::testDynamicFactory()
 	std::unique_ptr<B> b(dynamic_cast<B*>(dynFactory.createInstance("B")));
 #endif // POCO_ENABLE_CPP11
 
-	assertNotNull(a.get());
-	assertNotNull(b.get());
-	
+	assertFalse( a.get() == nullptr );
+	assertFalse( b.get() == nullptr );
+
 	try
 	{
 		dynFactory.registerClass<A>("A");
-		fail("already registered - must throw");
+		failmsg("already registered - must throw");
 	}
 	catch (Poco::ExistsException&)
 	{
 	}
-	
+
 	dynFactory.unregisterClass("B");
 	assert (dynFactory.isClass("A"));
 	assert (!dynFactory.isClass("B"));
-	
+
 	try
 	{
 #ifndef POCO_ENABLE_CPP11
@@ -97,7 +97,7 @@ void DynamicFactoryTest::testDynamicFactory()
 #else
 		std::unique_ptr<B> b(dynamic_cast<B*>(dynFactory.createInstance("B")));
 #endif // POCO_ENABLE_CPP11
-		fail("unregistered - must throw");
+		failmsg("unregistered - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{

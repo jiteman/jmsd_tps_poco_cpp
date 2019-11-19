@@ -53,7 +53,7 @@ AnyTest::~AnyTest()
 void AnyTest::testDefaultCtor()
 {
 	const Any value;
-	
+
 	assert (value.empty());
 	assert (0 == AnyCast<int>(&value));
 	assert (value.type() == typeid(void));
@@ -64,7 +64,7 @@ void AnyTest::testConvertingCtor()
 {
 	std::string text = "test message";
 	Any value = text;
-	
+
 	assert (!value.empty());
 	assert (value.type() == typeid(std::string));
 	assert (0 == AnyCast<int>(&value));
@@ -78,7 +78,7 @@ void AnyTest::testCopyCtor()
 {
 	std::string text = "test message";
 	Any original = text, copy = original;
-	
+
 	assert (!copy.empty());
 	assert (original.type() == copy.type());
 	assert (AnyCast<std::string>(original) == AnyCast<std::string>(copy));
@@ -92,7 +92,7 @@ void AnyTest::testCopyAssign()
 	std::string text = "test message";
 	Any original = text, copy;
 	Any* assignResult = &(copy = original);
-	
+
 	assert (!copy.empty());
 	assert (original.type() == copy.type());
 	assert (AnyCast<std::string>(original) == AnyCast<std::string>(copy));
@@ -114,7 +114,7 @@ void AnyTest::testConvertingAssign()
 	std::string text = "test message";
 	Any value;
 	Any* assignResult = &(value = text);
-	
+
 	assert (!value.empty());
 	assert (value.type() == typeid(std::string));
 	assert (0 == AnyCast<int>(&value));
@@ -129,21 +129,21 @@ void AnyTest::testCastToReference()
 {
 	Any a(137);
 	const Any b(a);
-	
+
 	int&                ra    = AnyCast<int &>(a);
 	int const&          ra_c  = AnyCast<int const &>(a);
 	int volatile&       ra_v  = AnyCast<int volatile &>(a);
 	int const volatile& ra_cv = AnyCast<int const volatile&>(a);
-	
+
 	// cv references to same obj
 	assert (&ra == &ra_c && &ra == &ra_v && &ra == &ra_cv);
-	
+
 	int const &          rb_c  = AnyCast<int const &>(b);
 	int const volatile & rb_cv = AnyCast<int const volatile &>(b);
 
 	assert (&rb_c == &rb_cv); // cv references to copied const obj
 	assert (&ra != &rb_c); // copies hold different objects
-	
+
 	++ra;
 	int incremented = AnyCast<int>(a);
 	assert (incremented == 138); // increment by reference changes value
@@ -168,11 +168,11 @@ void AnyTest::testBadCast()
 {
 	std::string text = "test message";
 	Any value = text;
-	
+
 	try
 	{
 		AnyCast<const char *>(value);
-		fail ("must throw");
+		failmsg ("must throw");
 	}
 	catch (BadCastException&) { }
 }
@@ -184,7 +184,7 @@ void AnyTest::testSwap()
 	Any original = text, swapped;
 	std::string* originalPtr = AnyCast<std::string>(&original);
 	Any* swapResult = &original.swap(swapped);
-	
+
 	assert (original.empty());
 	assert (!swapped.empty());
 	assert (swapped.type() == typeid(std::string));
@@ -202,7 +202,7 @@ void AnyTest::testEmptyCopy()
 	const Any null;
 	Any copied = null, assigned;
 	assigned = null;
-	
+
 	assert (null.empty());
 	assert (copied.empty());
 	assert (assigned.empty());
@@ -261,7 +261,7 @@ void AnyTest::testVector()
 	assert (tmp2.size() == 3);
 	const std::vector<int>& vecCRef = RefAnyCast<std::vector<int> >(a);
 	std::vector<int>& vecRef = RefAnyCast<std::vector<int> >(a);
-	
+
 	assert (vecRef[0] == 1);
 	assert (vecRef[1] == 2);
 	assert (vecRef[2] == 3);

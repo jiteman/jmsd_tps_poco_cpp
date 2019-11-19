@@ -135,7 +135,7 @@ void VarTest::testInt8()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -229,7 +229,7 @@ void VarTest::testInt16()
 	try
 	{
 		Int32 POCO_UNUSED value2; value2 = a1.extract<Int32>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -323,7 +323,7 @@ void VarTest::testInt32()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -417,7 +417,7 @@ void VarTest::testInt64()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -511,7 +511,7 @@ void VarTest::testUInt8()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -605,7 +605,7 @@ void VarTest::testUInt16()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -699,7 +699,7 @@ void VarTest::testUInt32()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -793,7 +793,7 @@ void VarTest::testUInt64()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -887,7 +887,7 @@ void VarTest::testBool()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -964,7 +964,7 @@ void VarTest::testChar()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1044,7 +1044,7 @@ void VarTest::testFloat()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1142,7 +1142,7 @@ void VarTest::testDouble()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1232,7 +1232,7 @@ void VarTest::testString()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1327,7 +1327,7 @@ void VarTest::testLong()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1421,7 +1421,7 @@ void VarTest::testULong()
 	try
 	{
 		Int16 POCO_UNUSED value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1514,7 +1514,7 @@ void VarTest::testLongLong()
 	try
 	{
 		Int16 value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1608,7 +1608,7 @@ void VarTest::testULongLong()
 	try
 	{
 		Int16 value2; value2 = a1.extract<Int16>();
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 	}
 	catch (Poco::BadCastException&)
 	{
@@ -1649,7 +1649,7 @@ void VarTest::testUDT()
 	try
 	{
 		float POCO_UNUSED f = da1;
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (BadCastException&) { }
 }
@@ -1882,22 +1882,22 @@ void VarTest::testArithmeticOperators()
 	assert (any3 == "123456789");
 	assert (("xyz" + any3) == "xyz123456789");
 
-	try	{ any3 = any1 - any2; fail ("must fail"); }
+	try	{ any3 = any1 - any2; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 
-	try	{ any3 -= any2;	fail ("must fail");	}
+	try	{ any3 -= any2;	failmsg ("must fail");	}
 	catch (InvalidArgumentException&){}
 
-	try	{ any3 = any1 * any2; fail ("must fail"); }
+	try	{ any3 = any1 * any2; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 
-	try { any3 *= any2;	fail ("must fail");	}
+	try { any3 *= any2;	failmsg ("must fail");	}
 	catch (InvalidArgumentException&){}
 
-	try { any3 = any1 / any2; fail ("must fail"); }
+	try { any3 = any1 / any2; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 
-	try { any3 /= any2; fail ("must fail");	}
+	try { any3 /= any2; failmsg ("must fail");	}
 	catch (InvalidArgumentException&){}
 
 	any1 = 10;
@@ -1912,16 +1912,16 @@ void VarTest::testArithmeticOperators()
 
 	any1 = 1.23;
 
-	try { ++any1; fail ("must fail"); }
+	try { ++any1; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 
-	try { any1++; fail ("must fail"); }
+	try { any1++; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 
-	try { --any1; fail ("must fail"); }
+	try { --any1; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 
-	try { any1--; fail ("must fail"); }
+	try { any1--; failmsg ("must fail"); }
 	catch (InvalidArgumentException&){}
 }
 
@@ -1989,12 +1989,12 @@ void VarTest::testLimitsFloat()
 	{
 		double iMin = -1 * std::numeric_limits<float>::max();
 		Var da = iMin * 10;
-		try { float POCO_UNUSED f; f = da; fail("must fail"); }
+		try { float POCO_UNUSED f; f = da; failmsg("must fail"); }
 		catch (RangeException&) {}
 
 		double iMax = std::numeric_limits<float>::max();
 		da = iMax * 10;
-		try { float POCO_UNUSED f; f = da; fail("must fail"); }
+		try { float POCO_UNUSED f; f = da; failmsg("must fail"); }
 		catch (RangeException&) {}
 	}
 }
@@ -2332,7 +2332,7 @@ void VarTest::testDynamicPair()
 	try
 	{
 		std::string s = aPair.second().convert<std::string>();
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (InvalidAccessException&) { }
 
@@ -2751,7 +2751,7 @@ void VarTest::testGetIdxMustThrow(Var& a1, std::vector<Var>::size_type n)
 	try
 	{
 		Var val1 = a1[n];
-		fail("bad cast - must throw");
+		failmsg("bad cast - must throw");
 		val1 = 0; // silence the compiler
 	}
 	catch (Poco::InvalidAccessException&)
@@ -2765,7 +2765,7 @@ void VarTest::testGetIdxMustThrow(Var& a1, std::vector<Var>::size_type n)
 	{
 		const Var& c1 = a1;
 		const Var& cval1 = c1[n];
-		fail("bad const cast - must throw");
+		failmsg("bad const cast - must throw");
 		assert (cval1 == c1); // silence the compiler
 	}
 	catch (Poco::InvalidAccessException&)
@@ -2840,13 +2840,13 @@ void VarTest::testEmpty()
 	try
 	{
 		int POCO_UNUSED i = da;
-		fail ("must fail");
+		failmsg ("must fail");
 	} catch (InvalidAccessException&) { }
 
 	try
 	{
 		int POCO_UNUSED i = da.extract<int>();
-		fail ("must fail");
+		failmsg ("must fail");
 	} catch (InvalidAccessException&) { }
 }
 
@@ -2878,7 +2878,7 @@ void VarTest::testIterator()
 	try
 	{
 		++it;
-		fail ("must fail");
+		failmsg ("must fail");
 	}
 	catch (RangeException&) {}
 	assert (it == end);

@@ -131,20 +131,20 @@ void NumberParserTest::testParse()
 			assertEqualDelta(123456789.3456789, NumberParser::parseFloat(format("123%c456%c789%c3456789012345678901234567890", ts, ts, dp), dp, ts), 0.00000001);
 
 			if ((std::numeric_limits<double>::max() / 10) < 1.23456e10)
-				fail ("test value larger than max value for this platform");
+				failmsg ("test value larger than max value for this platform");
 			else
 			{
 				double d = 1.234e100;
 				assertEqualDelta(d, NumberParser::parseFloat(format("1%c234e100", dp), dp, ts), 0.01);
 				assertEqualDelta(d, NumberParser::parseFloat(format("1%c234E+100", dp), dp, ts), 0.01);
-		
+
 				d = 1.234e-100;
 				assertEqualDelta(d, NumberParser::parseFloat(format("1%c234E-100", dp), dp, ts), 0.01);
-		
+
 				d = -1.234e100;
 				assertEqualDelta(d, NumberParser::parseFloat(format("-1%c234e+100", dp), dp, ts), 0.01);
 				assertEqualDelta(d, NumberParser::parseFloat(format("-1%c234E100", dp), dp, ts), 0.01);
-		
+
 				d = 1234.234e-100;
 				assertEqualDelta(d, NumberParser::parseFloat(format("1%c234%c234e-100", ts, dp), dp, ts), 0.01);
 				d = 12345.234e-100;
@@ -163,7 +163,7 @@ void NumberParserTest::testParse()
 			double d = 12.34e-10;
 			assertEqualDelta(d, NumberParser::parseFloat(format("12%c34e-10", dp), dp, ts), 0.01);
 			assertEqualDelta(-12.34, NumberParser::parseFloat(format("-12%c34", dp), dp, ts), 0.01);
-	
+
 			assertEqualDelta(12.34, NumberParser::parseFloat(format("12%c34", dp), dp, ts), 0.01);
 		}
 	}
@@ -257,7 +257,7 @@ void NumberParserTest::testParseError()
 		NumberParser::parseHex("23z");
 		failmsg("must throw SyntaxException");
 	} catch (SyntaxException&) { }
-	
+
 #if defined(POCO_HAVE_INT64)
 
 	try
@@ -283,7 +283,7 @@ void NumberParserTest::testParseError()
 		NumberParser::parseHex64("12345z");
 		failmsg("must throw SyntaxException");
 	} catch (SyntaxException&) { }
-	
+
 	try
 	{
 		NumberParser::parseHex64(format("123%c45", ts));
