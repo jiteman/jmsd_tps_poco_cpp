@@ -11,7 +11,6 @@
 #include "PatternFormatterTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/PatternFormatter.h"
 #include "Poco/Message.h"
 #include "Poco/DateTime.h"

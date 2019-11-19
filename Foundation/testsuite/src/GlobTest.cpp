@@ -11,7 +11,6 @@
 #include "GlobTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Glob.h"
 #include "Poco/File.h"
 #include "Poco/Path.h"

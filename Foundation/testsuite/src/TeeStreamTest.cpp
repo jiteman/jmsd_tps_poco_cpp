@@ -11,7 +11,6 @@
 #include "TeeStreamTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/TeeStream.h"
 #include <sstream>
 

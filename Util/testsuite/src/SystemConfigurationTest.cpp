@@ -11,7 +11,6 @@
 #include "SystemConfigurationTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/SystemConfiguration.h"
 #include "Poco/AutoPtr.h"
 #include "Poco/Exception.h"

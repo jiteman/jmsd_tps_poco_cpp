@@ -16,7 +16,7 @@
 
 #include "Poco/Zip/Zip.h"
 #include "Poco/Zip/ZipLocalFileHeader.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class ZipTest: public CppUnit::TestCase

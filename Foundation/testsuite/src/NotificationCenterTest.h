@@ -15,7 +15,7 @@
 
 
 #include "Poco/Foundation.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Notification.h"
 #include "Poco/AutoPtr.h"
 #include <set>

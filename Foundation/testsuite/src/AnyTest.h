@@ -14,7 +14,7 @@
 
 
 #include "Poco/Foundation.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class AnyTest: public CppUnit::TestCase
@@ -36,7 +36,7 @@ public:
 	void testInt();
 	void testComplexType();
 	void testVector();
-	
+
 	void setUp();
 	void tearDown();
 	static CppUnit::Test* suite();

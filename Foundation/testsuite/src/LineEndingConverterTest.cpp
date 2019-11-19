@@ -11,7 +11,6 @@
 #include "LineEndingConverterTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/LineEndingConverter.h"
 #include "Poco/StreamCopier.h"
 #include <sstream>

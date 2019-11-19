@@ -11,7 +11,6 @@
 #include "StringTokenizerTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/StringTokenizer.h"
 #include "Poco/Exception.h"
 

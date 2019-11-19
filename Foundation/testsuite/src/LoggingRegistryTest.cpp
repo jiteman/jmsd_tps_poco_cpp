@@ -11,7 +11,6 @@
 #include "LoggingRegistryTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/LoggingRegistry.h"
 #include "Poco/ConsoleChannel.h"
 #include "Poco/PatternFormatter.h"

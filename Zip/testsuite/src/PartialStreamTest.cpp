@@ -11,7 +11,6 @@
 #include "PartialStreamTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Zip/PartialStream.h"
 #include "Poco/Zip/AutoDetectStream.h"
 #include "Poco/Zip/ZipUtil.h"

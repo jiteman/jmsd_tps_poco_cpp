@@ -11,7 +11,6 @@
 #include "MD4EngineTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/MD4Engine.h"
 
 

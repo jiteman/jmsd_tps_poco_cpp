@@ -11,7 +11,6 @@
 #include "TimerTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Thread.h"
 #include "Poco/Stopwatch.h"
 

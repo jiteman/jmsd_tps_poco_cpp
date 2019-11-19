@@ -11,7 +11,6 @@
 #include "ParserWriterTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/DOM/DOMParser.h"
 #include "Poco/DOM/DOMWriter.h"
 #include "Poco/DOM/Document.h"

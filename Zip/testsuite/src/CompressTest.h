@@ -15,7 +15,7 @@
 
 
 #include "Poco/Zip/Zip.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class CompressTest: public CppUnit::TestCase

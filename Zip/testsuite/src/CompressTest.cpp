@@ -17,7 +17,6 @@
 #include "Poco/FileStream.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include <iostream>
 #undef min
 #include <algorithm>

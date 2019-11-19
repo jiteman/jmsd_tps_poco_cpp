@@ -11,7 +11,6 @@
 #include "OptionTest.h"
 #include "Poco/CppUnit/TestCaller.h"
 #include "Poco/CppUnit/TestSuite.h"
-#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/Option.h"
 #include "Poco/Util/OptionException.h"
 
