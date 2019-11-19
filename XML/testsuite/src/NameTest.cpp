@@ -9,8 +9,9 @@
 
 
 #include "NameTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/XML/Name.h"
 
 
@@ -35,12 +36,12 @@ void NameTest::testSplit()
 	Name::split(qname, prefix, local);
 	assert (prefix.empty());
 	assert (local == "name");
-	
+
 	qname = "p:l";
 	Name::split(qname, prefix, local);
 	assert (prefix == "p");
 	assert (local == "l");
-	
+
 	qname = "pre:local";
 	Name::split(qname, prefix, local);
 	assert (prefix == "pre");
@@ -111,17 +112,17 @@ void NameTest::testCompare()
 	Name n1("pre:local");
 	Name n2(n1);
 	Name n3("pre:local2");
-	
+
 	assert (n1.equals(n2));
 	assert (!n1.equals(n3));
-	
+
 	n1.assign("pre:local", "http://www.appinf.com", "local");
 	n2.assign("pre:local", "http://www.appinf.com", "local");
 	n3.assign("pre:local2", "http://www.appinf.com", "local2");
-	
+
 	assert (n1.equals(n2));
 	assert (!n1.equals(n3));
-	
+
 	assert (n1.equals("pre:local", "http://www.appinf.com", "local"));
 	assert (!n1.equals("pre:local", "", ""));
 	assert (n1.equalsWeakly("pre:local", "", ""));

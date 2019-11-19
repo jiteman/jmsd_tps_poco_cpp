@@ -9,8 +9,9 @@
 
 
 #include "CoreTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Bugcheck.h"
 #include "Poco/Exception.h"
 #include "Poco/Environment.h"

@@ -15,7 +15,7 @@
 
 
 #include "Poco/Foundation.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/UnicodeConverter.h"
 #include "Poco/UTFString.h"
 #include <cstring>

@@ -9,8 +9,9 @@
 
 
 #include "MapConfigurationTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/MapConfiguration.h"
 #include "Poco/AutoPtr.h"
 
@@ -33,10 +34,10 @@ MapConfigurationTest::~MapConfigurationTest()
 void MapConfigurationTest::testClear()
 {
 	AutoPtr<MapConfiguration> pConf = new MapConfiguration;
-	
+
 	pConf->setString("foo", "bar");
 	assert (pConf->hasProperty("foo"));
-	
+
 	pConf->clear();
 	assert (!pConf->hasProperty("foo"));
 }

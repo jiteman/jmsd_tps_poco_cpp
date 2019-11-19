@@ -62,8 +62,11 @@ CppUnit::Test* CoreTestSuite::suite()
 	pSuite->addTest(AnyTest::suite());
 	pSuite->addTest(VarTest::suite());
 	pSuite->addTest(FormatTest::suite());
+#if !defined( _WIN32 )
 	pSuite->addTest(TuplesTest::suite());
-#ifndef POCO_VXWORKS
+#endif
+
+#if !defined( _WIN32 ) && !defined( POCO_VXWORKS )
 	pSuite->addTest(NamedTuplesTest::suite());
 #endif
 	pSuite->addTest(TypeListTest::suite());

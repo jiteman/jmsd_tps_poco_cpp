@@ -9,8 +9,9 @@
 
 
 #include "DateTimeFormatterTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/DateTimeFormatter.h"
 #include "Poco/DateTimeFormat.h"
 #include "Poco/DateTime.h"
@@ -191,7 +192,7 @@ void DateTimeFormatterTest::testTimespan()
 	Timespan ts4(0, 24, 60, 60, 1001000);
 	str = DateTimeFormatter::format(ts4);
 	assert (str == "1d 01:01:01.001");
-	
+
 	Timespan ts5(2, 11, 30, 20, 0);
 	str = DateTimeFormatter::format(ts5, "%h %m %s");
 	assert (str == "59 3570 214220");

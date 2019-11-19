@@ -9,8 +9,9 @@
 
 
 #include "IniFileConfigurationTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/IniFileConfiguration.h"
 #include "Poco/AutoPtr.h"
 #include "Poco/Exception.h"
@@ -37,7 +38,7 @@ IniFileConfigurationTest::~IniFileConfigurationTest()
 
 void IniFileConfigurationTest::testLoad()
 {
-	static const std::string iniFile = 
+	static const std::string iniFile =
 		"; comment\n"
 		"  ; comment  \n"
 		"prop1=value1\n"
@@ -51,10 +52,10 @@ void IniFileConfigurationTest::testLoad()
 		"prop1 = value 5\n"
 		"\t   \n"
 		"Prop2 = value6";
-		
-	std::istringstream istr(iniFile);	
+
+	std::istringstream istr(iniFile);
 	AutoPtr<IniFileConfiguration> pConf = new IniFileConfiguration(istr);
-	
+
 	assert (pConf->getString("prop1") == "value1");
 	assert (pConf->getString("prop2") == "value2");
 	assert (pConf->getString("section1.prop1") == "value3");
@@ -62,7 +63,7 @@ void IniFileConfigurationTest::testLoad()
 	assert (pConf->getString("section 2.prop1") == "value 5");
 	assert (pConf->getString("section 2.prop2") == "value6");
 	assert (pConf->getString("SECTION 2.PROP2") == "value6");
-	
+
 	AbstractConfiguration::Keys keys;
 	pConf->keys(keys);
 	assert (keys.size() == 4);
@@ -70,12 +71,12 @@ void IniFileConfigurationTest::testLoad()
 	assert (std::find(keys.begin(), keys.end(), "prop2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "section1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "section 2") != keys.end());
-	
+
 	pConf->keys("Section1", keys);
 	assert (keys.size() == 2);
 	assert (std::find(keys.begin(), keys.end(), "prop1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop2") != keys.end());
-	
+
 	pConf->setString("prop1", "value11");
 	assert (pConf->getString("PROP1") == "value11");
 	pConf->setString("Prop1", "value12");

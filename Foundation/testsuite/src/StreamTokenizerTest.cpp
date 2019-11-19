@@ -9,8 +9,9 @@
 
 
 #include "StreamTokenizerTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/StreamTokenizer.h"
 #include "Poco/Token.h"
 #include "Poco/Ascii.h"
@@ -31,7 +32,7 @@ public:
 	IdentifierToken()
 	{
 	}
-	
+
 	~IdentifierToken()
 	{
 	}
@@ -40,7 +41,7 @@ public:
 	{
 		return Token::IDENTIFIER_TOKEN;
 	}
-	
+
 	bool start(char c, std::istream& istr)
 	{
 		if (c != -1 && Ascii::isAlpha(c))
@@ -50,7 +51,7 @@ public:
 		}
 		else return false;
 	}
-	
+
 	void finish(std::istream& istr)
 	{
 		int c = istr.peek();
@@ -70,7 +71,7 @@ public:
 	IntLiteralToken()
 	{
 	}
-	
+
 	~IntLiteralToken()
 	{
 	}
@@ -79,7 +80,7 @@ public:
 	{
 		return Token::INTEGER_LITERAL_TOKEN;
 	}
-	
+
 	bool start(char c, std::istream& istr)
 	{
 		if (c != -1 && Ascii::isDigit(c))
@@ -89,7 +90,7 @@ public:
 		}
 		else return false;
 	}
-	
+
 	void finish(std::istream& istr)
 	{
 		int c = istr.peek();
@@ -121,7 +122,7 @@ void StreamTokenizerTest::testTokenizer1()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::EOF_TOKEN);
 }
@@ -135,11 +136,11 @@ void StreamTokenizerTest::testTokenizer2()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::IDENTIFIER_TOKEN);
 	assert (next->tokenString() == "foo");
-	
+
 	next = tokenizer.next();
 	assert (next->tokenClass() == Token::EOF_TOKEN);
 }
@@ -153,7 +154,7 @@ void StreamTokenizerTest::testTokenizer3()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::IDENTIFIER_TOKEN);
 	assert (next->tokenString() == "foo");
@@ -175,7 +176,7 @@ void StreamTokenizerTest::testTokenizer4()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::IDENTIFIER_TOKEN);
 	assert (next->tokenString() == "foo");
@@ -197,7 +198,7 @@ void StreamTokenizerTest::testTokenizer5()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::IDENTIFIER_TOKEN);
 	assert (next->tokenString() == "foo");
@@ -223,7 +224,7 @@ void StreamTokenizerTest::testTokenizer6()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::IDENTIFIER_TOKEN);
 	assert (next->tokenString() == "foo");
@@ -249,7 +250,7 @@ void StreamTokenizerTest::testTokenizer7()
 	tokenizer.addToken(new WhitespaceToken());
 	tokenizer.addToken(new IdentifierToken());
 	tokenizer.addToken(new IntLiteralToken());
-	
+
 	const Token* next = tokenizer.next();
 	assert (next->tokenClass() == Token::IDENTIFIER_TOKEN);
 	assert (next->tokenString() == "foo");

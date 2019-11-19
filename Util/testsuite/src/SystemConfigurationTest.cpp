@@ -9,8 +9,9 @@
 
 
 #include "SystemConfigurationTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/SystemConfiguration.h"
 #include "Poco/AutoPtr.h"
 #include "Poco/Exception.h"
@@ -45,7 +46,7 @@ SystemConfigurationTest::~SystemConfigurationTest()
 void SystemConfigurationTest::testProperties()
 {
 	AutoPtr<SystemConfiguration> pConf = new SystemConfiguration;
-	
+
 	assert (pConf->getString("system.osName") == Environment::osName());
 	assert (pConf->getString("system.osVersion") == Environment::osVersion());
 	assert (pConf->getString("system.osArchitecture") == Environment::osArchitecture());
@@ -53,15 +54,15 @@ void SystemConfigurationTest::testProperties()
 	assert (pConf->getString("system.currentDir") == Path::current());
 	assert (pConf->getString("system.homeDir") == Path::home());
 	assert (pConf->getString("system.tempDir") == Path::temp());
-	
+
 	std::string dateTime = pConf->getString("system.dateTime");
 	assert (dateTime.size() == 20);
-	
+
 #if !defined(POCO_VXWORKS)
 	std::string pid = pConf->getString("system.pid");
 	assert (Poco::NumberParser::parse64(pid) == Poco::Process::id());
 #endif
-	
+
 #if defined(POCO_OS_FAMILY_WINDOWS)
 	std::string home = pConf->getString("system.env.HOMEPATH");
 #else

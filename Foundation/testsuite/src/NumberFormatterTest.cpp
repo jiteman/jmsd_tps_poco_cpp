@@ -9,8 +9,9 @@
 
 
 #include "NumberFormatterTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/NumberFormatter.h"
 #include <sstream>
 
@@ -39,13 +40,13 @@ void NumberFormatterTest::testFormat()
 	assert (NumberFormatter::format((unsigned) 123) == "123");
 	assert (NumberFormatter::format((unsigned) 123, 5) == "  123");
 	assert (NumberFormatter::format0((unsigned) 123, 5) == "00123");
-	
+
 	assert (NumberFormatter::format((long) 123) == "123");
 	assert (NumberFormatter::format((long) -123) == "-123");
 	assert (NumberFormatter::format((long) -123, 5) == " -123");
 
 	assert (NumberFormatter::format((unsigned long) 123) == "123");
-	assert (NumberFormatter::format((unsigned long) 123, 5) == "  123");	
+	assert (NumberFormatter::format((unsigned long) 123, 5) == "  123");
 
 	assert (NumberFormatter::format(123) == "123");
 	assert (NumberFormatter::format(-123) == "-123");
@@ -57,7 +58,7 @@ void NumberFormatterTest::testFormat()
 	assert (NumberFormatter::format((Int64) -123, 5) == " -123");
 
 	assert (NumberFormatter::format((UInt64) 123) == "123");
-	assert (NumberFormatter::format((UInt64) 123, 5) == "  123");	
+	assert (NumberFormatter::format((UInt64) 123, 5) == "  123");
 #if defined(POCO_LONG_IS_64_BIT)
 	assert (NumberFormatter::format((long long) 123) == "123");
 	assert (NumberFormatter::format((long long) -123) == "-123");
@@ -293,7 +294,7 @@ void NumberFormatterTest::testAppend()
 	NumberFormatter::append0(s, 123u, 5);
 	assert (s == "00123");
 
-	
+
 	s.erase();
 	NumberFormatter::append(s, 123.4);
 	assert (s == "123.4");

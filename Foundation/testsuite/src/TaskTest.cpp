@@ -9,8 +9,9 @@
 
 
 #include "TaskTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Task.h"
 #include "Poco/Thread.h"
 #include "Poco/Event.h"
@@ -31,7 +32,7 @@ namespace
 		TestTask(): Task("TestTask")
 		{
 		}
-		
+
 		void runTask()
 		{
 			_event.wait();
@@ -44,12 +45,12 @@ namespace
 			setProgress(1.0);
 			_event.wait();
 		}
-		
+
 		void cont()
 		{
 			_event.set();
 		}
-		
+
 	private:
 		Event _event;
 	};

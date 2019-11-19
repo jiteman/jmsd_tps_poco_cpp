@@ -9,8 +9,9 @@
 
 
 #include "URITest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/URI.h"
 #include "Poco/Path.h"
 
@@ -40,58 +41,58 @@ void URITest::testConstruction()
 	assert (uri.getPath().empty());
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
-	
+
 	uri.setScheme("ftp");
 	assert (uri.getScheme() == "ftp");
 	assert (uri.getPort() == 21);
-	
+
 	uri.setScheme("HTTP");
 	assert (uri.getScheme() == "http");
-	
+
 	uri.setAuthority("www.appinf.com");
 	assert (uri.getAuthority() == "www.appinf.com");
 	assert (uri.getPort() == 80);
-	
+
 	uri.setAuthority("user@services.appinf.com:8000");
 	assert (uri.getUserInfo() == "user");
 	assert (uri.getHost() == "services.appinf.com");
 	assert (uri.getPort() == 8000);
-	
+
 	uri.setPath("/index.html");
 	assert (uri.getPath() == "/index.html");
-	
+
 	uri.setPath("/file%20with%20spaces.html");
 	assert (uri.getPath() == "/file with spaces.html");
-	
+
 	uri.setPathEtc("/query.cgi?query=foo");
 	assert (uri.getPath() == "/query.cgi");
 	assert (uri.getQuery() == "query=foo");
 	assert (uri.getFragment().empty());
 	assert (uri.getPathEtc() == "/query.cgi?query=foo");
 	assert (uri.getPathAndQuery() == "/query.cgi?query=foo");
-	
+
 	uri.setPathEtc("/query.cgi?query=bar#frag");
 	assert (uri.getPath() == "/query.cgi");
 	assert (uri.getQuery() == "query=bar");
 	assert (uri.getFragment() == "frag");
 	assert (uri.getPathEtc() == "/query.cgi?query=bar#frag");
 	assert (uri.getPathAndQuery() == "/query.cgi?query=bar");
-	
+
 	uri.setQuery("query=test");
 	assert (uri.getQuery() == "query=test");
-	
+
 	uri.setFragment("result");
 	assert (uri.getFragment() == "result");
-	
+
 	URI uri2("file", "/home/guenter/foo.bar");
 	assert (uri2.getScheme() == "file");
 	assert (uri2.getPath() == "/home/guenter/foo.bar");
-	
+
 	URI uri3("http", "www.appinf.com", "/index.html");
 	assert (uri3.getScheme() == "http");
 	assert (uri3.getAuthority() == "www.appinf.com");
 	assert (uri3.getPath() == "/index.html");
-	
+
 	URI uri4("http", "www.appinf.com:8000", "/index.html");
 	assert (uri4.getScheme() == "http");
 	assert (uri4.getAuthority() == "www.appinf.com:8000");
@@ -120,7 +121,7 @@ void URITest::testConstruction()
 	assert (uri7.getPort() == 80);
 	assert (uri7.getAuthority() == "user@www.appinf.com");
 	assert (uri7.getPath() == "/index.html");
-	
+
 	URI uri8("http", "www.appinf.com", "/index.html", "query=test");
 	assert (uri8.getScheme() == "http");
 	assert (uri8.getAuthority() == "www.appinf.com");
@@ -152,7 +153,7 @@ void URITest::testConstruction()
 	assert (uri10.getPort() == 389);
 	assert (uri10.getAuthority() == "[2001:db8::7]");
 	assert (uri10.getPathEtc() == "/c=GB?objectClass?one");
-	
+
 	URI uri11("http", "www.appinf.com", "/index.html?query=test#fragment");
 	assert (uri11.getScheme() == "http");
 	assert (uri11.getAuthority() == "www.appinf.com");
@@ -180,7 +181,7 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
 	assert (!uri.isRelative());
-	
+
 	uri = "ftp://anonymous@ftp.appinf.com/pub/";
 	assert (uri.getScheme() == "ftp");
 	assert (uri.getUserInfo() == "anonymous");
@@ -201,7 +202,7 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment() == "top");
 	assert (!uri.isRelative());
-	
+
 	uri = "http://www.appinf.com/search.cgi?keyword=test&scope=all";
 	assert (uri.getScheme() == "http");
 	assert (uri.getHost() == "www.appinf.com");
@@ -219,7 +220,7 @@ void URITest::testParse()
 	assert (uri.getQuery() == "keyword=test&scope=all");
 	assert (uri.getFragment() == "result");
 	assert (!uri.isRelative());
-	
+
 	uri = "http://www.appinf.com/search.cgi?keyword=test%20encoded&scope=all#result";
 	assert (uri.getScheme() == "http");
 	assert (uri.getHost() == "www.appinf.com");
@@ -228,7 +229,7 @@ void URITest::testParse()
 	assert (uri.getQuery() == "keyword=test encoded&scope=all");
 	assert (uri.getFragment() == "result");
 	assert (!uri.isRelative());
-	
+
 	uri = "ldap://[2001:db8::7]/c=GB?objectClass?one";
 	assert (uri.getScheme() == "ldap");
 	assert (uri.getUserInfo().empty());
@@ -238,7 +239,7 @@ void URITest::testParse()
 	assert (uri.getPath() == "/c=GB");
 	assert (uri.getQuery() == "objectClass?one");
 	assert (uri.getFragment().empty());
-	
+
 	uri = "mailto:John.Doe@example.com";
 	assert (uri.getScheme() == "mailto");
 	assert (uri.getUserInfo().empty());
@@ -248,7 +249,7 @@ void URITest::testParse()
 	assert (uri.getPath() == "John.Doe@example.com");
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
-	
+
 	uri = "tel:+1-816-555-1212";
 	assert (uri.getScheme() == "tel");
 	assert (uri.getUserInfo().empty());
@@ -258,7 +259,7 @@ void URITest::testParse()
 	assert (uri.getPath() == "+1-816-555-1212");
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
-	
+
 	uri = "telnet://192.0.2.16:80";
 	assert (uri.getScheme() == "telnet");
 	assert (uri.getUserInfo().empty());
@@ -268,7 +269,7 @@ void URITest::testParse()
 	assert (uri.getPath().empty());
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
-	
+
 	uri = "urn:oasis:names:specification:docbook:dtd:xml:4.1.2";
 	assert (uri.getScheme() == "urn");
 	assert (uri.getUserInfo().empty());
@@ -278,7 +279,7 @@ void URITest::testParse()
 	assert (uri.getPath() == "oasis:names:specification:docbook:dtd:xml:4.1.2");
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
-	
+
 	uri = "";
 	assert (uri.getScheme().empty());
 	assert (uri.getAuthority().empty());
@@ -289,9 +290,9 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
 	assert (uri.empty());
-	
+
 	// relative references
-	
+
 	uri = "/foo/bar";
 	assert (uri.getScheme().empty());
 	assert (uri.getAuthority().empty());
@@ -346,8 +347,8 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment() == "frag");
 	assert (uri.isRelative());
-	
-	uri = "?query=test";	
+
+	uri = "?query=test";
 	assert (uri.getScheme().empty());
 	assert (uri.getAuthority().empty());
 	assert (uri.getUserInfo().empty());
@@ -358,7 +359,7 @@ void URITest::testParse()
 	assert (uri.getFragment().empty());
 	assert (uri.isRelative());
 
-	uri = "?query=test#frag";	
+	uri = "?query=test#frag";
 	assert (uri.getScheme().empty());
 	assert (uri.getAuthority().empty());
 	assert (uri.getUserInfo().empty());
@@ -368,8 +369,8 @@ void URITest::testParse()
 	assert (uri.getQuery() == "query=test");
 	assert (uri.getFragment() == "frag");
 	assert (uri.isRelative());
-	
-	uri = "#frag";	
+
+	uri = "#frag";
 	assert (uri.getScheme().empty());
 	assert (uri.getAuthority().empty());
 	assert (uri.getUserInfo().empty());
@@ -380,7 +381,7 @@ void URITest::testParse()
 	assert (uri.getFragment() == "frag");
 	assert (uri.isRelative());
 
-	uri = "#";	
+	uri = "#";
 	assert (uri.getScheme().empty());
 	assert (uri.getAuthority().empty());
 	assert (uri.getUserInfo().empty());
@@ -390,7 +391,7 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
 	assert (uri.isRelative());
-	
+
 	uri = "file:///a/b/c";
 	assert (uri.getScheme() == "file");
 	assert (uri.getAuthority().empty());
@@ -412,7 +413,7 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
 	assert (!uri.isRelative());
-	
+
 	uri = "file:///c:/Windows/system32/";
 	assert (uri.getScheme() == "file");
 	assert (uri.getAuthority().empty());
@@ -434,7 +435,7 @@ void URITest::testParse()
 	assert (uri.getQuery().empty());
 	assert (uri.getFragment().empty());
 	assert (uri.isRelative());
-	
+
 	uri = "ws://www.appinf.com/ws";
 	assert (uri.getScheme() == "ws");
 	assert (uri.getPort() == 80);
@@ -452,42 +453,42 @@ void URITest::testToString()
 
 	uri = "http://www.appinf.com/";
 	assert (uri.toString() == "http://www.appinf.com/");
-	
+
 	uri = "ftp://anonymous@ftp.appinf.com/pub/";
 	assert (uri.toString() == "ftp://anonymous@ftp.appinf.com/pub/");
 
 	uri = "https://www.appinf.com/index.html#top";
 	assert (uri.toString() == "https://www.appinf.com/index.html#top");
-	
+
 	uri = "http://www.appinf.com/search.cgi?keyword=test&scope=all";
 	assert (uri.toString() == "http://www.appinf.com/search.cgi?keyword=test&scope=all");
 
 	uri = "http://www.appinf.com/search.cgi?keyword=test&scope=all#result";
 	assert (uri.toString() == "http://www.appinf.com/search.cgi?keyword=test&scope=all#result");
-	
+
 	uri = "http://www.appinf.com/search.cgi?keyword=test%20encoded&scope=all#result";
 	assert (uri.toString() == "http://www.appinf.com/search.cgi?keyword=test%20encoded&scope=all#result");
-	
+
 	uri = "ldap://[2001:db8::7]/c=GB?objectClass?one";
 	assert (uri.toString() == "ldap://[2001:db8::7]/c=GB?objectClass?one");
-	
+
 	uri = "mailto:John.Doe@example.com";
 	assert (uri.toString() == "mailto:John.Doe@example.com");
-	
+
 	uri = "tel:+1-816-555-1212";
 	assert (uri.toString() == "tel:+1-816-555-1212");
-	
+
 	uri = "telnet://192.0.2.16:80";
 	assert (uri.toString() == "telnet://192.0.2.16:80");
-	
+
 	uri = "urn:oasis:names:specification:docbook:dtd:xml:4.1.2";
 	assert (uri.toString() == "urn:oasis:names:specification:docbook:dtd:xml:4.1.2");
-	
+
 	uri = "";
 	assert (uri.toString() == "");
 
 	// relative references
-	
+
 	uri = "/foo/bar";
 	assert (uri.toString() == "/foo/bar");
 
@@ -505,31 +506,31 @@ void URITest::testToString()
 
 	uri = "index.html#frag";
 	assert (uri.toString() == "index.html#frag");
-	
-	uri = "?query=test";	
+
+	uri = "?query=test";
 	assert (uri.toString() == "?query=test");
 
-	uri = "?query=test#frag";	
+	uri = "?query=test#frag";
 	assert (uri.toString() == "?query=test#frag");
-	
-	uri = "#frag";	
+
+	uri = "#frag";
 	assert (uri.toString() == "#frag");
 
-	uri = "#";	
+	uri = "#";
 	assert (uri.toString() == "");
-	
+
 	uri = "file:///a/b/c";
 	assert (uri.toString() == "file:///a/b/c");
-	
+
 	uri = "file://localhost/a/b/c";
 	assert (uri.toString() == "file://localhost/a/b/c");
-	
+
 	uri = "file:///c:/Windows/system32/";
 	assert (uri.toString() == "file:///c:/Windows/system32/");
 
 	uri = "./c:/Windows/system32/";
 	assert (uri.toString() == "./c:/Windows/system32/");
-	
+
 	uri = "http://www.appinf.com";
 	uri.setRawQuery("query=test");
 	assert (uri.toString() == "http://www.appinf.com/?query=test");
@@ -543,19 +544,19 @@ void URITest::testCompare()
 	assert (uri1 == uri2);
 	assert (uri1 == "http://www.appinf.com:");
 	assert (uri1 != "http://www.google.com");
-	
+
 	uri1 = "/foo/bar";
 	assert (uri1 == "/foo/bar");
 	assert (uri1 != "/foo/baz");
-	
+
 	uri1 = "?query";
 	assert (uri1 == "?query");
 	assert (uri1 != "?query2");
-	
+
 	uri1 = "#frag";
 	assert (uri1 == "#frag");
 	assert (uri1 != "#frag2");
-	
+
 	uri1 = "/index.html#frag";
 	assert (uri1 == "/index.html#frag");
 	assert (uri1 != "/index.html");
@@ -567,15 +568,15 @@ void URITest::testNormalize()
 	URI uri("http://www.appinf.com");
 	uri.normalize();
 	assert (uri.toString() == "http://www.appinf.com");
-	
+
 	uri = "http://www.appinf.com/";
 	uri.normalize();
 	assert (uri.toString() == "http://www.appinf.com/");
-	
+
 	uri = "http://www.appinf.com/foo/bar/./index.html";
 	uri.normalize();
 	assert (uri.toString() == "http://www.appinf.com/foo/bar/index.html");
-	
+
 	uri = "http://www.appinf.com/foo/bar/../index.html";
 	uri.normalize();
 	assert (uri.toString() == "http://www.appinf.com/foo/index.html");
@@ -615,7 +616,7 @@ void URITest::testNormalize()
 	uri = "http://www.appinf.com/../foo/../";
 	uri.normalize();
 	assert (uri.toString() == "http://www.appinf.com/");
-	
+
 	uri = "file:///c:/Windows/system32/";
 	uri.normalize();
 	assert (uri.toString() == "file:///c:/Windows/system32/");
@@ -630,13 +631,13 @@ void URITest::testNormalize()
 void URITest::testResolve()
 {
 	URI uri("http://www.appinf.com");
-	
+
 	uri.resolve("/index.html");
 	assert (uri.toString() == "http://www.appinf.com/index.html");
-	
+
 	uri.resolve("#frag");
 	assert (uri.toString() == "http://www.appinf.com/index.html#frag");
-	
+
 	uri = "http://www.appinf.com/html";
 	uri.resolve("../images/foo.gif");
 	assert (uri.toString() == "http://www.appinf.com/images/foo.gif");
@@ -664,7 +665,7 @@ void URITest::testResolve()
 	uri = "/a/b/c/d/e";
 	uri.resolve("./../../f/./g");
 	assert (uri.toString() == "/a/b/f/g");
-	
+
 	uri = "/a/b/../c/";
 	uri.resolve("../d");
 	assert (uri.toString() == "/a/d");
@@ -704,7 +705,7 @@ void URITest::testResolve()
 	uri = "http://www.appinf.com/html/";
 	uri.resolve("http://www.google.com/");
 	assert (uri.toString() == "http://www.google.com/");
-	
+
 	uri = "http://www.appinf.com/";
 	URI uri2(uri, "index.html");
 	assert (uri2.toString() == "http://www.appinf.com/index.html");
@@ -719,7 +720,7 @@ void URITest::testSwap()
 {
 	URI uri1("http://www.appinf.com/search.cgi?keyword=test%20encoded&scope=all#result");
 	URI uri2("mailto:John.Doe@example.com");
-	
+
 	uri1.swap(uri2);
 	assert (uri1.toString() == "mailto:John.Doe@example.com");
 	assert (uri2.toString() == "http://www.appinf.com/search.cgi?keyword=test%20encoded&scope=all#result");
@@ -792,11 +793,11 @@ void URITest::testEncodeDecode()
 	str = "";
 	URI::encode("http://google.com/search?q=hello+world#frag ment", "", str);
 	assert (str == "http://google.com/search?q=hello+world#frag%20ment");
-	
+
 	str = "";
 	URI::decode("http://google.com/search?q=hello+world#frag%20ment", str, true);
 	assert (str == "http://google.com/search?q=hello world#frag ment");
-	
+
 	str = "";
 	URI::decode("http://google.com/search?q=hello%2Bworld#frag%20ment", str);
 	assert (str == "http://google.com/search?q=hello+world#frag ment");
@@ -812,7 +813,7 @@ void URITest::testFromPath()
 	Path path2("/var/www/site/with space.html", Path::PATH_UNIX);
 	URI uri2(path2);
 	assert (uri2.toString() == "file:///var/www/site/with%20space.html");
-	
+
 	Path path3("c:\\www\\index.html", Path::PATH_WINDOWS);
 	URI uri3(path3);
 	assert (uri3.toString() == "file:///c:/www/index.html");

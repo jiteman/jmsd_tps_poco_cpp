@@ -9,8 +9,9 @@
 
 
 #include "TimestampTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Timestamp.h"
 #include "Poco/Thread.h"
 
@@ -47,26 +48,26 @@ void TimestampTest::testTimestamp()
 	assert (t2 <= t3);
 	Timestamp::TimeDiff d = (t2 - t1);
 	assert (d >= 180000 && d <= 300000);
-	
+
 	t1.swap(t2);
 	assert (t1 > t2);
 	t2.swap(t1);
-	
+
 	Timestamp::UtcTimeVal tv = t1.utcTime();
 	Timestamp t4 = Timestamp::fromUtcTime(tv);
 	assert (t1 == t4);
-	
+
 	Timestamp epoch(0);
 	tv = epoch.utcTime();
 	assert (tv >> 32 == 0x01B21DD2);
 	assert ((tv & 0xFFFFFFFF) == 0x13814000);
-	
+
 	Timestamp now;
 	Thread::sleep(201);
 	assert (now.elapsed() >= 200000);
 	assert (now.isElapsed(200000));
 	assert (!now.isElapsed(2000000));
-	
+
 #if defined(_WIN32)
 	{
 		Timestamp now;

@@ -9,8 +9,9 @@
 
 
 #include "NamespaceSupportTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/SAX/NamespaceSupport.h"
 
 
@@ -35,16 +36,16 @@ void NamespaceSupportTest::testNamespaceSupport()
 	assert (prefixes.size() == 2);
 	assert (prefixes.find("xml") != prefixes.end());
 	assert (prefixes.find("xmlns") != prefixes.end());
-	
+
 	ns.getPrefixes(prefixes);
 	assert (prefixes.size() == 2);
 	assert (prefixes.find("xml") != prefixes.end());
 	assert (prefixes.find("xmlns") != prefixes.end());
-	
+
 	ns.pushContext();
 	ns.declarePrefix("ns1", "urn:ns1");
 	ns.declarePrefix("ns2", "urn:ns2");
-	
+
 	ns.getDeclaredPrefixes(prefixes);
 	assert (prefixes.size() == 2);
 	assert (prefixes.find("ns1") != prefixes.end());
@@ -52,7 +53,7 @@ void NamespaceSupportTest::testNamespaceSupport()
 
 	ns.pushContext();
 	ns.declarePrefix("ns3", "urn:ns3");
-	
+
 	ns.getDeclaredPrefixes(prefixes);
 	assert (prefixes.size() == 1);
 	assert (prefixes.find("ns3") != prefixes.end());
@@ -75,20 +76,20 @@ void NamespaceSupportTest::testNamespaceSupport()
 	assert (ns.isMapped("urn:ns2"));
 	assert (ns.isMapped("http://www.w3.org/XML/1998/namespace"));
 	assert (!ns.isMapped("urn:ns3"));
-	
+
 	ns.getPrefixes("urn:ns2", prefixes);
 	assert (prefixes.size() == 1);
 	assert (prefixes.find("ns2") != prefixes.end());
-	
+
 	ns.pushContext();
 	ns.declarePrefix("", "urn:ns3");
 	ns.declarePrefix("NS2", "urn:ns2");
-	
+
 	ns.getPrefixes("urn:ns2", prefixes);
 	assert (prefixes.size() == 2);
 	assert (prefixes.find("ns2") != prefixes.end());
 	assert (prefixes.find("NS2") != prefixes.end());
-	
+
 	ns.getPrefixes(prefixes);
 	assert (prefixes.size() == 5);
 	assert (prefixes.find("xml") != prefixes.end());
@@ -101,11 +102,11 @@ void NamespaceSupportTest::testNamespaceSupport()
 	assert (prefixes.size() == 2);
 	assert (prefixes.find("") != prefixes.end());
 	assert (prefixes.find("NS2") != prefixes.end());
-	
+
 	assert (ns.getPrefix("urn:ns3") == "");
 	assert (ns.getPrefix("urn:ns2") == "NS2");
 	assert (ns.getPrefix("urn:ns4") == "");
-	
+
 	assert (ns.isMapped("urn:ns3"));
 	assert (ns.isMapped("urn:ns2"));
 	assert (!ns.isMapped("urn:ns4"));
@@ -114,14 +115,14 @@ void NamespaceSupportTest::testNamespaceSupport()
 	assert (ns.getURI("ns1") == "urn:ns1");
 	assert (ns.getURI("") == "urn:ns3");
 	assert (ns.getURI("NS2") == "urn:ns2");
-	
+
 	std::string localName;
 	std::string namespaceURI;
 	bool declared = ns.processName("elem", namespaceURI, localName, false);
 	assert (declared);
 	assert (localName == "elem");
 	assert (namespaceURI == "urn:ns3");
-	
+
 	declared = ns.processName("NS2:elem", namespaceURI, localName, false);
 	assert (declared);
 	assert (localName == "elem");
@@ -146,18 +147,18 @@ void NamespaceSupportTest::testNamespaceSupport()
 	assert (!declared);
 	assert (localName == "attr");
 	assert (namespaceURI == "");
-	
+
 	ns.popContext();
 	assert (ns.getURI("xml") == "http://www.w3.org/XML/1998/namespace");
 	assert (ns.getURI("ns1") == "urn:ns1");
 	assert (ns.getURI("") == "");
 	assert (ns.getURI("NS2") == "");
-	
+
 	declared = ns.processName("elem", namespaceURI, localName, false);
 	assert (declared);
 	assert (localName == "elem");
 	assert (namespaceURI == "");
-	
+
 	declared = ns.processName("ns2:elem", namespaceURI, localName, false);
 	assert (declared);
 	assert (localName == "elem");

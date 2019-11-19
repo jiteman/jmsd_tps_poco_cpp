@@ -9,8 +9,9 @@
 
 
 #include "RWLockTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/RWLock.h"
 #include "Poco/Thread.h"
 #include "Poco/Runnable.h"
@@ -27,7 +28,7 @@ public:
 	RWLockRunnable(RWLock& lock, volatile int& counter): _lock(lock), _counter(counter), _ok(true)
 	{
 	}
-	
+
 	void run()
 	{
 		int lastCount = 0;
@@ -57,12 +58,12 @@ public:
 			_lock.unlock();
 		}
 	}
-	
+
 	bool ok() const
 	{
 		return _ok;
 	}
-	
+
 private:
 	RWLock& _lock;
 	volatile int& _counter;
@@ -76,7 +77,7 @@ public:
 	RWTryLockRunnable(RWLock& lock, volatile int& counter): _lock(lock), _counter(counter), _ok(true)
 	{
 	}
-	
+
 	void run()
 	{
 		int lastCount = 0;
@@ -106,12 +107,12 @@ public:
 			_lock.unlock();
 		}
 	}
-	
+
 	bool ok() const
 	{
 		return _ok;
 	}
-	
+
 private:
 	RWLock& _lock;
 	volatile int& _counter;

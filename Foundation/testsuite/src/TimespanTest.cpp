@@ -9,8 +9,9 @@
 
 
 #include "TimespanTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Timespan.h"
 
 
@@ -38,13 +39,13 @@ void TimespanTest::testConversions()
 	assert (ts.totalMinutes() == 60*24);
 	assert (ts.totalHours() == 24);
 	assert (ts.days() == 1);
-	
+
 	assert (ts.microseconds() == 0);
 	assert (ts.milliseconds() == 0);
 	assert (ts.seconds() == 0);
 	assert (ts.minutes() == 0);
 	assert (ts.hours() == 0);
-	
+
 	ts.assign(2, 12, 30, 10, 123456);
 	assert (ts.microseconds() == 456);
 	assert (ts.milliseconds() == 123);
@@ -78,21 +79,21 @@ void TimespanTest::testComparisons()
 	Timespan ts1(10000000);
 	Timespan ts2(20000000);
 	Timespan ts3(20000000);
-	
+
 	assert (ts1 != ts2);
 	assert (!(ts1 == ts2));
 	assert (ts1 <= ts2);
 	assert (ts1 < ts2);
 	assert (ts2 > ts1);
 	assert (ts2 >= ts1);
-	
+
 	assert (ts2 == ts3);
 	assert (!(ts2 != ts3));
 	assert (ts2 >= ts3);
 	assert (ts2 <= ts3);
 	assert (!(ts2 > ts3));
 	assert (!(ts2 < ts3));
-	
+
 	assert (ts1 == 10000000);
 	assert (ts1 != 20000000);
 	assert (ts1 <= 10000000);
@@ -128,7 +129,7 @@ void TimespanTest::testSwap()
 {
 	Timespan ts1(10000000);
 	Timespan ts2(50000000);
-	
+
 	assert (ts1 < ts2);
 	ts1.swap(ts2);
 	assert (ts2 < ts1);

@@ -10,8 +10,9 @@
 
 
 #include "DigestStreamTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/DigestStream.h"
 #include "Poco/MD5Engine.h"
 #include <sstream>
@@ -99,6 +100,6 @@ CppUnit::Test* DigestStreamTest::suite()
 	CppUnit_addTest(pSuite, DigestStreamTest, testOutputStream1);
 	CppUnit_addTest(pSuite, DigestStreamTest, testOutputStream2);
 	CppUnit_addTest(pSuite, DigestStreamTest, testToFromHex);
-	
+
 	return pSuite;
 }

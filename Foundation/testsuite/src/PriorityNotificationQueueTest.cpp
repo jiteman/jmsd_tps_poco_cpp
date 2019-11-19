@@ -9,8 +9,9 @@
 
 
 #include "PriorityNotificationQueueTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/PriorityNotificationQueue.h"
 #include "Poco/Notification.h"
 #include "Poco/Thread.h"
@@ -25,7 +26,7 @@ using Poco::Thread;
 using Poco::RunnableAdapter;
 
 
-namespace 
+namespace
 {
 	class QTestNotification: public Notification
 	{
@@ -72,7 +73,7 @@ void PriorityNotificationQueueTest::testQueueDequeue()
 	assert (queue.empty());
 	assert (queue.size() == 0);
 	pNf->release();
-	
+
 	queue.enqueueNotification(new QTestNotification("first"), 1);
 	queue.enqueueNotification(new QTestNotification("fourth"), 4);
 	queue.enqueueNotification(new QTestNotification("third"), 3);
@@ -137,11 +138,11 @@ void PriorityNotificationQueueTest::testWaitDequeue()
 void PriorityNotificationQueueTest::testThreads()
 {
 	const int NOTIFICATION_COUNT = 5000;
-	
+
 	Thread t1("thread1");
 	Thread t2("thread2");
 	Thread t3("thread3");
-	
+
 	RunnableAdapter<PriorityNotificationQueueTest> ra(*this, &PriorityNotificationQueueTest::work);
 	t1.start(ra);
 	t2.start(ra);

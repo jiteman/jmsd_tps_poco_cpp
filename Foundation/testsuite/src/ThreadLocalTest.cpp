@@ -9,8 +9,9 @@
 
 
 #include "ThreadLocalTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/ThreadLocal.h"
 #include "Poco/Thread.h"
 #include "Poco/Runnable.h"
@@ -35,12 +36,12 @@ public:
 			++(*_count);
 		_result = *_count;
 	}
-	
+
 	int result()
 	{
 		return _result;
 	}
-	
+
 private:
 	int _n;
 	int _result;
@@ -82,7 +83,7 @@ void ThreadLocalTest::testLocality()
 	t1.join();
 	t2.join();
 	t3.join();
-	
+
 	assert (r1.result() == 5000);
 	assert (r2.result() == 7500);
 	assert (r3.result() == 6000);

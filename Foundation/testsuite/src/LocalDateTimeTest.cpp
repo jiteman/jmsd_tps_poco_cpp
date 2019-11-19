@@ -9,8 +9,9 @@
 
 
 #include "LocalDateTimeTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/LocalDateTime.h"
 #include "Poco/DateTime.h"
 #include "Poco/Timestamp.h"

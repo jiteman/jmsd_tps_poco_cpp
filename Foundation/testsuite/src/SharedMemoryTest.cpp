@@ -8,8 +8,9 @@
 //
 
 #include "SharedMemoryTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/SharedMemory.h"
 #include "Poco/Path.h"
 #include "Poco/File.h"
@@ -67,7 +68,7 @@ Poco::Path SharedMemoryTest::findDataFile(const std::string& afile)
 	Poco::File aFile(result.toString());
 	if (!aFile.exists() || (aFile.exists() && !aFile.isFile()))
 		throw Poco::FileNotFoundException("Didn't find file " + afile);
-	
+
 	return result;
 }
 

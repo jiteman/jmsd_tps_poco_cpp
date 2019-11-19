@@ -9,8 +9,9 @@
 
 
 #include "GlobTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Glob.h"
 #include "Poco/File.h"
 #include "Poco/Path.h"
@@ -39,7 +40,7 @@ void GlobTest::testMatchChars()
 	assert (!g1.match("b"));
 	assert (!g1.match("aa"));
 	assert (!g1.match(""));
-	
+
 	Glob g2("ab");
 	assert (g2.match("ab"));
 	assert (!g2.match("aab"));
@@ -54,24 +55,24 @@ void GlobTest::testMatchQM()
 	assert (g1.match("b"));
 	assert (!g1.match("aa"));
 	assert (g1.match("."));
-	
+
 	Glob g2("\\?");
 	assert (g2.match("?"));
 	assert (!g2.match("a"));
 	assert (!g2.match("ab"));
-	
+
 	Glob g3("a?");
 	assert (g3.match("aa"));
 	assert (g3.match("az"));
 	assert (!g3.match("a"));
 	assert (!g3.match("aaa"));
-	
+
 	Glob g4("??");
 	assert (g4.match("aa"));
 	assert (g4.match("ab"));
 	assert (!g4.match("a"));
 	assert (!g4.match("abc"));
-	
+
 	Glob g5("?a?");
 	assert (g5.match("aaa"));
 	assert (g5.match("bac"));
@@ -83,7 +84,7 @@ void GlobTest::testMatchQM()
 	assert (g6.match("a?"));
 	assert (!g6.match("az"));
 	assert (!g6.match("a"));
-	
+
 	Glob g7("?", Glob::GLOB_DOT_SPECIAL);
 	assert (g7.match("a"));
 	assert (g7.match("b"));
@@ -100,7 +101,7 @@ void GlobTest::testMatchAsterisk()
 	assert (g1.match("ab"));
 	assert (g1.match("abc"));
 	assert (g1.match("."));
-	
+
 	Glob g2("a*");
 	assert (g2.match("a"));
 	assert (g2.match("aa"));
@@ -114,7 +115,7 @@ void GlobTest::testMatchAsterisk()
 	assert (g3.match("abab"));
 	assert (!g3.match("ac"));
 	assert (!g3.match("baab"));
-	
+
 	Glob g4("*a");
 	assert (g4.match("a"));
 	assert (g4.match("ba"));
@@ -124,7 +125,7 @@ void GlobTest::testMatchAsterisk()
 	assert (!g4.match("b"));
 	assert (!g4.match("ab"));
 	assert (!g4.match("aaab"));
-	
+
 	Glob g5("a*a");
 	assert (g5.match("aa"));
 	assert (g5.match("aba"));
@@ -132,14 +133,14 @@ void GlobTest::testMatchAsterisk()
 	assert (!g5.match("aab"));
 	assert (!g5.match("aaab"));
 	assert (!g5.match("baaaa"));
-	
+
 	Glob g6("a*b*c");
 	assert (g6.match("abc"));
 	assert (g6.match("aabbcc"));
 	assert (g6.match("abcbbc"));
 	assert (g6.match("aaaabbbbcccc"));
 	assert (!g6.match("aaaabbbcb"));
-	
+
 	Glob g7("a*b*");
 	assert (g7.match("aaabbb"));
 	assert (g7.match("abababab"));
@@ -154,18 +155,18 @@ void GlobTest::testMatchAsterisk()
 	assert (g1.match("a"));
 	assert (g1.match("ab"));
 	assert (g1.match("abc"));
-	
+
 	Glob g9("a\\*");
 	assert (g9.match("a*"));
 	assert (!g9.match("aa"));
 	assert (!g9.match("a"));
-	
+
 	Glob g10("a*\\*");
 	assert (g10.match("a*"));
 	assert (g10.match("aaa*"));
 	assert (!g10.match("a"));
 	assert (!g10.match("aa"));
-	
+
 	Glob g11("*", Glob::GLOB_DOT_SPECIAL);
 	assert (g11.match(""));
 	assert (g11.match("a"));
@@ -181,35 +182,35 @@ void GlobTest::testMatchRange()
 	assert (g1.match("a"));
 	assert (!g1.match("b"));
 	assert (!g1.match("aa"));
-	
+
 	Glob g2("[ab]");
 	assert (g2.match("a"));
 	assert (g2.match("b"));
 	assert (!g2.match("c"));
 	assert (!g2.match("ab"));
-	
+
 	Glob g3("[abc]");
 	assert (g3.match("a"));
 	assert (g3.match("b"));
 	assert (g3.match("c"));
 	assert (!g3.match("ab"));
-	
+
 	Glob g4("[a-z]");
 	assert (g4.match("a"));
 	assert (g4.match("z"));
 	assert (!g4.match("A"));
-	
+
 	Glob g5("[!a]");
 	assert (g5.match("b"));
 	assert (g5.match("c"));
 	assert (!g5.match("a"));
 	assert (!g5.match("bb"));
-	
+
 	Glob g6("[!a-z]");
 	assert (g6.match("A"));
 	assert (!g6.match("a"));
 	assert (!g6.match("z"));
-	
+
 	Glob g7("[0-9a-zA-Z_]");
 	assert (g7.match("0"));
 	assert (g7.match("1"));
@@ -222,51 +223,51 @@ void GlobTest::testMatchRange()
 	assert (g7.match("Z"));
 	assert (g7.match("_"));
 	assert (!g7.match("-"));
-	
+
 	Glob g8("[1-3]");
 	assert (g8.match("1"));
 	assert (g8.match("2"));
 	assert (g8.match("3"));
 	assert (!g8.match("0"));
 	assert (!g8.match("4"));
-	
+
 	Glob g9("[!1-3]");
 	assert (g9.match("0"));
 	assert (g9.match("4"));
 	assert (!g9.match("1"));
 	assert (!g9.match("2"));
 	assert (!g9.match("3"));
-	
+
 	Glob g10("[\\!a]");
 	assert (g10.match("!"));
 	assert (g10.match("a"));
 	assert (!g10.match("x"));
-	
+
 	Glob g11("[a\\-c]");
 	assert (g11.match("a"));
 	assert (g11.match("c"));
 	assert (g11.match("-"));
 	assert (!g11.match("b"));
-	
+
 	Glob g12("[\\]]");
 	assert (g12.match("]"));
 	assert (!g12.match("["));
-	
+
 	Glob g13("[[\\]]");
 	assert (g13.match("["));
 	assert (g13.match("]"));
 	assert (!g13.match("x"));
-	
+
 	Glob g14("\\[]");
 	assert (g14.match("[]"));
 	assert (!g14.match("[["));
-	
+
 	Glob g15("a[bc]");
 	assert (g15.match("ab"));
 	assert (g15.match("ac"));
 	assert (!g15.match("a"));
 	assert (!g15.match("aa"));
-	
+
 	Glob g16("[ab]c");
 	assert (g16.match("ac"));
 	assert (g16.match("bc"));
@@ -282,24 +283,24 @@ void GlobTest::testMisc()
 	Glob g1("*.cpp");
 	assert (g1.match("Glob.cpp"));
 	assert (!g1.match("Glob.h"));
-	
+
 	Glob g2("*.[hc]");
 	assert (g2.match("foo.c"));
 	assert (g2.match("foo.h"));
 	assert (!g2.match("foo.i"));
-	
+
 	Glob g3("*.*");
 	assert (g3.match("foo.cpp"));
 	assert (g3.match("foo.h"));
 	assert (g3.match("foo."));
 	assert (!g3.match("foo"));
-	
+
 	Glob g4("File*.?pp");
 	assert (g4.match("File.hpp"));
 	assert (g4.match("File.cpp"));
 	assert (g4.match("Filesystem.hpp"));
 	assert (!g4.match("File.h"));
-	
+
 	Glob g5("File*.[ch]*");
 	assert (g5.match("File.hpp"));
 	assert (g5.match("File.cpp"));
@@ -316,7 +317,7 @@ void GlobTest::testCaseless()
 	assert (!g1.match("Glob.h"));
 	assert (g1.match("Glob.CPP"));
 	assert (!g1.match("Glob.H"));
-	
+
 	Glob g2("*.[hc]", Glob::GLOB_CASELESS);
 	assert (g2.match("foo.c"));
 	assert (g2.match("foo.h"));
@@ -324,7 +325,7 @@ void GlobTest::testCaseless()
 	assert (g2.match("foo.C"));
 	assert (g2.match("foo.H"));
 	assert (!g2.match("foo.I"));
-		
+
 	Glob g4("File*.?pp", Glob::GLOB_CASELESS);
 	assert (g4.match("file.hpp"));
 	assert (g4.match("FILE.CPP"));
@@ -332,7 +333,7 @@ void GlobTest::testCaseless()
 	assert (g4.match("FILESYSTEM.HPP"));
 	assert (!g4.match("FILE.H"));
 	assert (!g4.match("file.h"));
-	
+
 	Glob g5("File*.[ch]*", Glob::GLOB_CASELESS);
 	assert (g5.match("file.hpp"));
 	assert (g5.match("FILE.HPP"));
@@ -387,7 +388,7 @@ void GlobTest::testGlob()
 	createFile("globtest/testsuite/src/test.h");
 	createFile("globtest/testsuite/src/test.c");
 	createFile("globtest/testsuite/src/main.c");
-	
+
 	std::set<std::string> files;
 	Glob::glob("globtest/*", files);
 	translatePaths(files);
@@ -407,7 +408,7 @@ void GlobTest::testGlob()
 	assert (files.find("globtest/include/") != files.end());
 	assert (files.find("globtest/src/") != files.end());
 	assert (files.find("globtest/testsuite/") != files.end());
-	
+
 	files.clear();
 	Glob::glob("globtest/*/*.[hc]", files);
 	translatePaths(files);
@@ -417,7 +418,7 @@ void GlobTest::testGlob()
 	assert (files.find("globtest/src/one.c") != files.end());
 	assert (files.find("globtest/src/one.c") != files.end());
 	assert (files.find("globtest/src/main.c") != files.end());
-	
+
 	files.clear();
 	Glob::glob("gl?bt?st/*/*/*.c", files);
 	translatePaths(files);
@@ -431,7 +432,7 @@ void GlobTest::testGlob()
 	assert (files.size() == 2);
 	assert (files.find("globtest/testsuite/src/test.c") != files.end());
 	assert (files.find("globtest/testsuite/src/main.c") != files.end());
-	
+
 	files.clear();
 	Glob::glob("globtest/*/src/*", files);
 	translatePaths(files);
@@ -439,7 +440,7 @@ void GlobTest::testGlob()
 	assert (files.find("globtest/testsuite/src/test.h") != files.end());
 	assert (files.find("globtest/testsuite/src/test.c") != files.end());
 	assert (files.find("globtest/testsuite/src/main.c") != files.end());
-	
+
 	files.clear();
 	Glob::glob("globtest/*/", files);
 	translatePaths(files);
@@ -463,7 +464,7 @@ void GlobTest::testGlob()
 	translatePaths(files);
 	assert (files.size() == 1);
 #endif
-	
+
 	File dir("globtest");
 	dir.remove(true);
 }

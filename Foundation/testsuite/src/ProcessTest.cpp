@@ -9,8 +9,9 @@
 
 
 #include "ProcessTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Process.h"
 #include "Poco/Pipe.h"
 #include "Poco/PipeStream.h"
@@ -190,7 +191,7 @@ void ProcessTest::testLaunchArgs()
 			std::string expectedArg = args[argNumber];
 			if (expectedArg.npos != expectedArg.find("already quoted")) {
 				expectedArg = "already quoted \" \\";
-			} 
+			}
 			assert(receivedArg == expectedArg);
 			++argNumber;
 			receivedArg = "";

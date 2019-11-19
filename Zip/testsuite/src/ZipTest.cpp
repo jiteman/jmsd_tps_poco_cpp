@@ -23,8 +23,9 @@
 #include "Poco/Delegate.h"
 #include "Poco/StreamCopier.h"
 #include "Poco/Environment.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #undef min
 #include <algorithm>
 #include <iostream>

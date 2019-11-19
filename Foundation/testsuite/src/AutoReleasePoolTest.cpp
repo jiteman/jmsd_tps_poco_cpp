@@ -9,8 +9,9 @@
 
 
 #include "AutoReleasePoolTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/AutoReleasePool.h"
 
 
@@ -26,39 +27,39 @@ namespace
 		{
 			++_count;
 		}
-				
+
 		void duplicate()
 		{
 			++_rc;
 		}
-		
+
 		void release()
 		{
 			if (--_rc == 0)
 				delete this;
 		}
-		
+
 		int rc() const
 		{
 			return _rc;
 		}
-		
+
 		static int count()
 		{
 			return _count;
 		}
-		
+
 	protected:
 		~TestObj()
 		{
 			--_count;
 		}
-		
+
 	private:
 		int _rc;
 		static int _count;
 	};
-	
+
 	int TestObj::_count = 0;
 }
 

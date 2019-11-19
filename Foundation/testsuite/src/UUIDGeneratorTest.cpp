@@ -9,8 +9,9 @@
 
 
 #include "UUIDGeneratorTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/UUIDGenerator.h"
 #include "Poco/UUID.h"
 #include "Poco/SHA1Engine.h"
@@ -34,7 +35,7 @@ UUIDGeneratorTest::~UUIDGeneratorTest()
 void UUIDGeneratorTest::testTimeBased()
 {
 	UUIDGenerator& gen = UUIDGenerator::defaultGenerator();
-	
+
 	std::set<UUID> uuids;
 	for (int i = 0; i < 1000; ++i)
 	{

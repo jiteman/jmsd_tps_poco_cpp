@@ -9,8 +9,9 @@
 
 
 #include "FileTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/File.h"
 #include "Poco/TemporaryFile.h"
 #include "Poco/Path.h"
@@ -505,7 +506,7 @@ void FileTest::testLongPath()
 	assert (d.isDirectory());
 
 	Poco::File f(p.toString());
-	f.remove(true);	
+	f.remove(true);
 #endif
 }
 

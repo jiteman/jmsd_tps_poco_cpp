@@ -9,8 +9,9 @@
 
 
 #include "FilesystemConfigurationTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/FilesystemConfiguration.h"
 #include "Poco/AutoPtr.h"
 #include "Poco/File.h"
@@ -36,7 +37,7 @@ FilesystemConfigurationTest::~FilesystemConfigurationTest()
 void FilesystemConfigurationTest::testFilesystemConfiguration()
 {
 	AutoPtr<FilesystemConfiguration> config = new FilesystemConfiguration(_path.toString());
-	
+
 	config->setString("logging.loggers.root.channel.class", "ConsoleChannel");
 	config->setString("logging.loggers.app.name", "Application");
 	config->setString("logging.loggers.app.channel", "c1");
@@ -52,7 +53,7 @@ void FilesystemConfigurationTest::testFilesystemConfiguration()
 
 	config->setString("logging.loggers.app.channel", "c2");
 	assert (config->getString("logging.loggers.app.channel") == "c2");
-	
+
 	AbstractConfiguration::Keys keys;
 	config->keys(keys);
 	assert (keys.size() == 1);
@@ -72,7 +73,7 @@ void FilesystemConfigurationTest::testFilesystemConfiguration()
 	assert (keys.size() == 2);
 	assert (std::find(keys.begin(), keys.end(), "class") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "pattern") != keys.end());
-	
+
 	assert (config->hasProperty("logging.loggers.root.channel.class"));
 	config->clear();
 	assert (!config->hasProperty("logging.loggers.root.channel.class"));

@@ -15,7 +15,7 @@
 
 
 #include "Poco/Foundation.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/NumericString.h"
 #include "Poco/MemoryStream.h"
 
@@ -70,10 +70,10 @@ private:
 		T result = 0;
 		if (123 <= std::numeric_limits<T>::max())
 			assert(Poco::strToInt("123", result, 10)); assert(result == 123);
-		
+
 		assert(Poco::strToInt("0", result, 10)); assert(result == 0);
 		assert(Poco::strToInt("000", result, 10)); assert(result == 0);
-		
+
 		if (std::numeric_limits<T>::is_signed && (-123 > std::numeric_limits<T>::min()))
 			{ assert(Poco::strToInt("-123", result, 10)); assert(result == -123); }
 		if (0x123 < std::numeric_limits<T>::max())
@@ -86,7 +86,7 @@ private:
 			{ assert(Poco::strToInt("123", result, 010));  assert(result == 0123); }
 		if (0123 < std::numeric_limits<T>::max())
 			{ assert(Poco::strToInt("0123", result, 010)); assert(result == 0123); }
-		
+
 		assert(Poco::strToInt("0", result, 010)); assert(result == 0);
 		assert(Poco::strToInt("000", result, 010)); assert(result == 0);
 	}

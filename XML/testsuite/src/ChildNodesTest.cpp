@@ -9,8 +9,9 @@
 
 
 #include "ChildNodesTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/DOM/Document.h"
 #include "Poco/DOM/Element.h"
 #include "Poco/DOM/NodeList.h"
@@ -42,11 +43,11 @@ void ChildNodesTest::testChildNodes()
 	assert (!pRoot->hasChildNodes());
 	AutoPtr<NodeList> pNL = pRoot->childNodes();
 	assert (pNL->length() == 0);
-	
+
 	AutoPtr<Element> pChild1 = pDoc->createElement("child1");
 	pRoot->appendChild(pChild1);
 	assert (pRoot->hasChildNodes());
-	
+
 	assert (pNL->length() == 1);
 	assert (pNL->item(0) == pChild1);
 
@@ -56,7 +57,7 @@ void ChildNodesTest::testChildNodes()
 	assert (pNL->length() == 2);
 	assert (pNL->item(0) == pChild1);
 	assert (pNL->item(1) == pChild2);
-	
+
 	AutoPtr<Element> pChild0 = pDoc->createElement("child0");
 	pRoot->insertBefore(pChild0, pChild1);
 

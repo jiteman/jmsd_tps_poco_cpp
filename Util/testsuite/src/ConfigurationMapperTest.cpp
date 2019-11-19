@@ -9,8 +9,9 @@
 
 
 #include "ConfigurationMapperTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/ConfigurationMapper.h"
 #include "Poco/Util/MapConfiguration.h"
 #include "Poco/AutoPtr.h"
@@ -52,10 +53,10 @@ void ConfigurationMapperTest::testMapper1()
 	assert (std::find(keys.begin(), keys.end(), "string2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub2") != keys.end());
-	
+
 	assert (pMapper->getString("prop5.string1") == "foo");
 	assert (pMapper->getString("prop5.sub1.string1") == "FOO");
-	
+
 	pMapper->setString("prop5.string3", "baz");
 	assert (pMapper->getString("prop5.string3") == "baz");
 	assert (pConf->getString("prop5.string3") == "baz");
@@ -92,7 +93,7 @@ void ConfigurationMapperTest::testMapper2()
 
 	assert (pMapper->getString("root.conf.string1") == "foo");
 	assert (pMapper->getString("root.conf.sub1.string1") == "FOO");
-	
+
 	pMapper->setString("root.conf.string3", "baz");
 	assert (pMapper->getString("root.conf.string3") == "baz");
 	assert (pConf->getString("prop5.string3") == "baz");
@@ -126,10 +127,10 @@ void ConfigurationMapperTest::testMapper3()
 	assert (std::find(keys.begin(), keys.end(), "string2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub2") != keys.end());
-	
+
 	assert (pMapper->getString("root.prop5.string1") == "foo");
 	assert (pMapper->getString("root.prop5.sub1.string1") == "FOO");
-	
+
 	pMapper->setString("root.prop5.string3", "baz");
 	assert (pMapper->getString("root.prop5.string3") == "baz");
 	assert (pConf->getString("prop5.string3") == "baz");
@@ -155,10 +156,10 @@ void ConfigurationMapperTest::testMapper4()
 	assert (std::find(keys.begin(), keys.end(), "string2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub2") != keys.end());
-	
+
 	assert (pMapper->getString("string1") == "foo");
 	assert (pMapper->getString("sub1.string1") == "FOO");
-	
+
 	pMapper->setString("string3", "baz");
 	assert (pMapper->getString("string3") == "baz");
 	assert (pConf->getString("prop5.string3") == "baz");

@@ -9,8 +9,9 @@
 
 
 #include "WinRegistryTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/WinRegistryKey.h"
 #include "Poco/Environment.h"
 #include "Poco/Exception.h"
@@ -52,7 +53,7 @@ void WinRegistryTest::testRegistry()
 	assert (regKey.exists("name1"));
 	assert (regKey.exists("name2"));
 	assert (regKey.exists());
-	
+
 	WinRegistryKey regKeyRO("HKEY_CURRENT_USER\\Software\\Applied Informatics\\Test", true);
 	assert (regKeyRO.getString("name1") == "Value1");
 	try
@@ -64,7 +65,7 @@ void WinRegistryTest::testRegistry()
 		std::string msg = exc.displayText();
 	}
 	assert (regKey.getString("name1") == "Value1");
-	
+
 	WinRegistryKey::Values vals;
 	regKey.values(vals);
 	assert (vals.size() == 2);
@@ -75,14 +76,14 @@ void WinRegistryTest::testRegistry()
 	Environment::set("FOO", "bar");
 	regKey.setStringExpand("name3", "%FOO%");
 	assert (regKey.getStringExpand("name3") == "bar");
-	
+
 	regKey.setInt("name4", 42);
 	assert (regKey.getInt("name4") == 42);
-	
+
 	assert (regKey.exists("name4"));
 	regKey.deleteValue("name4");
 	assert (!regKey.exists("name4"));
-	
+
 #if defined(POCO_HAVE_INT64)
 	regKey.setInt64("name5", std::numeric_limits<Int64>::max());
 	assert (regKey.getInt64("name5") == std::numeric_limits<Int64>::max());

@@ -9,8 +9,9 @@
 
 
 #include "NodeAppenderTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/DOM/NodeAppender.h"
 #include "Poco/DOM/Element.h"
 #include "Poco/DOM/Document.h"
@@ -41,9 +42,9 @@ void NodeAppenderTest::testAppendNode()
 	AutoPtr<Document> pDoc = new Document;
 	AutoPtr<Element>  pRoot = pDoc->createElement("root");
 	pDoc->appendChild(pRoot);
-	
+
 	NodeAppender appender(pRoot);
-	
+
 	AutoPtr<Element> pElem1 = pDoc->createElement("elem");
 	AutoPtr<Element> pElem2 = pDoc->createElement("elem");
 	AutoPtr<Element> pElem3 = pDoc->createElement("elem");
@@ -54,15 +55,15 @@ void NodeAppenderTest::testAppendNode()
 
 	assert (pRoot->firstChild() == pElem1);
 	assert (pRoot->lastChild() == pElem3);
-	
+
 	assert (pElem1->nextSibling() == pElem2);
 	assert (pElem2->nextSibling() == pElem3);
 	assert (pElem3->nextSibling() == 0);
-	
+
 	assert (pElem1->previousSibling() == 0);
-	assert (pElem2->previousSibling() == pElem1);	
-	assert (pElem3->previousSibling() == pElem2);	
-	
+	assert (pElem2->previousSibling() == pElem1);
+	assert (pElem3->previousSibling() == pElem2);
+
 	assert (pElem1->parentNode() == pRoot);
 	assert (pElem2->parentNode() == pRoot);
 	assert (pElem3->parentNode() == pRoot);
@@ -74,13 +75,13 @@ void NodeAppenderTest::testAppendNodeList()
 	AutoPtr<Document> pDoc = new Document;
 	AutoPtr<Element>  pRoot = pDoc->createElement("root");
 	pDoc->appendChild(pRoot);
-	
+
 	NodeAppender appender(pRoot);
-	
+
 	AutoPtr<DocumentFragment> pFrag1 = pDoc->createDocumentFragment();
 	AutoPtr<DocumentFragment> pFrag2 = pDoc->createDocumentFragment();
 	AutoPtr<DocumentFragment> pFrag3 = pDoc->createDocumentFragment();
-	
+
 	AutoPtr<Element> pElem1 = pDoc->createElement("elem");
 	AutoPtr<Element> pElem2 = pDoc->createElement("elem");
 	AutoPtr<Element> pElem3 = pDoc->createElement("elem");
@@ -89,12 +90,12 @@ void NodeAppenderTest::testAppendNodeList()
 	pFrag2->appendChild(pElem1);
 	pFrag2->appendChild(pElem2);
 	pFrag2->appendChild(pElem3);
-	
+
 	pFrag3->appendChild(pElem4);
-	
+
 	appender.appendChild(pFrag1);
 	assert (pRoot->firstChild() == 0);
-	
+
 	appender.appendChild(pFrag2);
 	assert (pRoot->firstChild() == pElem1);
 	assert (pRoot->lastChild() == pElem3);
@@ -102,15 +103,15 @@ void NodeAppenderTest::testAppendNodeList()
 	assert (pElem1->nextSibling() == pElem2);
 	assert (pElem2->nextSibling() == pElem3);
 	assert (pElem3->nextSibling() == 0);
-	
+
 	assert (pElem1->previousSibling() == 0);
-	assert (pElem2->previousSibling() == pElem1);	
-	assert (pElem3->previousSibling() == pElem2);	
-	
+	assert (pElem2->previousSibling() == pElem1);
+	assert (pElem3->previousSibling() == pElem2);
+
 	assert (pElem1->parentNode() == pRoot);
 	assert (pElem2->parentNode() == pRoot);
 	assert (pElem3->parentNode() == pRoot);
-	
+
 	appender.appendChild(pFrag3);
 	assert (pRoot->lastChild() == pElem4);
 	assert (pElem4->parentNode() == pRoot);

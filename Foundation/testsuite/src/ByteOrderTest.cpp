@@ -9,8 +9,9 @@
 
 
 #include "ByteOrderTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/ByteOrder.h"
 
 
@@ -122,7 +123,7 @@ void ByteOrderTest::testByteOrderBigEndian()
 		assert (norm == flip);
 	}
 	#endif
-	
+
 	{
 		Int16 norm = 4;
 		Int16 flip = ByteOrder::fromBigEndian(norm);
@@ -203,7 +204,7 @@ void ByteOrderTest::testByteOrderBigEndian()
 		assert (norm == flip);
 	}
 	#endif
-	
+
 	{
 		Int16 norm = 4;
 		Int16 flip = ByteOrder::fromBigEndian(norm);
@@ -290,7 +291,7 @@ void ByteOrderTest::testByteOrderLittleEndian()
 		assert (norm == flip);
 	}
 	#endif
-	
+
 	{
 		Int16 norm = 4;
 		Int16 flip = ByteOrder::toLittleEndian(norm);
@@ -371,7 +372,7 @@ void ByteOrderTest::testByteOrderLittleEndian()
 		assert (norm == flip);
 	}
 	#endif
-	
+
 	{
 		Int16 norm = 4;
 		Int16 flip = ByteOrder::fromLittleEndian(norm);
@@ -458,7 +459,7 @@ void ByteOrderTest::testByteOrderNetwork()
 		assert (norm == flip);
 	}
 	#endif
-	
+
 	{
 		Int16 norm = 4;
 		Int16 flip = ByteOrder::fromNetwork(norm);
@@ -539,7 +540,7 @@ void ByteOrderTest::testByteOrderNetwork()
 		assert (norm == flip);
 	}
 	#endif
-	
+
 	{
 		Int16 norm = 4;
 		Int16 flip = ByteOrder::fromNetwork(norm);

@@ -13,8 +13,9 @@
 
 #include "Poco/UnicodeConverter.h"
 #include "UnicodeConverterTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/UTFString.h"
 
 
@@ -37,7 +38,7 @@ UnicodeConverterTest::~UnicodeConverterTest()
 
 void UnicodeConverterTest::testUTF16()
 {
-	
+
 	runTests<UTF16String>();
 }
 

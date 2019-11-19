@@ -9,8 +9,9 @@
 
 
 #include "ConfigurationViewTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Util/MapConfiguration.h"
 #include "Poco/AutoPtr.h"
 #include "Poco/Exception.h"
@@ -46,13 +47,13 @@ void ConfigurationViewTest::testView()
 	assert (std::find(keys.begin(), keys.end(), "prop2") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop3") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "prop4") != keys.end());
-	
+
 	assert (pView->getString("prop1") == "foo");
 	assert (pView->getString("prop3.string1") == "foo");
-	
+
 	pView->setString("prop6", "foobar");
 	assert (pConf->getString("prop6") == "foobar");
-	
+
 	pView = pConf->createView("prop1");
 	pView->keys(keys);
 	assert (keys.empty());
@@ -66,7 +67,7 @@ void ConfigurationViewTest::testView()
 	assert (keys.size() == 2);
 	assert (std::find(keys.begin(), keys.end(), "string1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "string2") != keys.end());
-	
+
 	assert (pView->getString("string1") == "foo");
 	assert (pView->getString("string2") == "bar");
 
@@ -80,7 +81,7 @@ void ConfigurationViewTest::testView()
 	assert (std::find(keys.begin(), keys.end(), "string1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "sub2") != keys.end());
-	
+
 	assert (pView->getString("sub1.string1") == "FOO");
 	assert (pView->getString("sub2.string2") == "Bar");
 
@@ -89,10 +90,10 @@ void ConfigurationViewTest::testView()
 	assert (keys.size() == 2);
 	assert (std::find(keys.begin(), keys.end(), "string1") != keys.end());
 	assert (std::find(keys.begin(), keys.end(), "string2") != keys.end());
-	
+
 	assert (pView->getString("string1") == "FOO");
 	assert (pView->getString("string2") == "BAR");
-	
+
 	pView->setString("string3", "foobar");
 	assert (pConf->getString("prop5.sub1.string3") == "foobar");
 

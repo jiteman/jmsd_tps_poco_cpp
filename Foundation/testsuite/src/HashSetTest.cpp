@@ -9,8 +9,9 @@
 
 
 #include "HashSetTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/HashSet.h"
 #include <set>
 
@@ -34,9 +35,9 @@ void HashSetTest::testInsert()
 	const int N = 1000;
 
 	HashSet<int, Hash<int> > hs;
-	
+
 	assert (hs.empty());
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		std::pair<HashSet<int, Hash<int> >::Iterator, bool> res = hs.insert(i);
@@ -46,23 +47,23 @@ void HashSetTest::testInsert()
 		assert (it != hs.end());
 		assert (*it == i);
 		assert (hs.size() == i + 1);
-	}		
-	
+	}
+
 	assert (!hs.empty());
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		HashSet<int, Hash<int> >::Iterator it = hs.find(i);
 		assert (it != hs.end());
 		assert (*it == i);
 	}
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		std::pair<HashSet<int, Hash<int> >::Iterator, bool> res = hs.insert(i);
 		assert (*res.first == i);
 		assert (!res.second);
-	}		
+	}
 }
 
 
@@ -77,7 +78,7 @@ void HashSetTest::testErase()
 		hs.insert(i);
 	}
 	assert (hs.size() == N);
-	
+
 	for (int i = 0; i < N; i += 2)
 	{
 		hs.erase(i);
@@ -85,7 +86,7 @@ void HashSetTest::testErase()
 		assert (it == hs.end());
 	}
 	assert (hs.size() == N/2);
-	
+
 	for (int i = 0; i < N; i += 2)
 	{
 		HashSet<int, Hash<int> >::Iterator it = hs.find(i);
@@ -103,7 +104,7 @@ void HashSetTest::testErase()
 	{
 		hs.insert(i);
 	}
-	
+
 	for (int i = 0; i < N; ++i)
 	{
 		HashSet<int, Hash<int> >::Iterator it = hs.find(i);
@@ -123,7 +124,7 @@ void HashSetTest::testIterator()
 	{
 		hs.insert(i);
 	}
-	
+
 	std::set<int> values;
 	HashSet<int, Hash<int> >::Iterator it = hs.begin();
 	while (it != hs.end())
@@ -147,7 +148,7 @@ void HashSetTest::testConstIterator()
 	{
 		hs.insert(i);
 	}
-	
+
 	std::set<int> values;
 	HashSet<int, Hash<int> >::ConstIterator it = hs.begin();
 	while (it != hs.end())
@@ -156,7 +157,7 @@ void HashSetTest::testConstIterator()
 		values.insert(*it);
 		++it;
 	}
-	
+
 	assert (values.size() == N);
 }
 

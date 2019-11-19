@@ -9,8 +9,9 @@
 
 
 #include "UniqueExpireCacheTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Exception.h"
 #include "Poco/UniqueExpireCache.h"
 #include "Poco/UniqueAccessExpireCache.h"
@@ -112,7 +113,7 @@ void UniqueExpireCacheTest::testAccessUpdate()
 	assert (!aCache.has(3));
 	assert (!aCache.has(5));
 	Thread::sleep(DURSLEEP*2);
-	
+
 	assert (!aCache.has(1));
 	assert (!aCache.has(3));
 	assert (!aCache.has(5));
@@ -162,7 +163,7 @@ void UniqueExpireCacheTest::testExpireN()
 	assert (aCache.has(3));
 	tmp = aCache.get(1);
 	SharedPtr<IntVal> tmp2 = aCache.get(3);
-	assert (tmp->value == 2); 
+	assert (tmp->value == 2);
 	assert (tmp2->value == 4);
 
 	Thread::sleep(DURHALFSLEEP+25); //3|1

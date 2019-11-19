@@ -9,8 +9,9 @@
 
 
 #include "ThreadPoolTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/ThreadPool.h"
 #include "Poco/RunnableAdapter.h"
 #include "Poco/Exception.h"
@@ -76,7 +77,7 @@ void ThreadPoolTest::testThreadPool()
 	{
 		pool.start(ra);
 		failmsg("thread pool exhausted - must throw exception");
-	}	
+	}
 	catch (Poco::NoThreadAvailableException&)
 	{
 	}
@@ -84,17 +85,17 @@ void ThreadPoolTest::testThreadPool()
 	{
 		failmsg("wrong exception thrown");
 	}
-	
+
 	_event.set(); // go!!!
 	pool.joinAll();
-	
+
 	assert (_count == 40000);
-	
+
 	assert (pool.allocated() == 4);
 	assert (pool.used() == 0);
 	assert (pool.capacity() == 4);
 	assert (pool.available() == 4);
-	
+
 	Thread::sleep(4000);
 
 	pool.collect();
@@ -102,7 +103,7 @@ void ThreadPoolTest::testThreadPool()
 	assert (pool.used() == 0);
 	assert (pool.capacity() == 4);
 	assert (pool.available() == 4);
-	
+
 	_count = 0;
 	_event.reset();
 	pool.start(ra);
@@ -120,7 +121,7 @@ void ThreadPoolTest::testThreadPool()
 	pool.joinAll();
 
 	assert (_count == 20000);
-	
+
 	assert (pool.allocated() == 2);
 	assert (pool.used() == 0);
 	assert (pool.capacity() == 4);

@@ -9,8 +9,9 @@
 
 
 #include "TextEncodingTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/TextEncoding.h"
 #include "Poco/Latin1Encoding.h"
 #include "Poco/Latin2Encoding.h"
@@ -38,10 +39,10 @@ void TextEncodingTest::testTextEncoding()
 {
 	TextEncoding& utf8 = TextEncoding::byName("utf8");
 	assert (std::string("UTF-8") == utf8.canonicalName());
-	
+
 	TextEncoding& latin1 = TextEncoding::byName("latin1");
 	assert (std::string("ISO-8859-1") == latin1.canonicalName());
-	
+
 	TextEncoding& latin2 = TextEncoding::byName("latin2");
 	assert (std::string("ISO-8859-2") == latin2.canonicalName());
 
@@ -60,7 +61,7 @@ void TextEncodingTest::testTextEncoding()
 
 	TextEncoding& glob = TextEncoding::global();
 	assert (std::string("UTF-8") == glob.canonicalName());
-	
+
 	TextEncoding::global(new Latin1Encoding);
 	TextEncoding& glob2 = TextEncoding::global();
 	assert (std::string("ISO-8859-1") == glob2.canonicalName());

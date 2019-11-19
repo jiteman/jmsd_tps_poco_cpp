@@ -9,8 +9,9 @@
 
 
 #include "MD4EngineTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/MD4Engine.h"
 
 
@@ -48,7 +49,7 @@ void MD4EngineTest::testMD4()
 
 	engine.update("abcdefghijklmnopqrstuvwxyz");
 	assert (DigestEngine::digestToHex(engine.digest()) == "d79e1c308aa5bbcdeea8ed63df412da9");
-	
+
 	engine.update("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	engine.update("abcdefghijklmnopqrstuvwxyz0123456789");
 	assert (DigestEngine::digestToHex(engine.digest()) == "043f8582f241db351ce627e153e7f0e4");

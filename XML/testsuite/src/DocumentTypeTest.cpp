@@ -9,8 +9,9 @@
 
 
 #include "DocumentTypeTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/DOM/DocumentType.h"
 #include "Poco/DOM/Document.h"
 #include "Poco/DOM/Notation.h"
@@ -42,25 +43,25 @@ DocumentTypeTest::~DocumentTypeTest()
 void DocumentTypeTest::testDocumentType()
 {
 	AutoPtr<DocumentType> pDoctype = DOMImplementation::instance().createDocumentType("test", "public", "system");
-	
+
 	assert (pDoctype->ownerDocument() == 0);
 	assert (pDoctype->name() == "test");
 	assert (pDoctype->publicId() == "public");
 	assert (pDoctype->systemId() == "system");
-	
+
 	AutoPtr<Document> pDoc = new Document(pDoctype);
 	assert (pDoc->doctype() == pDoctype);
 	assert (pDoctype->ownerDocument() == pDoc);
 
 	AutoPtr<NamedNodeMap> pEntities = pDoctype->entities();
 	AutoPtr<NamedNodeMap> pNotations = pDoctype->notations();
-	
+
 	assert (pEntities->length() == 0);
 	assert (pNotations->length() == 0);
-	
+
 	AutoPtr<Entity> pEntity1 = pDoc->createEntity("entity1", "public1", "system1", "");
 	pDoctype->appendChild(pEntity1);
-	
+
 	assert (pEntities->length() == 1);
 	assert (pNotations->length() == 0);
 	assert (pEntities->item(0) == pEntity1);
@@ -74,7 +75,7 @@ void DocumentTypeTest::testDocumentType()
 	assert (pEntities->item(1) == pEntity2);
 	assert (pEntities->getNamedItem("entity1") == pEntity1);
 	assert (pEntities->getNamedItem("entity2") == pEntity2);
-	
+
 	AutoPtr<Notation> pNotation = pDoc->createNotation("notation", "public", "system");
 	pDoctype->appendChild(pNotation);
 	assert (pEntities->length() == 2);

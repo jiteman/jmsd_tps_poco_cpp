@@ -9,8 +9,9 @@
 
 
 #include "SemaphoreTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Thread.h"
 #include "Poco/Runnable.h"
 #include "Poco/Semaphore.h"
@@ -29,28 +30,28 @@ public:
 	SemaRunnable(int n, int max): _ran(false), _sema(n, max)
 	{
 	}
-	
+
 	void run()
 	{
 		_sema.wait();
 		_ran = true;
 	}
-	
+
 	bool ran() const
 	{
 		return _ran;
 	}
-	
+
 	void set()
 	{
 		_sema.set();
 	}
-	
+
 	void wait()
 	{
 		_sema.wait();
 	}
-	
+
 	void wait(long milliseconds)
 	{
 		_sema.wait(milliseconds);
@@ -60,7 +61,7 @@ public:
 	{
 		return _sema.tryWait(milliseconds);
 	}
-	
+
 private:
 	bool _ran;
 	Semaphore _sema;
@@ -100,7 +101,7 @@ void SemaphoreTest::testInitZero()
 	assert (r.tryWait(0));
 	r.wait();
 	assert (!r.tryWait(10));
-	
+
 	Thread t;
 	t.start(r);
 	Thread::sleep(100);

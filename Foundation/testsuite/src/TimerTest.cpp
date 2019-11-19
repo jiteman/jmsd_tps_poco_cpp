@@ -9,8 +9,9 @@
 
 
 #include "TimerTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Thread.h"
 #include "Poco/Stopwatch.h"
 
@@ -52,7 +53,7 @@ void TimerTest::testTimer()
 	_event.wait();
 	sw.stop();
 	assert (sw.elapsed() >= 180000 && sw.elapsed() < 250000);
-	t.stop();	
+	t.stop();
 }
 
 

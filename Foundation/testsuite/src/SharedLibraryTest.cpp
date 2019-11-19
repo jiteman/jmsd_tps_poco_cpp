@@ -9,8 +9,9 @@
 
 
 #include "SharedLibraryTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/SharedLibrary.h"
 #include "Poco/Exception.h"
 
@@ -48,7 +49,7 @@ void SharedLibraryTest::testSharedLibrary1()
 	assert (sl.hasSymbol("pocoUninitializeLibrary"));
 	assert (sl.hasSymbol("gimmeFive"));
 	assert (!sl.hasSymbol("fooBar123"));
-	
+
 	void* p1 = sl.getSymbol("pocoBuildManifest");
 	assertNotNullPtr(p1);
 	try
@@ -78,7 +79,7 @@ void SharedLibraryTest::testSharedLibrary2()
 
 	GimmeFiveFunc gimmeFive = (GimmeFiveFunc) sl.getSymbol("gimmeFive");
 	assert (gimmeFive() == 5);
-	
+
 	sl.unload();
 	assert (!sl.isLoaded());
 }
@@ -107,7 +108,7 @@ void SharedLibraryTest::testSharedLibrary3()
 	path.append(SharedLibrary::suffix());
 	sl.load(path);
 	assert (sl.isLoaded());
-	
+
 	try
 	{
 		sl.load(path);

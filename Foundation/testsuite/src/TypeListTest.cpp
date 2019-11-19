@@ -9,8 +9,9 @@
 
 
 #include "TypeListTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Tuple.h"
 #include "Poco/TypeList.h"
 #include "Poco/Void.h"
@@ -226,7 +227,7 @@ void TypeListTest::testTypeList()
 	assert (typeid(TypeGetter<17, TypeVoid>::HeadType) == typeid(Void));
 	assert (typeid(TypeGetter<18, TypeVoid>::HeadType) == typeid(Void));
 	assert (typeid(TypeGetter<19, TypeVoid>::HeadType) == typeid(Void));
-	
+
 
 	typedef TypeOneReplacer<TypeVoid, Void, Int8>::HeadType TypeFirstReplacer;
 	assert (typeid(TypeGetter<0, TypeFirstReplacer>::HeadType) == typeid(Int8));

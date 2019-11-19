@@ -9,8 +9,9 @@
 
 
 #include "ArrayTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Array.h"
 #include <vector>
 #include <algorithm>
@@ -90,7 +91,7 @@ void ArrayTest::testOperations()
 	}
 
 	// swap
-	Array b; 
+	Array b;
 	b.assign(10);
 	for(int i=0; i<SIZE; i++){
 		assert(a[i] == 100);
@@ -226,6 +227,6 @@ CppUnit::Test* ArrayTest::suite()
 	CppUnit_addTest(pSuite, ArrayTest, testIterator);
 	CppUnit_addTest(pSuite, ArrayTest, testAlgorithm);
 	CppUnit_addTest(pSuite, ArrayTest, testMultiLevelArray);
-	
+
 	return pSuite;
 }

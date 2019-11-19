@@ -9,8 +9,9 @@
 
 
 #include "NotificationCenterTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/NotificationCenter.h"
 #include "Poco/Observer.h"
 #include "Poco/NObserver.h"
@@ -162,7 +163,7 @@ void NotificationCenterTest::testDefaultCenter()
 void NotificationCenterTest::handle1(Poco::Notification* pNf)
 {
 	poco_check_ptr (pNf);
-	AutoPtr<Notification> nf = pNf;	
+	AutoPtr<Notification> nf = pNf;
 	_set.insert("handle1");
 }
 
@@ -170,7 +171,7 @@ void NotificationCenterTest::handle1(Poco::Notification* pNf)
 void NotificationCenterTest::handle2(Poco::Notification* pNf)
 {
 	poco_check_ptr (pNf);
-	AutoPtr<Notification> nf = pNf;	
+	AutoPtr<Notification> nf = pNf;
 	_set.insert("handle2");
 }
 
@@ -178,7 +179,7 @@ void NotificationCenterTest::handle2(Poco::Notification* pNf)
 void NotificationCenterTest::handle3(Poco::Notification* pNf)
 {
 	poco_check_ptr (pNf);
-	AutoPtr<Notification> nf = pNf;	
+	AutoPtr<Notification> nf = pNf;
 	_set.insert("handle3");
 }
 
@@ -186,7 +187,7 @@ void NotificationCenterTest::handle3(Poco::Notification* pNf)
 void NotificationCenterTest::handleTest(TestNotification* pNf)
 {
 	poco_check_ptr (pNf);
-	AutoPtr<TestNotification> nf = pNf;	
+	AutoPtr<TestNotification> nf = pNf;
 	_set.insert("handleTest");
 }
 

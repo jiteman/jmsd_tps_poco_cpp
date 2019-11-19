@@ -9,8 +9,9 @@
 
 
 #include "StreamConverterTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/StreamConverter.h"
 #include "Poco/ASCIIEncoding.h"
 #include "Poco/Latin1Encoding.h"
@@ -40,14 +41,14 @@ StreamConverterTest::~StreamConverterTest()
 void StreamConverterTest::testIdentityASCIIIn()
 {
 	ASCIIEncoding encoding;
-	
+
 	std::istringstream istr1("");
 	std::ostringstream ostr1;
 	InputStreamConverter converter1(istr1, encoding, encoding);
 	StreamCopier::copyStream(converter1, ostr1);
 	assert (ostr1.str() == "");
 	assert (converter1.errors() == 0);
-	
+
 	std::istringstream istr2("foo bar");
 	std::ostringstream ostr2;
 	InputStreamConverter converter2(istr2, encoding, encoding);
@@ -67,13 +68,13 @@ void StreamConverterTest::testIdentityASCIIIn()
 void StreamConverterTest::testIdentityASCIIOut()
 {
 	ASCIIEncoding encoding;
-	
+
 	std::ostringstream ostr1;
 	OutputStreamConverter converter1(ostr1, encoding, encoding);
 	converter1 << "";
 	assert (ostr1.str() == "");
 	assert (converter1.errors() == 0);
-	
+
 	std::ostringstream ostr2;
 	OutputStreamConverter converter2(ostr2, encoding, encoding);
 	converter2 << "foo bar";
@@ -91,14 +92,14 @@ void StreamConverterTest::testIdentityASCIIOut()
 void StreamConverterTest::testIdentityUTF8In()
 {
 	UTF8Encoding encoding;
-	
+
 	std::istringstream istr1("");
 	std::ostringstream ostr1;
 	InputStreamConverter converter1(istr1, encoding, encoding);
 	StreamCopier::copyStream(converter1, ostr1);
 	assert (ostr1.str() == "");
 	assert (converter1.errors() == 0);
-	
+
 	std::istringstream istr2("foo bar");
 	std::ostringstream ostr2;
 	InputStreamConverter converter2(istr2, encoding, encoding);
@@ -112,7 +113,7 @@ void StreamConverterTest::testIdentityUTF8In()
 	StreamCopier::copyStream(converter3, ostr3);
 	assert (ostr3.str() == "x");
 	assert (converter3.errors() == 0);
-	
+
 	const unsigned char greek[] = {0x20, 0xce, 0xba, 0xe1, 0xbd, 0xb9, 0xcf, 0x83, 0xce, 0xbc, 0xce, 0xb5, 0x20, 0x00};
 	std::string text((const char*) greek);
 
@@ -140,13 +141,13 @@ void StreamConverterTest::testIdentityUTF8In()
 void StreamConverterTest::testIdentityUTF8Out()
 {
 	UTF8Encoding encoding;
-	
+
 	std::ostringstream ostr1;
 	OutputStreamConverter converter1(ostr1, encoding, encoding);
 	converter1 << "";
 	assert (ostr1.str() == "");
 	assert (converter1.errors() == 0);
-	
+
 	std::ostringstream ostr2;
 	OutputStreamConverter converter2(ostr2, encoding, encoding);
 	converter2 << "foo bar";
@@ -158,7 +159,7 @@ void StreamConverterTest::testIdentityUTF8Out()
 	converter3 << "x";
 	assert (ostr3.str() == "x");
 	assert (converter3.errors() == 0);
-	
+
 	const unsigned char greek[] = {0x20, 0xce, 0xba, 0xe1, 0xbd, 0xb9, 0xcf, 0x83, 0xce, 0xbc, 0xce, 0xb5, 0x20, 0x00};
 	std::string text((const char*) greek);
 
@@ -220,7 +221,7 @@ void StreamConverterTest::testLatin1toUTF8In()
 {
 	UTF8Encoding utf8Encoding;
 	Latin1Encoding latin1Encoding;
-	
+
 	const unsigned char latin1Chars[] = {'g', 252, 'n', 't', 'e', 'r', 0};
 	const unsigned char utf8Chars[]   = {'g', 195, 188, 'n', 't', 'e', 'r', 0};
 	std::string latin1Text((const char*) latin1Chars);
@@ -239,7 +240,7 @@ void StreamConverterTest::testLatin1toUTF8Out()
 {
 	UTF8Encoding utf8Encoding;
 	Latin1Encoding latin1Encoding;
-	
+
 	const unsigned char latin1Chars[] = {'g', 252, 'n', 't', 'e', 'r', 0};
 	const unsigned char utf8Chars[]   = {'g', 195, 188, 'n', 't', 'e', 'r', 0};
 	std::string latin1Text((const char*) latin1Chars);
@@ -260,7 +261,7 @@ void StreamConverterTest::testErrorsIn()
 
 	const unsigned char badChars[] = {'a', 'b', 255, 'c', 254, 0};
 	std::string badText((const char*) badChars);
-	
+
 	std::istringstream istr1(badText);
 	std::ostringstream ostr1;
 	InputStreamConverter converter1(istr1, utf8Encoding, latin1Encoding);
@@ -276,7 +277,7 @@ void StreamConverterTest::testErrorsOut()
 
 	const unsigned char badChars[] = {'a', 'b', 255, 'c', 254, 0};
 	std::string badText((const char*) badChars);
-	
+
 	std::ostringstream ostr1;
 	OutputStreamConverter converter1(ostr1, utf8Encoding, latin1Encoding);
 	converter1 << badText;

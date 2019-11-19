@@ -9,8 +9,9 @@
 
 
 #include "ManifestTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Manifest.h"
 #include "Poco/MetaObject.h"
 #include <set>
@@ -61,9 +62,9 @@ void ManifestTest::testManifest()
 	assert (manifest.find("MfTestObject2") != manifest.end());
 	assert (manifest.find("MfTestObject3") != manifest.end());
 	assert (manifest.find("MfTestObject4") == manifest.end());
-	
+
 	std::set<std::string> classes;
-	
+
 	Manifest<MfTestBase>::Iterator it = manifest.begin();
 	assert (it != manifest.end());
 	classes.insert(it->name());
@@ -75,11 +76,11 @@ void ManifestTest::testManifest()
 	classes.insert(it->name());
 	it++;
 	assert (it == manifest.end());
-	
+
 	assert (classes.find("MfTestObject1") != classes.end());
 	assert (classes.find("MfTestObject2") != classes.end());
 	assert (classes.find("MfTestObject3") != classes.end());
-	
+
 	manifest.clear();
 	assert (manifest.empty());
 	assert (manifest.size() == 0);
