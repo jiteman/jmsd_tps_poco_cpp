@@ -45,7 +45,7 @@ void TextConverterTest::testIdentityASCII()
 	int errors = converter.convert(empty, result0);
 	assertTrue (result0 == empty);
 	assertTrue (errors == 0);
-	
+
 	std::string fooBar = "foo bar";
 	std::string result1;
 	errors = converter.convert(fooBar, result1);
@@ -61,7 +61,7 @@ void TextConverterTest::testIdentityASCII()
 	errors = converter.convert("", 0, result3);
 	assertTrue (result3.empty());
 	assertTrue (errors == 0);
-	
+
 	std::string x = "x";
 	std::string result4;
 	errors = converter.convert(x, result4);
@@ -85,7 +85,7 @@ void TextConverterTest::testIdentityUTF8()
 	int errors = converter.convert(empty, result0);
 	assertTrue (result0 == empty);
 	assertTrue (errors == 0);
-	
+
 	std::string fooBar = "foo bar";
 	std::string result1;
 	errors = converter.convert(fooBar, result1);
@@ -101,7 +101,7 @@ void TextConverterTest::testIdentityUTF8()
 	errors = converter.convert("", 0, result3);
 	assertTrue (result3.empty());
 	assertTrue (errors == 0);
-	
+
 	const unsigned char greek[] = {0x20, 0xce, 0xba, 0xe1, 0xbd, 0xb9, 0xcf, 0x83, 0xce, 0xbc, 0xce, 0xb5, 0x20, 0x00};
 	std::string text((const char*) greek);
 
@@ -109,12 +109,12 @@ void TextConverterTest::testIdentityUTF8()
 	errors = converter.convert(text, result4);
 	assertTrue (result4 == text);
 	assertTrue (errors == 0);
-	
+
 	std::string result5;
 	errors = converter.convert((char*) greek, 13, result5);
 	assertTrue (result5 == text);
 	assertTrue (errors == 0);
-	
+
 	std::string x = "x";
 	std::string result6;
 	errors = converter.convert(x, result6);
@@ -125,13 +125,13 @@ void TextConverterTest::testIdentityUTF8()
 	errors = converter.convert("x", 1, result7);
 	assertTrue (result7 == x);
 	assertTrue (errors == 0);
-	
+
 	std::string utfChar((char*) greek + 1, 2);
 	std::string result8;
 	errors = converter.convert(utfChar, result8);
 	assertTrue (result8 == utfChar);
 	assertTrue (errors == 0);
-	
+
 	std::string result9;
 	errors = converter.convert((char*) greek + 1, 2, result9);
 	assertTrue (result9 == utfChar);
@@ -151,7 +151,7 @@ void TextConverterTest::testUTF8toASCII()
 	int errors = converter.convert(text, result0);
 	assertTrue (result0 == " ????? AB");
 	assertTrue (errors == 0);
-	
+
 	std::string result1;
 	errors = converter.convert("abcde", 5, result1);
 	assertTrue (result1 == "abcde");
@@ -173,8 +173,8 @@ void TextConverterTest::testLatin1toUTF8()
 	int errors = converter.convert(latin1Text, result0);
 	assertTrue (result0 == utf8Text);
 	assertTrue (errors == 0);
-	assertEqual((long) result0.size(), 7);
-	
+	assertEqual(result0.size(), size_t( 7 ) );
+
 	std::string result1;
 	errors = converter.convert(latin1Chars, 6, result1);
 	assertTrue (result1 == utf8Text);

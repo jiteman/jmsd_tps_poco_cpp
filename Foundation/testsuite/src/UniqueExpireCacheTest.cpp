@@ -112,17 +112,10 @@ void UniqueExpireCacheTest::testAccessUpdate()
 	assertTrue (!aCache.has(3));
 	assertTrue (!aCache.has(5));
 	Thread::sleep(DURSLEEP*2);
-<<<<<<< HEAD
 
-	assert (!aCache.has(1));
-	assert (!aCache.has(3));
-	assert (!aCache.has(5));
-=======
-	
 	assertTrue (!aCache.has(1));
 	assertTrue (!aCache.has(3));
 	assertTrue (!aCache.has(5));
->>>>>>> 1f7c9d6... Tue Jan 28 08:15:10 2020 +0100, 4b632168f820c712c5d3b67da561d3aa2f27e88b
 	aCache.remove(666); //must work too
 }
 
@@ -169,13 +162,8 @@ void UniqueExpireCacheTest::testExpireN()
 	assertTrue (aCache.has(3));
 	tmp = aCache.get(1);
 	SharedPtr<IntVal> tmp2 = aCache.get(3);
-<<<<<<< HEAD
-	assert (tmp->value == 2);
-	assert (tmp2->value == 4);
-=======
-	assertTrue (tmp->value == 2); 
+	assertTrue (tmp->value == 2);
 	assertTrue (tmp2->value == 4);
->>>>>>> 1f7c9d6... Tue Jan 28 08:15:10 2020 +0100, 4b632168f820c712c5d3b67da561d3aa2f27e88b
 
 	Thread::sleep(DURHALFSLEEP+25); //3|1
 	assertTrue (!aCache.has(1));

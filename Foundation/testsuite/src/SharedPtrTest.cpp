@@ -104,52 +104,52 @@ void SharedPtrTest::testSharedPtr()
 	assertTrue (ptr2 == pTO2);
 	assertTrue (ptr3.get() == pTO1);
 	assertTrue (ptr3 == pTO1);
-	
+
 	assertTrue (ptr1 == pTO1);
 	assertTrue (ptr1 != pTO2);
 	assertTrue (ptr1 < pTO2);
 	assertTrue (ptr1 <= pTO2);
 	assertTrue (ptr2 > pTO1);
 	assertTrue (ptr2 >= pTO1);
-	
+
 	assertTrue (ptr1 == ptr3);
 	assertTrue (ptr1 != ptr2);
 	assertTrue (ptr1 < ptr2);
 	assertTrue (ptr1 <= ptr2);
 	assertTrue (ptr2 > ptr1);
 	assertTrue (ptr2 >= ptr1);
-	
+
 	ptr1.swap(ptr2);
 	assertTrue (ptr2 < ptr1);
 	ptr2.swap(ptr1);
 
 	assertTrue ((ptr1->data() == "one" && ptr2->data() == "two") || (ptr1->data() == "two" && ptr2->data() == "one"));
-	
+
 	try
 	{
 		assertTrue (ptr4->data() == "four");
-		fail ("must throw NullPointerException");
+		failmsg ("must throw NullPointerException");
 	}
 	catch (NullPointerException&)
 	{
 	}
-	
+
 	assertTrue (!(ptr4 == ptr1));
 	assertTrue (!(ptr4 == ptr2));
 	assertTrue (ptr4 != ptr1);
 	assertTrue (ptr4 != ptr2);
-	
+
 	ptr4 = ptr2;
 	assertTrue (ptr4 == ptr2);
 	assertTrue (!(ptr4 != ptr2));
-	
+
 	assertTrue (TestObject::count() == 2);
 	ptr1 = 0;
 	ptr2 = 0;
 	ptr3 = 0;
 	ptr4 = 0;
 	assertTrue (TestObject::count() == 0);
-	
+
 	{
 		SharedPtr<TestObject> ptr = new TestObject("");
 		assertTrue (TestObject::count() == 1);

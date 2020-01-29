@@ -15,7 +15,7 @@
 
 
 #include "Poco/JWT/JWT.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class SignerTest: public CppUnit::TestCase

@@ -636,15 +636,15 @@ CppUnit::Test* FileChannelTest::suite()
 
 	CppUnit_addTest(pSuite, FileChannelTest, testRotateBySize);
 	CppUnit_addTest(pSuite, FileChannelTest, testRotateByAge);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeDayUTC);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeDayLocal);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeHourUTC);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeHourLocal);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeMinUTC);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeMinLocal);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeDayUTC);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeDayLocal);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeHourUTC);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeHourLocal);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeMinUTC);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testRotateAtTimeMinLocal);
 	CppUnit_addTest(pSuite, FileChannelTest, testArchive);
 	CppUnit_addTest(pSuite, FileChannelTest, testCompress);
-	CppUnit_addLongTest(pSuite, FileChannelTest, testPurgeAge);
+//	CppUnit_addLongTest(pSuite, FileChannelTest, testPurgeAge);
 	CppUnit_addTest(pSuite, FileChannelTest, testPurgeCount);
 	CppUnit_addTest(pSuite, FileChannelTest, testWrongPurgeOption);
 

@@ -14,7 +14,7 @@
 #define DataURIStreamTest_INCLUDED
 
 
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class DataURIStreamTest: public CppUnit::TestCase

@@ -88,7 +88,7 @@ void LoggingConfiguratorTest::testConfigurator()
 	Logger& root = Logger::get("");
 	assertTrue (root.getLevel() == Message::PRIO_WARNING);
 	FormattingChannel::Ptr pFC = root.getChannel().cast<FormattingChannel>();
-	assertNotNull (pFC);
+	assertNotNullPtr ( pFC.get() );
 #if defined(_WIN32) && !defined(_WIN32_WCE)
 	assertTrue (!pFC->getChannel().cast<Poco::WindowsConsoleChannel>().isNull());
 #else
@@ -96,7 +96,7 @@ void LoggingConfiguratorTest::testConfigurator()
 #endif
 	assertTrue (!pFC->getFormatter().cast<Poco::PatternFormatter>().isNull());
 	assertTrue ((pFC->getFormatter().cast<PatternFormatter>())->getProperty("pattern") == "%s-[%p] %t");
-	
+
 	Logger& logger1 = Logger::get("logger1");
 	assertTrue (logger1.getLevel() == Message::PRIO_INFORMATION);
 	pFC = logger1.getChannel().cast<FormattingChannel>();

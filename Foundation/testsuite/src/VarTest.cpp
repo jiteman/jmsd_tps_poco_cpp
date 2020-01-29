@@ -2884,7 +2884,7 @@ void VarTest::testGetIdxMustThrow(Var& a1, std::vector<Var>::size_type n)
 	{
 		const Var& c1 = a1;
 		const Var& cval1 = c1[n];
-		fail("bad const cast - must throw");
+		failmsg("bad const cast - must throw");
 		assertTrue (cval1 == c1); // silence the compiler
 	}
 	catch (Poco::InvalidAccessException&)

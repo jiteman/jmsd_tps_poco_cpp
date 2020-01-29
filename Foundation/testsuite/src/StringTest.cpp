@@ -1135,7 +1135,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(s, t);
-		fail("cast must fail");
+		failmsg("cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1144,7 +1144,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(s, t);
-		fail("short => char cast must fail");
+		failmsg("short => char cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1159,7 +1159,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(ss, st);
-		fail("short => signed char  cast must fail");
+		failmsg("short => signed char  cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1169,7 +1169,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(ss, st);
-		fail("short => signed char cast must fail");
+		failmsg("short => signed char cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1186,7 +1186,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(ss, st);
-		fail("cast must fail");
+		failmsg("cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1195,7 +1195,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(ss, uc);
-		fail("unsigned short => unsigned char cast must fail");
+		failmsg("unsigned short => unsigned char cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1208,7 +1208,7 @@ void StringTest::testNumericStringLimit()
 	try
 	{
 		safeIntCast(i, ti);
-		fail("unsigned int => int cast must fail");
+		failmsg("unsigned int => int cast must fail");
 	}
 	catch(Poco::BadCastException&){}
 
@@ -1227,7 +1227,7 @@ void StringTest::testNumericStringLimit()
 		try
 		{
 			safeIntCast(ul, tl);
-			fail("unsigned long => long cast must fail");
+			failmsg("unsigned long => long cast must fail");
 		}
 		catch(Poco::BadCastException&){}
 		assertTrue(!isIntOverflow<unsigned long>(ul));
@@ -1238,7 +1238,7 @@ void StringTest::testNumericStringLimit()
 		try
 		{
 			safeIntCast(l, ul);
-			fail("unsigned long => long cast must fail");
+			failmsg("unsigned long => long cast must fail");
 		}
 		catch(Poco::BadCastException&){}
 		ul = LONG_MAX;

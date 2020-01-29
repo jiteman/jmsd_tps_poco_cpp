@@ -69,8 +69,8 @@ void DynamicFactoryTest::testDynamicFactory()
 	std::unique_ptr<A> a(dynamic_cast<A*>(dynFactory.createInstance("A")));
 	std::unique_ptr<B> b(dynamic_cast<B*>(dynFactory.createInstance("B")));
 
-	assertNotNull(a.get());
-	assertNotNull(b.get());
+	assertNotNullPtr(a.get());
+	assertNotNullPtr(b.get());
 
 	try
 	{
@@ -88,7 +88,7 @@ void DynamicFactoryTest::testDynamicFactory()
 	try
 	{
 		std::unique_ptr<B> b(dynamic_cast<B*>(dynFactory.createInstance("B")));
-		fail("unregistered - must throw");
+		failmsg("unregistered - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{

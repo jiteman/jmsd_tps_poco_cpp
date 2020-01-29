@@ -101,7 +101,7 @@ void EventLogChannel::log(const Message& msg)
 	std::wstring utext;
 	UnicodeConverter::toUTF16(msg.getText(), utext);
 	const wchar_t* pMsg = utext.c_str();
-	ReportEventW(_h, getType(msg), getCategory(msg), POCO_MSG_LOG, NULL, 1, 0, &pMsg, NULL); 
+	ReportEventW(_h, getType(msg), getCategory(msg), POCO_MSG_LOG, NULL, 1, 0, &pMsg, NULL);
 }
 
 
@@ -212,7 +212,7 @@ void EventLogChannel::setUpRegistry() const
 
 		if (path.empty())
 			path = findLibrary(L"PocoMsg.dll");
-		
+
 		if (!path.empty())
 		{
 			DWORD count = 8;
@@ -227,7 +227,7 @@ void EventLogChannel::setUpRegistry() const
 }
 
 
-std::wstring EventLogChannel::findLibrary(const wchar_t* name)
+std::wstring EventLogChannel::findLibrary(const wchar_t* name_p)
 {
 	std::wstring path;
 	HMODULE dll = LoadLibraryW(name_p);

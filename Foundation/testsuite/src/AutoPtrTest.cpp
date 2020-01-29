@@ -37,7 +37,7 @@ namespace
 		TestObj(int value1, const std::string& value2): _rc(1)
 		{
 		}
-				
+
 		void duplicate()
 		{
 			++_rc;
@@ -137,31 +137,31 @@ void AutoPtrTest::testOps()
 	assertTrue (ptr2 == pTO2);
 	assertTrue (ptr3.get() == pTO1);
 	assertTrue (ptr3 == pTO1);
-	
+
 	assertTrue (ptr1 == pTO1);
 	assertTrue (ptr1 != pTO2);
 	assertTrue (ptr1 < pTO2);
 	assertTrue (ptr1 <= pTO2);
 	assertTrue (ptr2 > pTO1);
 	assertTrue (ptr2 >= pTO1);
-	
+
 	assertTrue (ptr1 == ptr3);
 	assertTrue (ptr1 != ptr2);
 	assertTrue (ptr1 < ptr2);
 	assertTrue (ptr1 <= ptr2);
 	assertTrue (ptr2 > ptr1);
 	assertTrue (ptr2 >= ptr1);
-	
+
 	ptr1 = pTO1;
 	ptr2 = pTO2;
 	ptr1.swap(ptr2);
 	assertTrue (ptr2.get() == pTO1);
 	assertTrue (ptr1.get() == pTO2);
-		
+
 	try
 	{
 		assertTrue (ptr4->rc() > 0);
-		fail ("must throw NullPointerException");
+		failmsg ("must throw NullPointerException");
 	}
 	catch (NullPointerException&)
 	{
@@ -171,11 +171,11 @@ void AutoPtrTest::testOps()
 	assertTrue (!(ptr4 == ptr2));
 	assertTrue (ptr4 != ptr1);
 	assertTrue (ptr4 != ptr2);
-	
+
 	ptr4 = ptr2;
 	assertTrue (ptr4 == ptr2);
 	assertTrue (!(ptr4 != ptr2));
-	
+
 	assertTrue (!(!ptr1));
 	ptr1 = 0;
 	assertTrue (!ptr1);

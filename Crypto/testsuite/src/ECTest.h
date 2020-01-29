@@ -16,7 +16,7 @@
 
 
 #include "Poco/Crypto/Crypto.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class ECTest: public CppUnit::TestCase

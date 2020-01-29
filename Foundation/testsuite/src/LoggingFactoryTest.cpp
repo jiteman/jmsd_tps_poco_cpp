@@ -100,7 +100,7 @@ void LoggingFactoryTest::testBuiltins()
 	try
 	{
 		Channel::Ptr pUnknownChannel = fact.createChannel("UnknownChannel");
-		fail("unknown class - must throw");
+		failmsg("unknown class - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{
@@ -112,7 +112,7 @@ void LoggingFactoryTest::testBuiltins()
 	try
 	{
 		Formatter::Ptr pUnknownFormatter = fact.createFormatter("UnknownFormatter");
-		fail("unknown class - must throw");
+		failmsg("unknown class - must throw");
 	}
 	catch (Poco::NotFoundException&)
 	{

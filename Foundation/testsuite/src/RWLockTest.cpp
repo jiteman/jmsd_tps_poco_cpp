@@ -209,8 +209,8 @@ CppUnit::Test* RWLockTest::suite()
 {
 	CppUnit::TestSuite* pSuite = new CppUnit::TestSuite("RWLockTest");
 
-	CppUnit_addLongTest(pSuite, RWLockTest, testLock);
-	CppUnit_addLongTest(pSuite, RWLockTest, testTryLock);
+//	CppUnit_addLongTest(pSuite, RWLockTest, testLock);
+//	CppUnit_addLongTest(pSuite, RWLockTest, testTryLock);
 
 	return pSuite;
 }

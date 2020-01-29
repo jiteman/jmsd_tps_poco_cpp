@@ -15,7 +15,7 @@
 
 
 #include "Poco/Net/Net.h"
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 #include "Poco/Net/ICMPClient.h"
 #include "Poco/Net/ICMPEventArgs.h"
 #include "Poco/Mutex.h"

@@ -9,8 +9,8 @@
 
 
 #include "OrderedContainersTest.h"
-#include "CppUnit/TestCaller.h"
-#include "CppUnit/TestSuite.h"
+#include "Poco/CppUnit/TestCaller.h"
+#include "Poco/CppUnit/TestSuite.h"
 #include "Poco/Exception.h"
 
 #ifdef POCO_COMPILER_MSVC
@@ -148,18 +148,18 @@ void OrderedContainersTest::testRangeInsert()
 	OrderedMap<int, int> map = {{-1, 0}, {-2, 0}};
 	map.insert(values.begin() + 10, values.end() - 5);
 
-	assertEquals(map.size(), 987);
+	assertEqual(map.size(), 987);
 
-	assertEquals(map.values_container()[0].first, -1);
-	assertEquals(map.values_container()[0].second, 0);
+	assertEqual(map.values_container()[0].first, -1);
+	assertEqual(map.values_container()[0].second, 0);
 
-	assertEquals(map.values_container()[1].first, -2);
-	assertEquals(map.values_container()[1].second, 0);
+	assertEqual(map.values_container()[1].first, -2);
+	assertEqual(map.values_container()[1].second, 0);
 
 	for(int i = 10, j = 2; i < nb_values - 5; i++, j++)
 	{
-		assertEquals(map.values_container()[j].first, i);
-		assertEquals(map.values_container()[j].second, i+1);
+		assertEqual(map.values_container()[j].first, i);
+		assertEqual(map.values_container()[j].second, i+1);
 	}
 
 }
@@ -178,15 +178,15 @@ void OrderedContainersTest::testInsertWithHint()
 	// end() hint
 	assertTrue(map.insert(map.find(10), std::make_pair(2, 4)) == map.find(2));
 
-	assertEquals(map.size(), 3);
+	assertEqual(map.size(), 3);
 
 	// end() hint, new value
-	assertEquals(map.insert(map.find(10), std::make_pair(4, 3))->first, 4);
+	assertEqual(map.insert(map.find(10), std::make_pair(4, 3))->first, 4);
 
 	// Wrong hint, new value
-	assertEquals(map.insert(map.find(2), std::make_pair(5, 4))->first, 5);
+	assertEqual(map.insert(map.find(2), std::make_pair(5, 4))->first, 5);
 
-	assertEquals(map.size(), 5);
+	assertEqual(map.size(), 5);
 }
 
 
@@ -200,7 +200,7 @@ void OrderedContainersTest::testEmplace()
 	std::tie(it, inserted) = map.emplace(std::piecewise_construct,
 	std::forward_as_tuple(10),
 	std::forward_as_tuple(1));
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 	assertTrue(inserted);
 
@@ -208,7 +208,7 @@ void OrderedContainersTest::testEmplace()
 	std::tie(it, inserted) = map.emplace(std::piecewise_construct,
 	std::forward_as_tuple(10),
 	std::forward_as_tuple(3));
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 	assertTrue(!inserted);
 }
@@ -222,13 +222,13 @@ void OrderedContainersTest::testTryEmplace()
 
 
 	std::tie(it, inserted) = map.try_emplace(10, 1);
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 	assertTrue(inserted);
 
 
 	std::tie(it, inserted) = map.try_emplace(10, 3);
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 	assertTrue(!inserted);
 }
@@ -244,16 +244,16 @@ void OrderedContainersTest::testTryEmplace2()
 	for(std::size_t i = 0; i < nb_values; i++) {
 		std::tie(it, inserted) = map.try_emplace(utils::get_key<std::string>(i), i);
 
-		assertEquals(it->first, utils::get_key<std::string>(i));
+		assertEqual(it->first, utils::get_key<std::string>(i));
 		assert(it->second == move_only_test(i));
 		assertTrue(inserted);
 	}
-	assertEquals(map.size(), nb_values);
+	assertEqual(map.size(), nb_values);
 
 	for(std::size_t i = 0; i < nb_values; i++) {
 		std::tie(it, inserted) = map.try_emplace(utils::get_key<std::string>(i), i + 1);
 
-		assertEquals(it->first, utils::get_key<std::string>(i));
+		assertEqual(it->first, utils::get_key<std::string>(i));
 		assert(it->second == move_only_test(i));
 		assertTrue(!inserted);
 	}
@@ -261,7 +261,7 @@ void OrderedContainersTest::testTryEmplace2()
 	for(std::size_t i = 0; i < nb_values; i++) {
 		it = map.find(utils::get_key<std::string>(i));
 
-		assertEquals(it->first, utils::get_key<std::string>(i));
+		assertEqual(it->first, utils::get_key<std::string>(i));
 		assert(it->second == move_only_test(i));
 	}
 }
@@ -273,17 +273,17 @@ void OrderedContainersTest::testTryEmplaceHint()
 
 	// end() hint, new value
 	auto it = map.try_emplace(map.find(10), 10, 1);
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 
 	// Good hint
 	it = map.try_emplace(map.find(10), 10, 3);
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 
 	// Wrong hint, new value
 	it = map.try_emplace(map.find(10), 1, 3);
-	assertEquals(it->first, 1);
+	assertEqual(it->first, 1);
 	assert(it->second == move_only_test(3));
 }
 
@@ -296,13 +296,13 @@ void OrderedContainersTest::testInsertOrAssign()
 
 
 	std::tie(it, inserted) = map.insert_or_assign(10, move_only_test(1));
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 	assertTrue(inserted);
 
 
 	std::tie(it, inserted) = map.insert_or_assign(10, move_only_test(3));
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(3));
 	assertTrue(!inserted);
 }
@@ -314,17 +314,17 @@ void OrderedContainersTest::testInsertOrAssignHint()
 
 	// end() hint, new value
 	auto it = map.insert_or_assign(map.find(10), 10, move_only_test(1));
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(1));
 
 	// Good hint
 	it = map.insert_or_assign(map.find(10), 10, move_only_test(3));
-	assertEquals(it->first, 10);
+	assertEqual(it->first, 10);
 	assert(it->second == move_only_test(3));
 
 	// Bad hint, new value
 	it = map.insert_or_assign(map.find(10), 1, move_only_test(3));
-	assertEquals(it->first, 1);
+	assertEqual(it->first, 1);
 	assert(it->second == move_only_test(3));
 }
 
@@ -395,12 +395,12 @@ void OrderedContainersTest::testRangeErase()
 
 	auto it = map.erase(map.begin() + 10, map.end() - 10);
 	assertTrue(it == map.end() - 10);
-	assertEquals(map.size(), 20);
-	assertEquals(std::distance(map.begin(), map.end()), 20);
+	assertEqual(map.size(), 20);
+	assertEqual(std::distance(map.begin(), map.end()), 20);
 
 	for(std::size_t i = 0; i < 10; i++) {
-		assertEquals(map.at(utils::get_key<std::string>(i)), utils::get_value<std::int64_t>(i));
-		assertEquals(map.at(utils::get_key<std::string>(nb_values - 10 + i)),
+		assertEqual(map.at(utils::get_key<std::string>(i)), utils::get_value<std::int64_t>(i));
+		assertEqual(map.at(utils::get_key<std::string>(nb_values - 10 + i)),
 				utils::get_value<std::int64_t>(nb_values - 10 + i));
 	}
 }
@@ -429,10 +429,10 @@ void OrderedContainersTest::testRangeEraseSameIterators()
 	OrderedMap<std::int64_t, std::int64_t>::iterator it_mutable = map.erase(it_const, it_const);
 	assertTrue(it_const == it_mutable);
 	assertTrue(map.mutable_iterator(it_const) == it_mutable);
-	assertEquals(map.size(), 100);
+	assertEqual(map.size(), 100);
 
 	it_mutable.value() = -100;
-	assertEquals(it_const.value(), -100);
+	assertEqual(it_const.value(), -100);
 }
 
 
@@ -440,21 +440,21 @@ void OrderedContainersTest::testUnorderedErase()
 {
 	OrderedMap<std::int64_t, std::int64_t> map = {{1, 10}, {2, 20}, {3, 30},
 		{4, 40}, {5, 50}, {6, 60}};
-	assertEquals(map.size(), 6);
+	assertEqual(map.size(), 6);
 
 
-	assertEquals(map.unordered_erase(3), 1);
-	assertEquals(map.size(), 5);
+	assertEqual(map.unordered_erase(3), 1);
+	assertEqual(map.size(), 5);
 
-	assertEquals(map.unordered_erase(0), 0);
-	assertEquals(map.size(), 5);
+	assertEqual(map.unordered_erase(0), 0);
+	assertEqual(map.size(), 5);
 
 	auto it = map.begin();
 	while(it != map.end()) {
 		it = map.unordered_erase(it);
 	}
 
-	assertEquals(map.size(), 0);
+	assertEqual(map.size(), 0);
 }
 
 
@@ -486,8 +486,8 @@ void OrderedContainersTest::testClear()
 	auto map = utils::get_filled_hash_map<HMap>(nb_values);
 
 	map.clear();
-	assertEquals(map.size(), 0);
-	assertEquals(std::distance(map.begin(), map.end()), 0);
+	assertEqual(map.size(), 0);
+	assertEqual(std::distance(map.begin(), map.end()), 0);
 
 	map.insert({5, -5});
 	map.insert({{1, -1}, {2, -1}, {4, -4}, {3, -3}});
@@ -503,13 +503,13 @@ void OrderedContainersTest::testReverseIterator()
 
 	std::size_t i = 4;
 	for(auto it = map.rbegin(); it != map.rend(); ++it) {
-		assertEquals(it->second, i);
+		assertEqual(it->second, i);
 		i--;
 	}
 
 	i = 4;
 	for(auto it = map.rcbegin(); it != map.rcend(); ++it) {
-		assertEquals(it->second, i);
+		assertEqual(it->second, i);
 		i--;
 	}
 }
@@ -526,52 +526,52 @@ void OrderedContainersTest::testIteratorArithmetic()
 	it = map.cbegin();
 	// it += n
 	it += 3;
-	assertEquals(it->second, 40);
+	assertEqual(it->second, 40);
 
 	// it + n
-	assertEquals((map.cbegin() + 3)->second, 40);
+	assertEqual((map.cbegin() + 3)->second, 40);
 	// n + it
-	assertEquals((3 + map.cbegin())->second, 40);
+	assertEqual((3 + map.cbegin())->second, 40);
 
 	it = map.cbegin() + 4;
 	// it -= n
 	it -= 2;
-	assertEquals(it->second, 30);
+	assertEqual(it->second, 30);
 
 	// it - n
-	assertEquals((it - 1)->second, 20);
+	assertEqual((it - 1)->second, 20);
 
 	it = map.cbegin() + 2;
 	it2 = map.cbegin() + 4;
 	// it - it
-	assertEquals(it2 - it, 2);
+	assertEqual(it2 - it, 2);
 
 	// it[n]
-	assertEquals(map.cbegin()[2].second, 30);
+	assertEqual(map.cbegin()[2].second, 30);
 
 	it = map.cbegin() + 1;
 	// it[n]
-	assertEquals(it[2].second, 40);
+	assertEqual(it[2].second, 40);
 
 	it = map.cbegin();
 	// it++
 	it++;
-	assertEquals((it++)->second, 20);
+	assertEqual((it++)->second, 20);
 
 	it = map.cbegin();
 	// ++it
 	++it;
-	assertEquals((++it)->second, 30);
+	assertEqual((++it)->second, 30);
 
 	it = map.cend();
 	// it--
 	it--;
-	assertEquals((it--)->second, 60);
+	assertEqual((it--)->second, 60);
 
 	it = map.cend();
 	// --it
 	--it;
-	assertEquals((--it)->second, 50);
+	assertEqual((--it)->second, 50);
 }
 
 
@@ -620,7 +620,7 @@ void OrderedContainersTest::testModifyValue()
 	for(auto& val : map)
 	{
 		if(val.first % 2 == 0)
-			assertEquals(val.second, -1);
+			assertEqual(val.second, -1);
 		else
 			assert(val.second != -1);
 	}
@@ -630,12 +630,12 @@ void OrderedContainersTest::testModifyValue()
 void OrderedContainersTest::testAssignOperator()
 {
 		OrderedMap<std::int64_t, std::int64_t> map = {{0, 10}, {-2, 20}};
-		assertEquals(map.size(), 2);
+		assertEqual(map.size(), 2);
 
 		map = {{1, 3}, {2, 4}};
-		assertEquals(map.size(), 2);
-		assertEquals(map.at(1), 3);
-		assertEquals(map.at(2), 4);
+		assertEqual(map.size(), 2);
+		assertEqual(map.at(1), 3);
+		assertEqual(map.at(2), 4);
 		assertTrue(map.find(0) == map.end());
 }
 
@@ -659,7 +659,7 @@ void OrderedContainersTest::testMoveConstructor()
 		map_move.insert({utils::get_key<std::string>(i), utils::get_value<move_only_test>(i)});
 	}
 
-	assertEquals(map_move.size(), nb_values*2);
+	assertEqual(map_move.size(), nb_values*2);
 	assertTrue(map_move == utils::get_filled_hash_map<HMap>(nb_values*2));
 }
 
@@ -684,7 +684,7 @@ void OrderedContainersTest::testMoveOperator()
 		map_move.insert({utils::get_key<std::string>(i), utils::get_value<move_only_test>(i)});
 	}
 
-	assertEquals(map_move.size(), nb_values*2);
+	assertEqual(map_move.size(), nb_values*2);
 	assertTrue(map_move == utils::get_filled_hash_map<HMap>(nb_values*2));
 }
 
@@ -696,8 +696,8 @@ void OrderedContainersTest::testReassignMovedObjectMoveConstructor()
 	HMap map = {{"Key1", "Value1"}, {"Key2", "Value2"}, {"Key3", "Value3"}};
 	HMap map_move(std::move(map));
 
-	assertEquals(map_move.size(), 3);
-	assertEquals(map.size(), 0);
+	assertEqual(map_move.size(), 3);
+	assertEqual(map.size(), 0);
 
 	map = {{"Key4", "Value4"}, {"Key5", "Value5"}};
 	assertTrue(map == (HMap({{"Key4", "Value4"}, {"Key5", "Value5"}})));
@@ -711,8 +711,8 @@ void OrderedContainersTest::testReassignMovedObjectMoveOperator()
 	HMap map = {{"Key1", "Value1"}, {"Key2", "Value2"}, {"Key3", "Value3"}};
 	HMap map_move = std::move(map);
 
-	assertEquals(map_move.size(), 3);
-	assertEquals(map.size(), 0);
+	assertEqual(map_move.size(), 3);
+	assertEqual(map.size(), 0);
 
 	map = {{"Key4", "Value4"}, {"Key5", "Value5"}};
 	assertTrue(map == (HMap({{"Key4", "Value4"}, {"Key5", "Value5"}})));
@@ -744,12 +744,12 @@ void OrderedContainersTest::testAt()
 	// insert x values, use at for known and unknown values.
 	OrderedMap<std::int64_t, std::int64_t> map = {{0, 10}, {-2, 20}};
 
-	assertEquals(map.at(0), 10);
-	assertEquals(map.at(-2), 20);
+	assertEqual(map.at(0), 10);
+	assertEqual(map.at(-2), 20);
 	try
 	{
 		map.at(1);
-		fail("must throw out of range");
+		failmsg("must throw out of range");
 	}
 	catch (std::out_of_range&) {}
 }
@@ -761,7 +761,7 @@ void OrderedContainersTest::testEqualRange()
 
 	auto it_pair = map.equal_range(0);
 	assertTrue(std::distance(it_pair.first, it_pair.second) == 1);
-	assertEquals(it_pair.first->second, 10);
+	assertEqual(it_pair.first->second, 10);
 
 	it_pair = map.equal_range(1);
 	assertTrue(it_pair.first == it_pair.second);
@@ -784,11 +784,11 @@ void OrderedContainersTest::testAccessOperator()
 	// insert x values, use at for known and unknown values.
 	OrderedMap<std::int64_t, std::int64_t> map = {{0, 10}, {-2, 20}};
 
-	assertEquals(map[0], 10);
-	assertEquals(map[-2], 20);
-	assertEquals(map[2], std::int64_t());
+	assertEqual(map[0], 10);
+	assertEqual(map[-2], 20);
+	assertEqual(map[2], std::int64_t());
 
-	assertEquals(map.size(), 3);
+	assertEqual(map.size(), 3);
 }
 
 
@@ -898,35 +898,35 @@ void OrderedContainersTest::testHeterogeneousLookups()
 	map.insert({std::move(ptr2), 5});
 	map.insert({std::move(ptr3), 6});
 
-	assertEquals(map.size(), 3);
+	assertEqual(map.size(), 3);
 
-	assertEquals(map.at(addr1), 4);
-	assertEquals(map.at(addr2), 5);
+	assertEqual(map.at(addr1), 4);
+	assertEqual(map.at(addr2), 5);
 	try
 	{
 		map.at(addr_unknown);
-		fail("must throw");
+		failmsg("must throw");
 	}
 	catch (std::out_of_range) {}
 
 	assertTrue(map.find(addr1) != map.end());
-	assertEquals(*map.find(addr1)->first, 1);
+	assertEqual(*map.find(addr1)->first, 1);
 
 	assertTrue(map.find(addr2) != map.end());
-	assertEquals(*map.find(addr2)->first, 2);
+	assertEqual(*map.find(addr2)->first, 2);
 
 	assertTrue(map.find(addr_unknown) == map.end());
 
-	assertEquals(map.count(addr1), 1);
-	assertEquals(map.count(addr2), 1);
-	assertEquals(map.count(addr_unknown), 0);
+	assertEqual(map.count(addr1), 1);
+	assertEqual(map.count(addr2), 1);
+	assertEqual(map.count(addr_unknown), 0);
 
-	assertEquals(map.erase(addr1), 1);
-	assertEquals(map.unordered_erase(addr2), 1);
-	assertEquals(map.erase(addr_unknown), 0);
-	assertEquals(map.unordered_erase(addr_unknown), 0);
+	assertEqual(map.erase(addr1), 1);
+	assertEqual(map.unordered_erase(addr2), 1);
+	assertEqual(map.erase(addr_unknown), 0);
+	assertEqual(map.unordered_erase(addr_unknown), 0);
 
-	assertEquals(map.size(), 1);
+	assertEqual(map.size(), 1);
 }
 
 
@@ -934,7 +934,7 @@ void OrderedContainersTest::testEmptyMap()
 {
 	OrderedMap<std::string, int> map(0);
 
-	assertEquals(map.size(), 0);
+	assertEqual(map.size(), 0);
 	assertTrue(map.empty());
 
 	assertTrue(map.begin() == map.end());
@@ -944,29 +944,29 @@ void OrderedContainersTest::testEmptyMap()
 	assertTrue(map.find("") == map.end());
 	assertTrue(map.find("test") == map.end());
 
-	assertEquals(map.count(""), 0);
-	assertEquals(map.count("test"), 0);
+	assertEqual(map.count(""), 0);
+	assertEqual(map.count("test"), 0);
 
 	try
 	{
 		map.at("");
-		fail ("must throw");
+		failmsg ("must throw");
 	}
 	catch (std::out_of_range&) {}
 	try
 	{
 		map.at("test");
-		fail ("must throw");
+		failmsg ("must throw");
 	}
 	catch (std::out_of_range&) {}
 
 	auto range = map.equal_range("test");
 	assertTrue(range.first == range.second);
 
-	assertEquals(map.erase("test"), 0);
+	assertEqual(map.erase("test"), 0);
 	assertTrue(map.erase(map.begin(), map.end()) == map.end());
 
-	assertEquals(map["new value"], int{});
+	assertEqual(map["new value"], int{});
 }
 
 
@@ -979,10 +979,10 @@ void OrderedContainersTest::testPrecalculatedHash()
 	 * find
 	 */
 	assertTrue(map.find(3, map.hash_function()(3)) != map.end());
-	assertEquals(map.find(3, map.hash_function()(3))->second, -3);
+	assertEqual(map.find(3, map.hash_function()(3))->second, -3);
 
 	assertTrue(map_const.find(3, map_const.hash_function()(3)) != map_const.end());
-	assertEquals(map_const.find(3, map_const.hash_function()(3))->second, -3);
+	assertEqual(map_const.find(3, map_const.hash_function()(3))->second, -3);
 
 	assertTrue(map.hash_function()(2) != map.hash_function()(3));
 	assertTrue(map.find(3, map.hash_function()(2)) == map.end());
@@ -990,8 +990,8 @@ void OrderedContainersTest::testPrecalculatedHash()
 	/**
 	 * at
 	 */
-	assertEquals(map.at(3, map.hash_function()(3)), -3);
-	assertEquals(map_const.at(3, map_const.hash_function()(3)), -3);
+	assertEqual(map.at(3, map.hash_function()(3)), -3);
+	assertEqual(map_const.at(3, map_const.hash_function()(3)), -3);
 
 	assertTrue(map.hash_function()(2) != map.hash_function()(3));
 	try
@@ -1002,34 +1002,34 @@ void OrderedContainersTest::testPrecalculatedHash()
 	/**
 	 * count
 	 */
-	assertEquals(map.count(3, map.hash_function()(3)), 1);
-	assertEquals(map_const.count(3, map_const.hash_function()(3)), 1);
+	assertEqual(map.count(3, map.hash_function()(3)), 1);
+	assertEqual(map_const.count(3, map_const.hash_function()(3)), 1);
 
 	assertTrue(map.hash_function()(2) != map.hash_function()(3));
-	assertEquals(map.count(3, map.hash_function()(2)), 0);
+	assertEqual(map.count(3, map.hash_function()(2)), 0);
 
 	/**
 	 * equal_range
 	 */
 	auto it_range = map.equal_range(3, map.hash_function()(3));
 	assertTrue(std::distance(it_range.first, it_range.second) == 1);
-	assertEquals(it_range.first->second, -3);
+	assertEqual(it_range.first->second, -3);
 
 	auto it_range_const = map_const.equal_range(3, map_const.hash_function()(3));
 	assertTrue(std::distance(it_range_const.first, it_range_const.second) == 1);
-	assertEquals(it_range_const.first->second, -3);
+	assertEqual(it_range_const.first->second, -3);
 
 	it_range = map.equal_range(3, map.hash_function()(2));
 	assertTrue(map.hash_function()(2) != map.hash_function()(3));
-	assertEquals(std::distance(it_range.first, it_range.second), 0);
+	assertEqual(std::distance(it_range.first, it_range.second), 0);
 
 	/**
 	 * erase
 	 */
-	assertEquals(map.erase(3, map.hash_function()(3)), 1);
+	assertEqual(map.erase(3, map.hash_function()(3)), 1);
 
 	assertTrue(map.hash_function()(2) != map.hash_function()(4));
-	assertEquals(map.erase(4, map.hash_function()(2)), 0);
+	assertEqual(map.erase(4, map.hash_function()(2)), 0);
 }
 
 

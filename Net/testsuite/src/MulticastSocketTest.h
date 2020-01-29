@@ -20,7 +20,7 @@
 #ifdef POCO_NET_HAS_INTERFACE
 
 
-#include "CppUnit/TestCase.h"
+#include "Poco/CppUnit/TestCase.h"
 
 
 class MulticastSocketTest: public CppUnit::TestCase

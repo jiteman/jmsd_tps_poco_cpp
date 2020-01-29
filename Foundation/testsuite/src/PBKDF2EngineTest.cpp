@@ -41,7 +41,7 @@ void PBKDF2EngineTest::testPBKDF2a()
 	PBKDF2Engine<HMACEngine<SHA1Engine> > pbkdf2(s, 1, 20);
 	pbkdf2.update(p);
 	std::string dk = DigestEngine::digestToHex(pbkdf2.digest());
-	assertTrue (dk == "0c60c80f961f0e71f3a9b524af6012062fe037a6"); 
+	assertTrue (dk == "0c60c80f961f0e71f3a9b524af6012062fe037a6");
 }
 
 
@@ -126,7 +126,7 @@ CppUnit::Test* PBKDF2EngineTest::suite()
 	CppUnit_addTest(pSuite, PBKDF2EngineTest, testPBKDF2a);
 	CppUnit_addTest(pSuite, PBKDF2EngineTest, testPBKDF2b);
 	CppUnit_addTest(pSuite, PBKDF2EngineTest, testPBKDF2c);
-	CppUnit_addLongTest(pSuite, PBKDF2EngineTest, testPBKDF2d);
+//	CppUnit_addLongTest(pSuite, PBKDF2EngineTest, testPBKDF2d);
 	CppUnit_addTest(pSuite, PBKDF2EngineTest, testPBKDF2e);
 	CppUnit_addTest(pSuite, PBKDF2EngineTest, testPBKDF2f);
 
