@@ -36,11 +36,11 @@ MemoryPoolTest::~MemoryPoolTest()
 void MemoryPoolTest::testMemoryPool()
 {
 	MemoryPool pool1(100, 0, 10);
-	
+
 	assertTrue (pool1.blockSize() == 100);
 	assertTrue (pool1.allocated() == 0);
 	assertTrue (pool1.available() == 0);
-	
+
 	std::vector<void*> ptrs;
 	for (int i = 0; i < 10; ++i)
 	{
@@ -229,8 +229,8 @@ void MemoryPoolTest::testFastMemoryPool()
 	char* pC = reinterpret_cast<char*>(fastArrayPool.get());
 	const char* pStr = "1234567890abcde";
 	std::memcpy(pC, pStr, elements);
-	assert (strlen(pC) == elements - 1);
-	assert (std::strcmp(pC, pStr) == 0);
+	assertTrue (strlen(pC) == elements - 1);
+	assertTrue (std::strcmp(pC, pStr) == 0);
 	fastArrayPool.release(pC);
 }
 
