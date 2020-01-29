@@ -49,9 +49,9 @@ void RandomStreamTest::testStream()
 	for (int k = 0; k < n; ++k) var += (d[k] - avg)*(d[k] - avg);
 	var /= n;
 	int sd = int(std::sqrt((double) var));
-
-	assert (110 < avg && avg < 140);
-	assert (sd < 20);
+	
+	assertTrue (110 < avg && avg < 140);
+	assertTrue (sd < 20);
 }
 
 

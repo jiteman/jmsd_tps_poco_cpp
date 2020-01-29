@@ -56,12 +56,12 @@ void DirectoryWatcherTest::testAdded()
 	fos.close();
 
 	Poco::Thread::sleep(2000*dw.scanInterval());
-
-	assert (_events.size() >= 1);
-	assert (_events[0].callback == "onItemAdded");
-	assert (Poco::Path(_events[0].path).getFileName() == "test.txt");
-	assert (_events[0].type == DirectoryWatcher::DW_ITEM_ADDED);
-	assert (!_error);
+	
+	assertTrue (_events.size() >= 1);
+	assertTrue (_events[0].callback == "onItemAdded");
+	assertTrue (Poco::Path(_events[0].path).getFileName() == "test.txt");
+	assertTrue (_events[0].type == DirectoryWatcher::DW_ITEM_ADDED);
+	assertTrue (!_error);
 }
 
 
@@ -87,12 +87,12 @@ void DirectoryWatcherTest::testRemoved()
 	f.remove();
 
 	Poco::Thread::sleep(2000*dw.scanInterval());
-
-	assert (_events.size() >= 1);
-	assert (_events[0].callback == "onItemRemoved");
-	assert (Poco::Path(_events[0].path).getFileName() == "test.txt");
-	assert (_events[0].type == DirectoryWatcher::DW_ITEM_REMOVED);
-	assert (!_error);
+	
+	assertTrue (_events.size() >= 1);
+	assertTrue (_events[0].callback == "onItemRemoved");
+	assertTrue (Poco::Path(_events[0].path).getFileName() == "test.txt");
+	assertTrue (_events[0].type == DirectoryWatcher::DW_ITEM_REMOVED);
+	assertTrue (!_error);
 }
 
 
@@ -119,12 +119,12 @@ void DirectoryWatcherTest::testModified()
 	fos2.close();
 
 	Poco::Thread::sleep(2000*dw.scanInterval());
-
-	assert (_events.size() >= 1);
-	assert (_events[0].callback == "onItemModified");
-	assert (Poco::Path(_events[0].path).getFileName() == "test.txt");
-	assert (_events[0].type == DirectoryWatcher::DW_ITEM_MODIFIED);
-	assert (!_error);
+	
+	assertTrue (_events.size() >= 1);
+	assertTrue (_events[0].callback == "onItemModified");
+	assertTrue (Poco::Path(_events[0].path).getFileName() == "test.txt");
+	assertTrue (_events[0].type == DirectoryWatcher::DW_ITEM_MODIFIED);
+	assertTrue (!_error);
 }
 
 
@@ -155,37 +155,37 @@ void DirectoryWatcherTest::testMoved()
 
 	if (dw.supportsMoveEvents())
 	{
-		assert (_events.size() >= 2);
-		assert (
+		assertTrue (_events.size() >= 2);
+		assertTrue (
 			(_events[0].callback == "onItemMovedFrom" && _events[1].callback == "onItemMovedTo") ||
 			(_events[1].callback == "onItemMovedFrom" && _events[0].callback == "onItemMovedTo")
 		);
-		assert (
+		assertTrue (
 			(Poco::Path(_events[0].path).getFileName() == "test.txt" && Poco::Path(_events[1].path).getFileName() == "test2.txt") ||
 			(Poco::Path(_events[1].path).getFileName() == "test.txt" && Poco::Path(_events[0].path).getFileName() == "test2.txt")
 		);
-		assert (
+		assertTrue (
 			(_events[0].type == DirectoryWatcher::DW_ITEM_MOVED_FROM && _events[1].type == DirectoryWatcher::DW_ITEM_MOVED_TO) ||
 			(_events[1].type == DirectoryWatcher::DW_ITEM_MOVED_FROM && _events[0].type == DirectoryWatcher::DW_ITEM_MOVED_TO)
 		);
 	}
 	else
 	{
-		assert (_events.size() >= 2);
-		assert (
+		assertTrue (_events.size() >= 2);
+		assertTrue (
 			(_events[0].callback == "onItemAdded" && _events[1].callback == "onItemRemoved") ||
 			(_events[1].callback == "onItemAdded" && _events[0].callback == "onItemRemoved")
 		);
-		assert (
+		assertTrue (
 			(Poco::Path(_events[0].path).getFileName() == "test.txt" && Poco::Path(_events[1].path).getFileName() == "test2.txt") ||
 			(Poco::Path(_events[1].path).getFileName() == "test.txt" && Poco::Path(_events[0].path).getFileName() == "test2.txt")
 		);
-		assert (
+		assertTrue (
 			(_events[0].type == DirectoryWatcher::DW_ITEM_ADDED && _events[1].type == DirectoryWatcher::DW_ITEM_REMOVED) ||
 			(_events[1].type == DirectoryWatcher::DW_ITEM_ADDED && _events[0].type == DirectoryWatcher::DW_ITEM_REMOVED)
 		);
 	}
-	assert (!_error);
+	assertTrue (!_error);
 }
 
 
