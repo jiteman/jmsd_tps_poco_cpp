@@ -76,7 +76,6 @@ typedef struct
 } CSzFolder;
 
 void SzFolder_Init(CSzFolder *p);
-UInt64 SzFolder_GetUnpackSize(CSzFolder *p);
 int SzFolder_FindBindPairForInStream(CSzFolder *p, UInt32 inStreamIndex);
 UInt32 SzFolder_GetNumOutStreams(CSzFolder *p);
 UInt64 SzFolder_GetUnpackSize(CSzFolder *p);
@@ -136,17 +135,17 @@ void SzAr_Free(CSzAr *p, ISzAlloc *alloc);
       *outBufferSize
     You can consider "*outBuffer" as cache of solid block. If your archive is solid,
     it will increase decompression speed.
-  
+
     If you use external function, you can declare these 3 cache variables
     (blockIndex, outBuffer, outBufferSize) as static in that external function.
-    
+
     Free *outBuffer and set *outBuffer to 0, if you want to flush cache.
 */
 
 typedef struct
 {
   CSzAr db;
-  
+
   UInt64 startPosAfterHeader;
   UInt64 dataPos;
 

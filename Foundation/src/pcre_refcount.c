@@ -37,7 +37,13 @@ POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------
 */
 
+#if defined( _WIN32 )
 #pragma warning( disable : 4244)  // conversion from 'int' to 'unsigned short', possible loss of data
+#endif // #if defined( _WIN32 )
+
+#if defined( _WIN32 )
+#pragma warning( pop )
+#endif // #if defined( _WIN32 )
 
 /* This module contains the external function pcre_refcount(), which is an
 auxiliary function that can be used to maintain a reference count in a compiled

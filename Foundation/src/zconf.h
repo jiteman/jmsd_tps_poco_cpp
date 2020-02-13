@@ -231,6 +231,8 @@
 #  endif
 #endif
 
+#define ZLIB_CONST
+
 #if defined(ZLIB_CONST) && !defined(z_const)
 #  define z_const const
 #else

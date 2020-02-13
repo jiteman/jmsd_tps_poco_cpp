@@ -41,8 +41,14 @@ POSSIBILITY OF SUCH DAMAGE.
 pattern matching using an NFA algorithm, trying to mimic Perl as closely as
 possible. There are also some static supporting functions. */
 
+#if defined( _WIN32 )
 #pragma warning( disable : 4127)  // conditional expression is constant
 #pragma warning( disable : 4244)  // conversion from 'int' to 'unsigned short', possible loss of data
+#endif // #if defined( _WIN32 )
+
+#if defined( _WIN32 )
+#pragma warning( pop )
+#endif
 
 #include "pcre_config.h"
 
@@ -54,8 +60,11 @@ possible. There are also some static supporting functions. */
 
 /* Undefine some potentially clashing cpp symbols */
 
+#if defined( _WIN32 )
+#error
 #undef min
 #undef max
+#endif
 
 /* The md->capture_last field uses the lower 16 bits for the last captured
 substring (which can never be greater than 65535) and a bit in the top half
