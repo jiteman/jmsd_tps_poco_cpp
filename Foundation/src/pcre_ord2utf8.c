@@ -37,14 +37,6 @@ POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------
 */
 
-#if defined( _WIN32 )
-#pragma warning( disable : 4244)  // conversion from 'int' to 'unsigned short', possible loss of data
-#endif // #if defined( _WIN32 )
-
-#if defined( _WIN32 )
-#pragma warning( pop )
-#endif // #if defined( _WIN32 )
-
 /* This file contains a private PCRE function that converts an ordinal
 character value into a UTF8 string. */
 
